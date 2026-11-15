@@ -1542,6 +1542,10 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 
 #caseyMoodCalendar .mr-cal-month{font-variant-numeric:lining-nums}
 #caseyMoodCalendar .mr-date-number{font-variant-numeric:lining-nums tabular-nums}
+
+#caseyMoodRing .mr-widget-close{position:absolute;right:6px;top:5px;z-index:5;display:grid;place-items:center;width:26px;height:26px;margin:0;padding:0;border:1px solid #cba65f;border-radius:50%;background:linear-gradient(#69324c,#37152f);color:#f5deac;box-shadow:inset 0 1px 1px #f0cf8f66,0 2px 4px #160d1c55;font:22px/1 Georgia,serif;cursor:pointer;pointer-events:auto;touch-action:manipulation}
+#caseyMoodRing .mr-widget-close:hover{background:linear-gradient(#864362,#4e203e);border-color:#f3d898}
+#caseyMoodRing .mr-widget-close:focus-visible{outline:2px solid #ffe0a1;outline-offset:3px}
 </style>
 <script id="caseyMoodRingProgram">
 /* Mood Ring is a separate program. It never reads or writes another program's data. */
@@ -1577,6 +1581,11 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
  screen.append(root);
  const tip=el('div');tip.id='caseyMoodTip';tip.hidden=true;tip.setAttribute('role','tooltip');screen.append(tip);
  const calendar=el('section');calendar.id='caseyMoodCalendar';calendar.hidden=true;calendar.tabIndex=-1;calendar.setAttribute('role','dialog');calendar.setAttribute('aria-modal','false');calendar.setAttribute('aria-label','Month in Jewels');screen.append(calendar);
+
+ const closeControl=el('button','mr-widget-close','×');closeControl.type='button';closeControl.title='Close Mood Ring (Esc)';closeControl.setAttribute('aria-label','Close Mood Ring');closeControl.setAttribute('aria-keyshortcuts','Escape');root.append(closeControl);
+ closeControl.addEventListener('pointerdown',event=>event.stopPropagation());
+ closeControl.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();hideWidget(true);});
+ closeControl.addEventListener('keydown',event=>{event.stopPropagation();if(event.key==='Escape'){event.preventDefault();hideWidget(true);}});
 
  const icon=el('button','icon');icon.id='caseyMoodRingIcon';icon.type='button';icon.title='Mood Ring — double-click to open';icon.setAttribute('aria-label','Mood Ring');const iconImage=el('img');iconImage.src=ICON;iconImage.alt='';icon.append(iconImage,el('span','','Mood Ring'));document.getElementById('icons').append(icon);
  icon.addEventListener('mousedown',event=>{event.stopPropagation();document.querySelectorAll('#icons .icon').forEach(n=>n.classList.toggle('sel',n===icon));});icon.addEventListener('dblclick',showWidget);icon.addEventListener('keydown',event=>{event.stopPropagation();if(event.key==='Enter'||event.key===' '){event.preventDefault();showWidget();}});
