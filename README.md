@@ -18,6 +18,8 @@ This version includes the ornate, transparent **A Month in Jewels** calendar and
 | Bedroom | Two sleeping poses | Zzz · Energy |
 | Study | Writing / drawing at the desk | Star · Creativity |
 
-The painted wooden meters change with his levels. Snow falls outside, and quiet activity sounds have a mute button. Drag the title bar to move Ruskin; Minimize, Close, and Escape are available. His selected activity, meter levels, position, and mute setting save locally in separate storage. Levels change while Ruskin is open, with no penalty for time away. Lamplight Write, Diary, and Mood Ring are unchanged by Ruskin.
+The painted wooden meters change with his levels. Snow falls outside. Ruskin is silent in this revision while replacement sound recordings are chosen. Drag the title bar to move Ruskin; Minimize, Close, and Escape are available. His selected activity, meter levels, and position save locally in separate storage. Levels change while Ruskin is open, with no penalty for time away. Lamplight Write, Diary, and Mood Ring are unchanged by Ruskin.
 
 [View the HTML file](https://github.com/Digitobaf/RandomProjects/blob/main/Caseys-Room-with-Mood-Ring.html)
+
+Ruskin’s poses are now drawn with each room’s furniture: seated in the chairs, resting on the pillow beneath the quilt, reaching the desktop, and using the stove, table, bathtub, and sink. Only the small moving areas change between frames; furniture and floors stay still. The desktop icon has the same transparent background as the other programs.
