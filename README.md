@@ -8,4 +8,16 @@ Casey’s Room starts on the desktop. Open **Lamplight Write** from its desktop 
 
 This version includes the ornate, transparent **A Month in Jewels** calendar and eleven moods, including a **Neutral pearl**. Existing books, Diary entries, and mood history keep their original storage. The fairy swoosh still plays when Mood Ring opens, and **Light Spell** plays when the ring stone changes color. Diary’s code and appearance are unchanged.
 
+**Ruskin** is a separate illustrated bear burrow. Open it from its desktop icon or the Start menu, then click a room to randomly choose one of its two looping activities:
+
+| Room | Activities | Meter |
+| --- | --- | --- |
+| Kitchen | Stirring minestrone / eating minestrone | Spoon · Hunger |
+| Living room | Watching TV / reading by the fire | Heart · Fun |
+| Bathroom | Bathing / brushing teeth | Soap · Hygiene |
+| Bedroom | Two sleeping poses | Zzz · Energy |
+| Study | Writing / drawing at the desk | Star · Creativity |
+
+The painted wooden meters change with his levels. Snow falls outside, and quiet activity sounds have a mute button. Drag the title bar to move Ruskin; Minimize, Close, and Escape are available. His selected activity, meter levels, position, and mute setting save locally in separate storage. Levels change while Ruskin is open, with no penalty for time away. Lamplight Write, Diary, and Mood Ring are unchanged by Ruskin.
+
 [View the HTML file](https://github.com/Digitobaf/RandomProjects/blob/main/Caseys-Room-with-Mood-Ring.html)
