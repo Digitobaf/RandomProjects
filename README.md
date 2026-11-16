@@ -26,4 +26,4 @@ Ruskin’s poses are now drawn with each room’s furniture: seated in the chair
 
 The bell at the end of the uploaded sleeping recording has been cut out. The separate room-change bell remains.
 
-The study uses a compact, properly supported desk in both its empty and occupied views, with relaxed writing/drawing poses and fixed furniture during animation.
+The study uses a compact, properly supported desk in both its empty and occupied views, with relaxed writing/drawing poses, pages facing Ruskin, and fixed furniture during animation.
