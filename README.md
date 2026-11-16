@@ -13,12 +13,12 @@ This version includes the ornate, transparent **A Month in Jewels** calendar and
 | Room | Activities | Meter |
 | --- | --- | --- |
 | Kitchen | Stirring minestrone / eating minestrone | Spoon · Hunger |
-| Living room | Watching TV / reading by the fire | Heart · Fun |
+| Living room | Drinking tea by the fire / reading by the fire | Heart · Fun |
 | Bathroom | Bathing / brushing teeth | Soap · Hygiene |
 | Bedroom | Two sleeping poses | Zzz · Energy |
 | Study | Writing / drawing at the desk | Star · Creativity |
 
-The painted wooden meters change with his levels. Snow falls outside. Ruskin is silent in this revision while replacement sound recordings are chosen. Drag the title bar to move Ruskin; Minimize, Close, and Escape are available. His selected activity, meter levels, and position save locally in separate storage. Levels change while Ruskin is open, with no penalty for time away. Lamplight Write, Diary, and Mood Ring are unchanged by Ruskin.
+The painted wooden meters change with his levels. Snow falls outside, and the fireplace has moving watercolor flames. Your uploaded recordings play as balanced, smoothly joined loops: fireplace for tea, fireplace and page turns for reading, and the matching recording for each other activity. Your bell plays once when Ruskin changes rooms. The mute button covers every Ruskin sound. Drag the title bar to move Ruskin; Minimize, Close, and Escape are available. His selected activity, meter levels, position, and mute preference save locally in separate storage. Levels change while Ruskin is open, with no penalty for time away. Lamplight Write, Diary, and Mood Ring are unchanged by Ruskin.
 
 [View the HTML file](https://github.com/Digitobaf/RandomProjects/blob/main/Caseys-Room-with-Mood-Ring.html)
 
