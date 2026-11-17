@@ -3501,6 +3501,10 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 #caseyRadio .radio-theme{font-size:13px;letter-spacing:-.2px}
 #caseyRadio .radio-theme-orange{background:linear-gradient(#ffe4a6,#ff9b14 14%,#ba4500 65%,#ed7500)}
 
+/* Track metadata shares the ticker; its station remains visible underneath. */
+#caseyRadio .radio-station-caption{min-width:0;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:calc(7 * var(--radio-unit))/1.3 Tahoma,Arial,sans-serif;letter-spacing:0;opacity:.85;text-shadow:0 0 calc(3 * var(--radio-unit)) var(--radio-glow)}
+#caseyRadio .radio-time,#caseyRadio .radio-volume-label{flex-shrink:0}
+
 </style>
 <script id="caseyRadioProgram">
 (function(){
@@ -3522,13 +3526,100 @@ const defaults=[{id:'kwax',name:'University of Oregon — KWAX',url:'http://stre
 const stations=Array.isArray(raw.stations)?raw.stations.slice(0,100).flatMap(s=>{try{const p=readLink(s.url);return [{id:typeof s.id==='string'?s.id:uuid(),name:String(s.name||p.name).slice(0,100),url:p.url}];}catch(_){return [];}}):defaults;
 const prefs={theme:themes.includes(raw.theme)?raw.theme:'blue',volume:Number.isFinite(raw.volume)?clamp(raw.volume,0,1):.55,muted:raw.muted===true,motion:raw.motion!==false,selected:stations.some(s=>s.id===raw.selected)?raw.selected:stations[0]?.id||null,position:{x:Number.isFinite(raw.position?.x)?clamp(raw.position.x,0,1):.5,y:Number.isFinite(raw.position?.y)?clamp(raw.position.y,0,1):.2},stations};
 let opened=false,frontmost=false,audio=null,generation=0,timer=null,deadline=null,phase='stopped',detail='',elapsed=0,editing=null,storageNotice='';
+/* Optional now-playing metadata. Audio playback never depends on these requests. */
+let nowPlaying='',metadataProvider=null,metadataTimer=null,metadataController=null,metadataEpoch=0,metadataBusy=false,metadataSeenAt=0,metadataFailures=0;
+const METADATA_INTERVAL=25000,METADATA_RETRY=60000,METADATA_DISCOVERY_RETRY=300000;
+function cleanMetadata(value){
+ if(typeof value!=='string')return '';
+ return value.replace(/&(?:amp|lt|gt|quot|apos|#\d+|#x[\da-f]+);/gi,entity=>{const key=entity.slice(1,-1).toLowerCase(),common={amp:'&',lt:'<',gt:'>',quot:'"',apos:"'"};if(common[key])return common[key];const n=key.startsWith('#x')?parseInt(key.slice(2),16):parseInt(key.slice(1),10);return Number.isFinite(n)&&n>0&&n<=0x10ffff&&!(n>=0xd800&&n<=0xdfff)?String.fromCodePoint(n):'';}).replace(/[\r\n\t]+/g,' ').replace(/[\x00-\x1f\x7f]/g,'').replace(/\s+/g,' ').trim().slice(0,512);
+}
+function trackText(title,artist=''){
+ const t=cleanMetadata(title),a=cleanMetadata(artist);if(!t||/^(unknown|unknown title|no title|no song|n\/a|null)$/i.test(t))return '';
+ const lower=t.toLowerCase(),prefix=a.toLowerCase(),combined=lower===prefix||[' - ',' — ',' – ',': '].some(separator=>lower.startsWith(prefix+separator));return a&&!combined?a+' — '+t:t;
+}
+function icecastTrack(data,streamURL){
+ const value=data?.icestats?.source;if(!value)return null;const sources=Array.isArray(value)?value:[value],path=new URL(streamURL).pathname.replace(/\/+$/,'')||'/';
+ const source=sources.find(s=>{try{return (new URL(s.listenurl||s.listen_url).pathname.replace(/\/+$/,'')||'/')===path;}catch(_){return String(s.mount||'').replace(/\/+$/,'')===path;}})||(sources.length===1?sources[0]:null);
+ return source?trackText(source.title||source.song||'',source.artist||''):null;
+}
+function shoutcastTrack(data,sid){
+ if(!data||typeof data!=='object')return null;let source=data;
+ if(Array.isArray(data.streams)){source=data.streams.find(s=>Number(s.id||s.streamid||s.sid)===sid);if(!source)return null;}
+ for(const key of ['songtitle','songTitle','current_song','currentSong'])if(typeof source[key]==='string')return trackText(source[key]);
+ return null;
+}
+function metadataSources(stream){
+ const u=new URL(stream.url),sidValue=u.searchParams.get('sid')||u.pathname.match(/\/stream\/(\d+)/)?.[1]||'1',sid=/^\d{1,5}$/.test(sidValue)?Number(sidValue):1,providers=[];
+ if(u.hostname==='stream.lesonparisien.com')providers.push({type:'lesonparisien',url:'https://www.lesonparisien.com/modules/mod_code9_lsp_radio/ajax.php?artist=&svr='+(/\.aac$/i.test(u.pathname)?(/\/lo/i.test(u.pathname)?'32k-aac':'128k-aac'):'192k-mp3')});
+ providers.push({type:'icecast',url:new URL('/status-json.xsl',u).href,streamURL:stream.url},{type:'shoutcast',url:new URL('/stats?sid='+sid+'&json=1',u).href,sid},{type:'shoutcast7',url:new URL('/7.html',u).href},{type:'icy',url:u.href});return providers;
+}
+async function metadataRequest(provider,parentSignal){
+ if(parentSignal.aborted)throw new DOMException('Metadata cancelled','AbortError');
+ const controller=new AbortController(),cancel=()=>controller.abort();parentSignal.addEventListener('abort',cancel,{once:true});const timeout=setTimeout(cancel,4500);let reader=null;
+ try{
+  const response=await fetch(provider.url,{method:'GET',mode:'cors',credentials:'omit',cache:'no-store',referrerPolicy:'no-referrer',signal:controller.signal,headers:provider.type==='icy'?{'Icy-MetaData':'1'}:{Accept:'application/json, text/plain, */*'}});
+  if(!response.ok||!response.body?.getReader)throw Error('Metadata unavailable');
+  const mime=response.headers.get('content-type')||'';if(provider.type!=='icy'&&/^(audio|video)\//i.test(mime)){await response.body.cancel();throw Error('Not a metadata feed');}
+  reader=response.body.getReader();let bytes=new Uint8Array(0),length=0;const limit=provider.type==='icy'?131072:65536,interval=Number(response.headers.get('icy-metaint'))||0;
+  for(;;){
+   const result=await reader.read();if(result.done)break;const part=result.value.subarray(0,Math.max(0,limit-length));if(!part.byteLength)throw Error('Metadata too large');length+=part.byteLength;
+   const next=new Uint8Array(length);next.set(bytes);next.set(part,bytes.length);bytes=next;
+   if(provider.type==='icy'){
+    if(interval>0&&interval<=limit&&length>interval){const size=bytes[interval]*16;if(length>=interval+1+size){const block=bytes.subarray(interval+1,interval+1+size);return parseIcyBlock(block)||'';}}
+    const sample=new TextDecoder('windows-1252').decode(bytes),match=/StreamTitle='([\s\S]*?)';/.exec(sample);
+    if(match){const begin=sample.indexOf("StreamTitle='"),prefix=sample.slice(0,begin),start=prefix.length;return parseIcyBlock(bytes.subarray(start,start+match[0].length))||'';}
+   }
+   if(length>=limit)throw Error('Metadata too large');
+  }
+  if(provider.type==='icy')throw Error('No readable stream title');
+  const text=new TextDecoder('utf-8').decode(bytes).trim();
+  if(provider.type==='shoutcast7'){const match=/^\s*<html>\s*<body>\d+,[01],\d+,\d+,\d+,\d+,([\s\S]*?)<\/body>\s*<\/html>\s*$/i.exec(text);if(!match)throw Error('Not a station status feed');return trackText(match[1]);}
+  const data=JSON.parse(text);let title=null;
+  if(provider.type==='icecast')title=icecastTrack(data,provider.streamURL);
+  else if(provider.type==='shoutcast')title=shoutcastTrack(data,provider.sid);
+  else if(provider.type==='lesonparisien'&&typeof data.song==='string')title=trackText(data.song,data.artist);
+  if(title===null)throw Error('No station metadata in this feed');return title;
+ }finally{clearTimeout(timeout);parentSignal.removeEventListener('abort',cancel);if(reader)await reader.cancel().catch(()=>{});controller.abort();}
+}
+function parseIcyBlock(bytes){
+ let text;try{text=new TextDecoder('utf-8',{fatal:true}).decode(bytes);}catch(_){text=new TextDecoder('windows-1252').decode(bytes);}
+ const match=/StreamTitle='([\s\S]*?)';/.exec(text);return match?trackText(match[1].replace(/\\'/g,"'")):null;
+}
+function metadataMayRun(){return opened&&!root.hidden&&!document.hidden&&audio&&['playing','buffering'].includes(phase);}
+function pauseMetadata(){metadataEpoch++;clearTimeout(metadataTimer);metadataTimer=null;metadataController?.abort();metadataController=null;metadataBusy=false;}
+function resetMetadata(){pauseMetadata();metadataProvider=null;metadataFailures=0;nowPlaying='';metadataSeenAt=0;}
+function updateMetadata(title){const value=cleanMetadata(title);metadataSeenAt=Date.now();if(value===nowPlaying)return;nowPlaying=value;renderReadout();if(value)announcer.textContent='Now playing: '+value+' on '+(current()?.name||'JellyFM')+'.';}
+function syncMetadata(){
+ if(!metadataMayRun()){if(metadataBusy||metadataTimer!==null)pauseMetadata();return;}
+ if(nowPlaying&&Date.now()-metadataSeenAt>90000){nowPlaying='';renderReadout();}
+ if(!metadataBusy&&metadataTimer===null)pollMetadata();
+}
+async function pollMetadata(){
+ if(!metadataMayRun()||metadataBusy)return;
+ const epoch=metadataEpoch,station=current(),controller=new AbortController();metadataController=controller;metadataBusy=true;let delay=METADATA_INTERVAL;
+ const active=()=>epoch===metadataEpoch&&metadataMayRun()&&current()?.id===station.id;
+ try{
+  if(metadataProvider){const title=await metadataRequest(metadataProvider,controller.signal);if(active()){metadataFailures=0;updateMetadata(title);}}
+  else{
+   let found=false;for(const provider of metadataSources(station)){
+    if(!active())return;
+    try{const title=await metadataRequest(provider,controller.signal);if(!active())return;metadataProvider=provider;metadataFailures=0;updateMetadata(title);found=true;break;}catch(_){if(!active())return;}
+   }
+   if(!found&&active()){updateMetadata('');delay=METADATA_DISCOVERY_RETRY;}
+  }
+ }catch(_){if(active()){updateMetadata('');metadataFailures++;if(metadataFailures>=2){metadataProvider=null;metadataFailures=0;}delay=METADATA_RETRY;}}
+ finally{
+  controller.abort();if(epoch===metadataEpoch){metadataController=null;metadataBusy=false;if(metadataMayRun())metadataTimer=setTimeout(()=>{metadataTimer=null;pollMetadata();},delay);}
+ }
+}
+
 const root=el('section');root.id='caseyRadio';root.hidden=true;root.dataset.phase=phase;screen.append(root);
 const widget=el('section','radio-widget');widget.setAttribute('aria-label','JellyFM');widget.tabIndex=-1;root.append(widget);
 const skin=el('img','radio-skin');skin.alt='';skin.draggable=false;widget.append(skin);
 const drag=el('div','radio-drag');drag.setAttribute('aria-hidden','true');widget.append(drag);
 const display=el('div','radio-display'),top=el('div','radio-readout-top'),led=el('span','radio-led'),status=el('span','radio-state','STOPPED'),channel=el('span','radio-channel','01');top.append(led,status,channel);
 const ticker=el('div','radio-ticker'),tickerTrack=el('div','radio-ticker-track'),name=el('span','radio-station-name'),duplicate=el('span','radio-station-copy');duplicate.setAttribute('aria-hidden','true');tickerTrack.append(name,duplicate);ticker.append(tickerTrack);
-const bottom=el('div','radio-readout-bottom'),clock=el('span','radio-time','00:00'),volumeReadout=el('span','radio-volume-label');bottom.append(clock,volumeReadout);display.append(top,ticker,bottom);widget.append(display);
+const bottom=el('div','radio-readout-bottom'),clock=el('span','radio-time','00:00'),volumeReadout=el('span','radio-volume-label');const stationCaption=el('span','radio-station-caption');stationCaption.hidden=true;bottom.append(clock,stationCaption,volumeReadout);display.append(top,ticker,bottom);widget.append(display);
 const announcer=el('div','radio-sr');announcer.setAttribute('role','status');announcer.setAttribute('aria-live','polite');root.append(announcer);
 function control(label,fn,cls){const n=button(label,fn,'radio-control '+cls);widget.append(n);return n;}
 const minimizeButton=control('Minimize JellyFM',minimize,'radio-minimize'),closeButton=control('Close JellyFM',closeProgram,'radio-close'),menuButton=control('Stations and radio settings',()=>panel.hidden?openPanel():closePanel(),'radio-menu');
@@ -3565,8 +3656,8 @@ const icons=[['<path d="M3 15h3v6H3zm5-5h3v11H8zm5 3h3v8h-3zm5-10h3v18h-3z"/>',l
 function current(){return prefs.stations.find(s=>s.id===prefs.selected)||null;}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(prefs));storageNotice='';}catch(_){storageNotice='Your browser could not save these settings. They will last for this session.';}storageFeedback.textContent=storageNotice;}
 function setPhase(value,message=''){phase=value;detail=message;root.dataset.phase=phase;renderReadout();announcer.textContent=(current()?.name||'JellyFM')+': '+(message||phase)+'.';}
-function renderReadout(){const s=current();name.textContent=(s?.name||'ADD A STATION').replace(/[—–]/g,'-');duplicate.textContent=name.textContent;channel.textContent=s?String(prefs.stations.indexOf(s)+1).padStart(2,'0'):'--';status.textContent={stopped:'STOPPED',connecting:'CONNECTING',playing:'LIVE',buffering:'BUFFERING',error:'CANNOT PLAY'}[phase]||'STOPPED';
- display.title=detail||s?.name||'Open Stations and radio settings to add a station.';clock.textContent=formatTime(elapsed);volumeReadout.textContent=prefs.muted?'MUTED':'VOL '+Math.round(prefs.volume*100);playButton.setAttribute('aria-pressed',String(phase==='playing'));stopButton.disabled=!audio;previousButton.disabled=nextButton.disabled=prefs.stations.length<2;measureTicker();}
+function renderReadout(){const s=current();name.textContent=(nowPlaying||s?.name||'ADD A STATION').replace(/[—–]/g,'-');duplicate.textContent=name.textContent;channel.textContent=s?String(prefs.stations.indexOf(s)+1).padStart(2,'0'):'--';status.textContent={stopped:'STOPPED',connecting:'CONNECTING',playing:'LIVE',buffering:'BUFFERING',error:'CANNOT PLAY'}[phase]||'STOPPED';
+ stationCaption.textContent=nowPlaying?s?.name||'':'';stationCaption.hidden=!nowPlaying;stationCaption.title=s?.name||'';root.dataset.hasTrack=String(!!nowPlaying);display.setAttribute('aria-label',nowPlaying?'Now playing: '+nowPlaying+' — '+(s?.name||''):s?.name||'No station selected');display.title=detail||(nowPlaying?(s?.name||'JellyFM')+' — '+nowPlaying:s?.name)||'Open Stations and radio settings to add a station.';clock.textContent=formatTime(elapsed);volumeReadout.textContent=prefs.muted?'MUTED':'VOL '+Math.round(prefs.volume*100);playButton.setAttribute('aria-pressed',String(phase==='playing'));stopButton.disabled=!audio;previousButton.disabled=nextButton.disabled=prefs.stations.length<2;measureTicker();}
 function formatTime(seconds){const s=Math.max(0,Math.floor(seconds||0)),h=Math.floor(s/3600),m=Math.floor(s/60)%60;return (h?String(h).padStart(2,'0')+':':'')+String(m).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
 function applyVolume(){if(audio){audio.volume=prefs.volume;audio.muted=prefs.muted;}volume.value=String(Math.round(prefs.volume*100));knob.setAttribute('aria-valuenow',volume.value);knob.setAttribute('aria-valuetext',volume.value+' percent'+(prefs.muted?', muted':''));knob.title='Volume '+volume.value+'% — drag up or down';muteButton.setAttribute('aria-pressed',String(prefs.muted));muteButton.setAttribute('aria-label',prefs.muted?'Unmute radio':'Mute radio');muteButton.title=prefs.muted?'Unmute radio':'Mute radio';volumeReadout.textContent=prefs.muted?'MUTED':'VOL '+volume.value;}
 function setVolume(value){prefs.volume=clamp(value,0,1);applyVolume();}
@@ -3579,9 +3670,9 @@ function renderList(){list.replaceChildren();for(const s of prefs.stations){cons
 }
 function select(id){if(!prefs.stations.some(s=>s.id===id))return;const changed=prefs.selected!==id,resume=!!audio;if(changed)stop();prefs.selected=id;elapsed=changed?0:elapsed;save();renderList();renderReadout();if(changed&&resume)start();}
 function step(delta){if(prefs.stations.length<2)return;const i=prefs.stations.findIndex(s=>s.id===prefs.selected);select(prefs.stations[(i+delta+prefs.stations.length)%prefs.stations.length].id);}
-function updateTimer(){if(timer!==null){clearInterval(timer);timer=null;}const visible=opened&&!root.hidden&&!document.hidden;root.dataset.animate=String(visible&&prefs.motion);if(visible&&audio){timer=setInterval(()=>{if(audio)elapsed=Number.isFinite(audio.currentTime)?audio.currentTime:0;clock.textContent=formatTime(elapsed);},1000);}}
+function updateTimer(){if(timer!==null){clearInterval(timer);timer=null;}const visible=opened&&!root.hidden&&!document.hidden;root.dataset.animate=String(visible&&prefs.motion);if(visible&&audio){timer=setInterval(()=>{if(audio)elapsed=Number.isFinite(audio.currentTime)?audio.currentTime:0;clock.textContent=formatTime(elapsed);},1000);}syncMetadata();}
 function measureTicker(){const overflow=name.scrollWidth>ticker.clientWidth+1;root.dataset.scroll=String(overflow);const distance=name.scrollWidth+30;ticker.style.setProperty('--radio-ticker-distance',distance+'px');ticker.style.setProperty('--radio-ticker-duration',Math.max(14,distance/22)+'s');duplicate.hidden=!overflow;root.dataset.motion=String(prefs.motion);}
-function stop(nextPhase='stopped',message=''){generation++;clearTimeout(deadline);deadline=null;if(audio){const old=audio;audio=null;old.pause();old.removeAttribute('src');old.load();old.remove();}elapsed=0;setPhase(nextPhase,message);updateTimer();}
+function stop(nextPhase='stopped',message=''){resetMetadata();generation++;clearTimeout(deadline);deadline=null;if(audio){const old=audio;audio=null;old.pause();old.removeAttribute('src');old.load();old.remove();}elapsed=0;setPhase(nextPhase,message);updateTimer();}
 async function start(){const s=current();if(!s){openPanel();feedback.textContent='Paste a station link, then save it.';link.focus();return;}if(audio&&['playing','connecting','buffering'].includes(phase))return;
  stop();const token=++generation,a=document.createElement('audio');audio=a;a.preload='none';a.setAttribute('aria-hidden','true');root.append(a);a.volume=prefs.volume;a.muted=prefs.muted;setPhase('connecting');updateTimer();
  const active=()=>audio===a&&token===generation;
