@@ -339,6 +339,18 @@ body.bezel #monitorControls{display:block;position:absolute;inset:0;width:100%;h
   <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px"><span>Memory: 640 KB Free &nbsp; Mode: 386 Enhanced</span><button class="bev def" data-close="dAbout">OK</button></div></div></div>
 </div>
 
+<!-- CASEY'S ROOM ABOUT -->
+<div class="dlg win" id="dRoomAbout" role="dialog" aria-modal="true" aria-labelledby="roomAboutTitle" style="width:440px">
+ <div class="cl"><div class="tbar"><div class="cbox" data-close="dRoomAbout" aria-label="Close About Casey's Room"></div><div class="ttl" id="roomAboutTitle">About Casey's Room</div></div>
+ <div class="in"><div class="row"><img data-ic="cup" alt="A cup of tea" width="96" height="96" style="width:96px;height:96px;flex:none;image-rendering:pixelated;align-self:flex-start">
+  <div style="line-height:17px"><div style="font-size:20px;font-weight:700;color:#800000;margin-bottom:4px">Casey's Room</div>
+  Homemade Edition<br><i>A very personal computer.</i><br><br>
+  A little room for books, bears, bonbons,<br>and highly specific requests.<br><br>
+  System incantation:<br><b style="font-family:'Courier New',monospace;color:#800000">zomba tarka ishtu nebarim</b></div></div>
+  <div style="border-top:1px solid #000;margin:10px 0 6px"></div>
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12px"><span>Memory: 640 KB of daydreams</span><button class="bev def" id="roomAboutOK" data-close="dRoomAbout">OK</button></div></div></div>
+</div>
+
 <div class="drop" id="drop"></div>
 <input type="file" id="fi" accept=".epub,application/epub+zip">
 <div id="crtGlow"></div><div id="crt"></div><div id="crtVig"></div>
@@ -734,6 +746,10 @@ function closeMsg(){closeDlg("dMsg")}
 document.querySelectorAll("[data-close]").forEach(function(b){b.addEventListener("click",function(){var id=b.dataset.close;
  if(id==="dLib"){if(B)showView("typ");else closeDlg(id)}else if(id==="dLex")lexOpen(false);else if(id==="dExc")exc(false);else if(id==="dHelp")help(false);else if(id==="dMsg"){if(XP){xsKey({key:"Escape",preventDefault:function(){}})}else if(relayConf){relayConf=false;closeMsg()}else if(!relayBusy)closeMsg()}else closeDlg(id)})});
 function about(){openDlg("dAbout")}
+function aboutRoom(){openDlg("dRoomAbout");$("roomAboutOK").focus()}
+$("dRoomAbout").addEventListener("keydown",function(e){e.stopPropagation();if(e.key==="Enter"||e.key==="Escape"){e.preventDefault();closeDlg("dRoomAbout");$("startB").focus()}else if(e.key==="Tab"){e.preventDefault();$("roomAboutOK").focus()}});
+["keyup","keypress"].forEach(function(type){$("dRoomAbout").addEventListener(type,function(e){e.stopPropagation()})});
+$("dRoomAbout").addEventListener("click",function(e){if(e.target.closest('[data-close="dRoomAbout"]'))$("startB").focus()});
 function readingLog(){var s=(Date.now()-sess.t0)/1000|0,rows=books.map(function(b){var d=b.last?new Date(b.last.t):null;return"<tr><td style='padding-right:12px'>"+esc(b.title)+"</td><td style='padding-right:12px'>"+Math.floor(bookPct(b))+"%</td><td style='padding-right:12px'>"+(b.last?b.last.wpm+" WPM \u00b7 "+b.last.acc+"%":"--")+"</td><td>"+(d?(d.getMonth()+1)+"/"+d.getDate()+"/"+String(d.getFullYear()).slice(2):"--")+"</td></tr>"}).join("");
  msgBox("Reading Log",(books.length?"<table style='font-size:12px;line-height:17px'><tr><th align=left>Book</th><th align=left>Read</th><th align=left>Last session</th><th align=left>Date</th></tr>"+rows+"</table>":"No books yet. Load one with Ctrl+O.")+"<br>This session: "+[s/3600|0,(s/60|0)%60,s%60].map(p2).join(":")+" \u00b7 "+(sess.keys?wpm()+" WPM \u00b7 "+accu()+"% \u00b7 "+sess.errs+" errors":"no typing yet")+" \u00b7 "+EXC.length+" excerpts on file",[["OK",closeMsg]],"info")}
 function stats(){var s=(Date.now()-sess.t0)/1000|0;msgBox("Document Statistics",'<table style="font-size:13px;line-height:18px">'+[["Book",B?esc(B.title):"--"],["Chapter",B?(ch+1)+" of "+B.cn.length:"--"],["Paragraph",B?(pi+1)+" of "+B.pl[ch].length:"--"],["Keystrokes",sess.keys],["Errors",sess.errs],["Speed",wpm()+" WPM"],["Accuracy",accu()+"%"],["Session",[s/3600|0,(s/60|0)%60,s%60].map(p2).join(":")]].map(function(r){return"<tr><td style='padding-right:18px'>"+r[0]+"</td><td><b>"+r[1]+"</b></td></tr>"}).join("")+"</table>",[["OK",closeMsg]],"info")}
@@ -799,7 +815,7 @@ var MENUS={
  tools:[["Lexicon\u2026","F3",BB.lex],["Excerpt Archive\u2026","F6",BB.arc],null,["Relay to Division\u2026","F4 (Library)",function(){showView("lib");relayAsk()}],null,["Document Statistics\u2026","",stats],["Reading Log\u2026","",readingLog]],
  help:[["Keyboard\u2026","F1",function(){help(true)}],null,["About Lamplight Write\u2026","",about]],
  desk:[["Wallpaper\u2026","",function(){pickWall()}],["Reset Wallpaper to Default","",function(){resetWall()}],null,["256-Color Wallpaper","",function(){set256(!document.body.classList.contains("c256"))},function(){return document.body.classList.contains("c256")}]],
- start:[["Lamplight Write","",function(){launchLamplight()}],["My Books\u2026","",function(){showWP();showView("lib")}],["Excerpt Archive\u2026","F6",function(){showWP();exc(true)}],null,["Monitor Mode","",function(){document.body.classList.toggle("bezel");relayout()},function(){return document.body.classList.contains("bezel")}],["Wallpaper\u2026","",function(){pickWall()}],["Help","F1",function(){showWP();help(true)}],null,["About Lamplight Write\u2026","",about]],
+ start:[["Lamplight Write","",function(){launchLamplight()}],["My Books\u2026","",function(){showWP();showView("lib")}],["Excerpt Archive\u2026","F6",function(){showWP();exc(true)}],null,["Monitor Mode","",function(){document.body.classList.toggle("bezel");relayout()},function(){return document.body.classList.contains("bezel")}],["Wallpaper\u2026","",function(){pickWall()}],null,["About Casey's Room\u2026","",aboutRoom]],
  sys:[["Restore","",function(){if(preMax)maxi()}],["Move","",D,null,1],["Size","",D,null,1],["Minimize","",mini],["Maximize","",maxi],null,["Close","Alt+F4",function(){$(sysTarget).style.display="none"}]]
 };
 function tog(id){var e=$(id);e.style.display=e.style.display==="none"?"":"none";draw()}
