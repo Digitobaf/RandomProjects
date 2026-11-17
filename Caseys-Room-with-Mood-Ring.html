@@ -799,7 +799,7 @@ var MENUS={
  tools:[["Lexicon\u2026","F3",BB.lex],["Excerpt Archive\u2026","F6",BB.arc],null,["Relay to Division\u2026","F4 (Library)",function(){showView("lib");relayAsk()}],null,["Document Statistics\u2026","",stats],["Reading Log\u2026","",readingLog]],
  help:[["Keyboard\u2026","F1",function(){help(true)}],null,["About Lamplight Write\u2026","",about]],
  desk:[["Wallpaper\u2026","",function(){pickWall()}],["Reset Wallpaper to Default","",function(){resetWall()}],null,["256-Color Wallpaper","",function(){set256(!document.body.classList.contains("c256"))},function(){return document.body.classList.contains("c256")}]],
- start:[["Lamplight Write","",function(){launchLamplight()}],["My Books\u2026","",function(){showWP();showView("lib")}],["Excerpt Archive\u2026","F6",function(){showWP();exc(true)}],null,["Wallpaper\u2026","",function(){pickWall()}],["Help","F1",function(){showWP();help(true)}],null,["About Lamplight Write\u2026","",about]],
+ start:[["Lamplight Write","",function(){launchLamplight()}],["My Books\u2026","",function(){showWP();showView("lib")}],["Excerpt Archive\u2026","F6",function(){showWP();exc(true)}],null,["Monitor Mode","",function(){document.body.classList.toggle("bezel");relayout()},function(){return document.body.classList.contains("bezel")}],["Wallpaper\u2026","",function(){pickWall()}],["Help","F1",function(){showWP();help(true)}],null,["About Lamplight Write\u2026","",about]],
  sys:[["Restore","",function(){if(preMax)maxi()}],["Move","",D,null,1],["Size","",D,null,1],["Minimize","",mini],["Maximize","",maxi],null,["Close","Alt+F4",function(){$(sysTarget).style.display="none"}]]
 };
 function tog(id){var e=$(id);e.style.display=e.style.display==="none"?"":"none";draw()}
