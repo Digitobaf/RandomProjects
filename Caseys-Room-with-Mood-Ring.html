@@ -3050,6 +3050,7 @@ function renderHistory(){log.replaceChildren();if(!state.book){const empty=el('d
 const segmenter=globalThis.Intl?.Segmenter?new Intl.Segmenter(undefined,{granularity:'grapheme'}):null;
 function characters(text){return segmenter?Array.from(segmenter.segment(text),s=>s.segment):Array.from(text);}
 function flexibleCharacter(character){return /^[\p{P}\p{S}]+$/u.test(character);}
+function withoutAccents(character){return character.normalize('NFD').replace(/\p{M}/gu,'');}
 function enteredCount(offset=compose.selectionEnd){return characters(normalTyping(compose.value.slice(0,offset||0))).length;}
 function inputOffset(index){if(index<=0)return 0;let offset=0;for(const character of characters(compose.value)){offset+=character.length;if(enteredCount(offset)>=index)return offset;}return compose.value.length;}
 function guideSpans(){return [...ghost.querySelectorAll('.aim-character')];}
@@ -3059,7 +3060,7 @@ function renderGhost(){
  if(state.waiting)ghost.textContent='';
  else if(inactive)ghost.textContent=state.book?'This book is complete. Open another from the Library.':'The next ebook passage will appear here in faint text.';
  else{let offset=0;for(let i=0;i<Math.max(expected.length,entered.length);i++){
-  const character=expected[i]??entered[i],end=offset+character.length,attempted=i<entered.length,correct=attempted&&expected[i]!=null&&(entered[i]===character||flexibleCharacter(character));
+  const character=expected[i]??entered[i],end=offset+character.length,attempted=i<entered.length,correct=attempted&&expected[i]!=null&&(withoutAccents(entered[i])===withoutAccents(character)||flexibleCharacter(character));
   if(attempted&&!correct)errors++;
   const span=el('span','aim-character'+(attempted?(correct?' aim-typed':' aim-error'):''),character);span.dataset.index=String(i);span.dataset.start=String(offset);span.dataset.end=String(end);ghost.append(span);offset=end;
  }}
