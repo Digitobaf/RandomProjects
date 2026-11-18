@@ -147,24 +147,24 @@ body.crt{--g:#cccbc7;--d:#878684}body.crt #taskbar,body.crt #taskbar .tb{backgro
 .docwrap{flex:1;position:relative;background:var(--d);min-width:0}
 .pagearea{position:absolute;inset:0;overflow-y:scroll;overflow-x:hidden;padding:14px 0 30px;scrollbar-width:none}
 .pagearea::-webkit-scrollbar{display:none}
-#page{background:var(--lamplight-paper,#fff);margin:0 14px;min-height:calc(100% - 4px);border:1px solid #000;box-shadow:3px 3px 0 #000;padding:calc(44px*var(--ts)) calc(60px*var(--ts)) 80px;font-family:"Times New Roman",Times,serif;font-size:calc(19px*var(--ts));line-height:1.5;color:var(--lamplight-upcoming,#adadad);cursor:text;user-select:none;position:relative;-webkit-font-smoothing:auto}
+#page{background:var(--lamplight-paper,#fff);margin:0 14px;min-height:calc(100% - 4px);border:1px solid #000;box-shadow:3px 3px 0 #000;padding:calc(44px*var(--ts)) calc(60px*var(--ts)) 80px;font-family:"Times New Roman",Times,serif;font-size:calc(19px*var(--ts));line-height:1.5;color:var(--lamplight-upcoming,#bdbdbd);cursor:text;user-select:none;position:relative;-webkit-font-smoothing:auto}
 #page .hd1{font-size:.72em;letter-spacing:.25em;text-transform:uppercase;text-align:center;color:var(--lamplight-accent,#800000);margin-bottom:2px}
 #page .hd2{font-size:1.15em;text-align:center;color:var(--lamplight-ink,#000);margin:0 0 1.3em;font-weight:bold}
 .page.fb{font-weight:bold}.page.fi{font-style:italic}.page.fu p{text-decoration:underline}
 .page p{margin:0 0 .75em;text-indent:2em;white-space:pre-wrap;overflow-wrap:break-word}
 #page p.done{color:var(--lamplight-ink,#000)}
-#page p.cur{color:var(--lamplight-guide,#999)}
+#page p.cur{color:var(--lamplight-guide,#ababab)}
 #page .pd{color:var(--lamplight-ink,#000)}
-#page .pu{color:var(--lamplight-upcoming,#adadad)}
+#page .pu{color:var(--lamplight-upcoming,#bdbdbd)}
 #page .cp span.d{color:var(--lamplight-ink,#000)}
 #page .cp span.d.s{color:var(--lamplight-skipped,#008080)}
 .cp span.x{background:#ff0000;color:#fff}
-#page .cp span.u{color:var(--lamplight-guide,#999)}
+#page .cp span.u{color:var(--lamplight-guide,#ababab)}
 #page .cp span.c{background:var(--lamplight-ink,#000);color:var(--lamplight-paper,#fff)}
-#page .cp span.c.off{background:transparent;color:var(--lamplight-guide,#999)}
+#page .cp span.c.off{background:transparent;color:var(--lamplight-guide,#ababab)}
 .cp span.hl{background:#000080;color:#fff}
 #page .cp span.eop{color:var(--lamplight-paper,#fff)}
-@keyframes bl{50%{background:transparent;color:var(--lamplight-guide,#999)}}
+@keyframes bl{50%{background:transparent;color:var(--lamplight-guide,#ababab)}}
 #page .endnote{text-align:center;text-indent:0!important;color:var(--lamplight-accent,#800000)!important;font-style:italic}
 /* scrollbar */
 .vs{width:18px;flex:none;border-left:1px solid #000;display:flex;flex-direction:column;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2' height='2'%3E%3Crect width='1' height='1' fill='%23c0c0c0'/%3E%3Crect x='1' y='1' width='1' height='1' fill='%23c0c0c0'/%3E%3C/svg%3E")}
@@ -622,7 +622,7 @@ function pageBlend(paper,ink,amount){var color="#";for(var i=1;i<7;i+=2){var p=p
 function applyPageColor(value,remember){
  if(!/^#[0-9a-f]{6}$/i.test(value))return;pagePaper=value.toLowerCase();
  var rgb=[1,3,5].map(function(i){var n=parseInt(pagePaper.slice(i,i+2),16)/255;return n<=.04045?n/12.92:Math.pow((n+.055)/1.055,2.4)}),luma=.2126*rgb[0]+.7152*rgb[1]+.0722*rgb[2],dark=(luma+.05)/.05<1.05/(luma+.05),ink=dark?"#ffffff":"#000000";
- page.style.setProperty("--lamplight-paper",pagePaper);page.style.setProperty("--lamplight-ink",ink);page.style.setProperty("--lamplight-guide",pageBlend(pagePaper,ink,.40));page.style.setProperty("--lamplight-upcoming",pageBlend(pagePaper,ink,.32));page.style.setProperty("--lamplight-accent",dark?"#f0bfaa":"#800000");page.style.setProperty("--lamplight-skipped",dark?"#69cabe":"#008080");pageColorInput.value=pagePaper;
+ page.style.setProperty("--lamplight-paper",pagePaper);page.style.setProperty("--lamplight-ink",ink);page.style.setProperty("--lamplight-guide",pageBlend(pagePaper,ink,.33));page.style.setProperty("--lamplight-upcoming",pageBlend(pagePaper,ink,.26));page.style.setProperty("--lamplight-accent",dark?"#f0bfaa":"#800000");page.style.setProperty("--lamplight-skipped",dark?"#69cabe":"#008080");pageColorInput.value=pagePaper;
  if(remember)try{localStorage.setItem("lamplightPageColor",pagePaper)}catch(e){}
 }
 pageColorInput.addEventListener("input",function(){applyPageColor(this.value,true)});
