@@ -136,6 +136,9 @@ body.crt{--g:#cccbc7;--d:#878684}body.crt #taskbar,body.crt #taskbar .tb{backgro
 .ib img{width:16px;height:16px}
 .tsep{width:6px}
 .dd{height:21px;border:1px solid;border-color:var(--d) #fff #fff var(--d);box-shadow:inset 1px 1px 0 #000;background:#fff;font:inherit;margin-right:3px}
+/* Lamplight page-color swatch, matching the existing format toolbar. */
+#page:focus{outline:none}
+#fbar #lamplightPageColor{flex:none;width:26px;height:22px;margin:0 3px 0 0;padding:2px;border:1px solid;border-color:#fff #000 #000 #fff;box-shadow:inset -1px -1px 0 var(--d);background:var(--g);cursor:pointer}
 /* ruler */
 .ruler{flex:none;height:24px;background:#fff;border-bottom:1px solid #000;position:relative;overflow:hidden}
 .ruler canvas{position:absolute;left:0;top:0}
@@ -144,25 +147,25 @@ body.crt{--g:#cccbc7;--d:#878684}body.crt #taskbar,body.crt #taskbar .tb{backgro
 .docwrap{flex:1;position:relative;background:var(--d);min-width:0}
 .pagearea{position:absolute;inset:0;overflow-y:scroll;overflow-x:hidden;padding:14px 0 30px;scrollbar-width:none}
 .pagearea::-webkit-scrollbar{display:none}
-.page{background:#fff;margin:0 14px;min-height:calc(100% - 4px);border:1px solid #000;box-shadow:3px 3px 0 #000;padding:calc(44px*var(--ts)) calc(60px*var(--ts)) 80px;font-family:"Times New Roman",Times,serif;font-size:calc(19px*var(--ts));line-height:1.5;color:#a0a0a0;cursor:text;user-select:none;position:relative;-webkit-font-smoothing:auto}
-.page .hd1{font-size:.72em;letter-spacing:.25em;text-transform:uppercase;text-align:center;color:#800000;margin-bottom:2px}
-.page .hd2{font-size:1.15em;text-align:center;color:#000;margin:0 0 1.3em;font-weight:bold}
+#page{background:var(--lamplight-paper,#fff);margin:0 14px;min-height:calc(100% - 4px);border:1px solid #000;box-shadow:3px 3px 0 #000;padding:calc(44px*var(--ts)) calc(60px*var(--ts)) 80px;font-family:"Times New Roman",Times,serif;font-size:calc(19px*var(--ts));line-height:1.5;color:var(--lamplight-upcoming,#adadad);cursor:text;user-select:none;position:relative;-webkit-font-smoothing:auto}
+#page .hd1{font-size:.72em;letter-spacing:.25em;text-transform:uppercase;text-align:center;color:var(--lamplight-accent,#800000);margin-bottom:2px}
+#page .hd2{font-size:1.15em;text-align:center;color:var(--lamplight-ink,#000);margin:0 0 1.3em;font-weight:bold}
 .page.fb{font-weight:bold}.page.fi{font-style:italic}.page.fu p{text-decoration:underline}
 .page p{margin:0 0 .75em;text-indent:2em;white-space:pre-wrap;overflow-wrap:break-word}
-.page p.done{color:#000}
-.page p.cur{color:#a0a0a0}
-.page .pd{color:#000}
-.page .pu{color:#606060}
-.cp span.d{color:#000}
-.cp span.d.s{color:#008080}
+#page p.done{color:var(--lamplight-ink,#000)}
+#page p.cur{color:var(--lamplight-guide,#999)}
+#page .pd{color:var(--lamplight-ink,#000)}
+#page .pu{color:var(--lamplight-upcoming,#adadad)}
+#page .cp span.d{color:var(--lamplight-ink,#000)}
+#page .cp span.d.s{color:var(--lamplight-skipped,#008080)}
 .cp span.x{background:#ff0000;color:#fff}
-.cp span.u{color:#8a8a8a}
-.cp span.c{background:#000;color:#fff}
-.cp span.c.off{background:transparent;color:#606060}
+#page .cp span.u{color:var(--lamplight-guide,#999)}
+#page .cp span.c{background:var(--lamplight-ink,#000);color:var(--lamplight-paper,#fff)}
+#page .cp span.c.off{background:transparent;color:var(--lamplight-guide,#999)}
 .cp span.hl{background:#000080;color:#fff}
-.cp span.eop{color:#fff}
-@keyframes bl{50%{background:transparent;color:#606060}}
-.endnote{text-align:center;text-indent:0!important;color:#800000!important;font-style:italic}
+#page .cp span.eop{color:var(--lamplight-paper,#fff)}
+@keyframes bl{50%{background:transparent;color:var(--lamplight-guide,#999)}}
+#page .endnote{text-align:center;text-indent:0!important;color:var(--lamplight-accent,#800000)!important;font-style:italic}
 /* scrollbar */
 .vs{width:18px;flex:none;border-left:1px solid #000;display:flex;flex-direction:column;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2' height='2'%3E%3Crect width='1' height='1' fill='%23c0c0c0'/%3E%3Crect x='1' y='1' width='1' height='1' fill='%23c0c0c0'/%3E%3C/svg%3E")}
 .vs .ar{height:18px;flex:none;background:var(--g);border-bottom:1px solid #000;box-shadow:inset 1px 1px 0 #fff,inset -1px -1px 0 var(--d);display:flex;align-items:center;justify-content:center}
@@ -244,13 +247,13 @@ body.bezel #monitorControls{display:block;position:absolute;inset:0;width:100%;h
    <button class="ib" data-k="lex" title="Lexicon (F3)"><img data-ic="lex"></button><button class="ib" data-k="arc" title="Excerpt Archive (F6)"><img data-ic="page"></button><button class="ib" data-k="help" title="Help (F1)"><img data-ic="help"></button>
   </div>
   <div class="tool" id="fbar">
-   <select class="dd" id="fontDD" style="width:170px" title="Font"></select><select class="dd" id="sizeDD" style="width:52px" title="Size"></select><span class="tsep"></span>
+   <select class="dd" id="fontDD" style="width:170px" title="Font"></select><select class="dd" id="sizeDD" style="width:52px" title="Size"></select><input type="color" id="lamplightPageColor" value="#ffffff" title="Page color" aria-label="Lamplight page color"><span class="tsep"></span>
    <button class="ib tx" data-fx="b" title="Bold"><b>B</b></button><button class="ib tx" data-fx="i" title="Italic"><i style="font-family:Times New Roman,serif;font-size:14px"><b>I</b></i></button><button class="ib tx" data-fx="u" title="Underline"><u><b>U</b></u></button><span class="tsep"></span>
    <button class="ib on" data-al="left" title="Align Left"><img data-ic="al"></button><button class="ib" data-al="center" title="Center"><img data-ic="ac"></button><button class="ib" data-al="right" title="Align Right"><img data-ic="ar"></button><button class="ib" data-al="justify" title="Justify"><img data-ic="aj"></button>
   </div>
   <div class="ruler" id="rulerBox"><canvas id="ruler" height="24"></canvas></div>
   <div class="docrow">
-   <div class="docwrap"><div class="pagearea" id="pagearea"><div class="page" id="page"></div></div></div>
+   <div class="docwrap"><div class="pagearea" id="pagearea"><div class="page" id="page" tabindex="-1"></div></div></div>
    <div class="vs"><div class="ar" id="sUp"><svg width="9" height="5"><polygon points="0,5 9,5 4.5,0" fill="#000"/></svg></div><div class="tr" id="strack"><div class="th" id="sthumb"></div></div><div class="ar dn" id="sDn"><svg width="9" height="5"><polygon points="0,0 9,0 4.5,5" fill="#000"/></svg></div></div>
   </div>
   <div class="status">
@@ -613,6 +616,20 @@ function accu(){return sess.keys?Math.round(sess.ok/sess.keys*100):100}
 function stamp(){var n=Date.now();if(sess.last)sess.act+=Math.min(n-sess.last,4000);sess.last=n}
 
 var page=$("page"),pagearea=$("pagearea");
+/* Lamplight page appearance; book text and saved positions are unchanged. */
+var pageColorInput=$("lamplightPageColor"),pagePaper="#ffffff";
+function pageBlend(paper,ink,amount){var color="#";for(var i=1;i<7;i+=2){var p=parseInt(paper.slice(i,i+2),16),n=parseInt(ink.slice(i,i+2),16);color+=Math.round(p+(n-p)*amount).toString(16).padStart(2,"0")}return color}
+function applyPageColor(value,remember){
+ if(!/^#[0-9a-f]{6}$/i.test(value))return;pagePaper=value.toLowerCase();
+ var rgb=[1,3,5].map(function(i){var n=parseInt(pagePaper.slice(i,i+2),16)/255;return n<=.04045?n/12.92:Math.pow((n+.055)/1.055,2.4)}),luma=.2126*rgb[0]+.7152*rgb[1]+.0722*rgb[2],dark=(luma+.05)/.05<1.05/(luma+.05),ink=dark?"#ffffff":"#000000";
+ page.style.setProperty("--lamplight-paper",pagePaper);page.style.setProperty("--lamplight-ink",ink);page.style.setProperty("--lamplight-guide",pageBlend(pagePaper,ink,.40));page.style.setProperty("--lamplight-upcoming",pageBlend(pagePaper,ink,.32));page.style.setProperty("--lamplight-accent",dark?"#f0bfaa":"#800000");page.style.setProperty("--lamplight-skipped",dark?"#69cabe":"#008080");pageColorInput.value=pagePaper;
+ if(remember)try{localStorage.setItem("lamplightPageColor",pagePaper)}catch(e){}
+}
+pageColorInput.addEventListener("input",function(){applyPageColor(this.value,true)});
+pageColorInput.addEventListener("change",function(){applyPageColor(this.value,true);page.focus({preventScroll:true})});
+["keydown","keyup","keypress"].forEach(function(type){pageColorInput.addEventListener(type,function(e){e.stopPropagation()})});
+(function(){var saved;try{saved=localStorage.getItem("lamplightPageColor")}catch(e){}applyPageColor(/^#[0-9a-f]{6}$/i.test(saved||"")?saved:"#ffffff",false)})();
+
 function renderChapter(){var h='';
  TX[ch].forEach(function(p,j){h+='<p id="pp'+j+'">'+esc(p)+'</p>'});page.innerHTML=h;lastCh=ch;pagearea.scrollTop=0}
 var lastPi=-1;
@@ -811,7 +828,7 @@ var MENUS={
  file:[["Library\u2026","Esc",BB.lib],["Load EPUB\u2026","Ctrl+O",load],null,["Save Place","",function(){savePos();st("Place saved")}],null,["Exit","",exitApp]],
  edit:[["Restart Paragraph","Tab",function(){if(B){goPara(ch,pi);st("Paragraph restarted")}}],["Fix Last Character","Backspace",function(){key({key:"Backspace",preventDefault:D})}],null,["Highlight from Cursor","Shift+\u2190/\u2192",D,null,1],["File Highlight to Excerpts","Shift+|",function(){if(XS)xsKey({key:"|",preventDefault:D});else st("Highlight first with Shift+\u2190 / \u2192")}]],
  go:[["Skip Part","Shift+Enter",skipPara],["Previous Part","Shift+Backspace",prevPara],null,["Next Chapter","Ctrl+\u2192",function(){chap(1)}],["Previous Chapter","Ctrl+\u2190",function(){chap(-1)}],null,["Chapter List\u2026","Esc",BB.lib]],
- view:[["Larger Text","+",function(){tsGo(1)}],["Smaller Text","\u2212",function(){tsGo(-1)}],null,["Button Bar","",function(){tog("bbar")},function(){return $("bbar").style.display!=="none"}],["Ruler","",function(){tog("rulerBox")},function(){return $("rulerBox").style.display!=="none"}],null,["Monitor Mode","",function(){document.body.classList.toggle("bezel");relayout()},function(){return document.body.classList.contains("bezel")}],["CRT Monitor Haze","",function(){var on=document.body.classList.toggle("crt");try{localStorage.setItem("lamplightCRT",on?"1":"0")}catch(e){}bakeWall();},function(){return document.body.classList.contains("crt")}],["256-Color Wallpaper","",function(){set256(!document.body.classList.contains("c256"))},function(){return document.body.classList.contains("c256")}],["Wallpaper\u2026","",function(){pickWall()}],["Reset Wallpaper to Default","",function(){resetWall()}]],
+ view:[["Larger Text","+",function(){tsGo(1)}],["Smaller Text","\u2212",function(){tsGo(-1)}],null,["Page Color\u2026","",function(){pageColorInput.click()}],["Reset Page Color","",function(){applyPageColor("#ffffff",true);page.focus({preventScroll:true})}],null,["Button Bar","",function(){tog("bbar")},function(){return $("bbar").style.display!=="none"}],["Ruler","",function(){tog("rulerBox")},function(){return $("rulerBox").style.display!=="none"}],null,["Monitor Mode","",function(){document.body.classList.toggle("bezel");relayout()},function(){return document.body.classList.contains("bezel")}],["CRT Monitor Haze","",function(){var on=document.body.classList.toggle("crt");try{localStorage.setItem("lamplightCRT",on?"1":"0")}catch(e){}bakeWall();},function(){return document.body.classList.contains("crt")}],["256-Color Wallpaper","",function(){set256(!document.body.classList.contains("c256"))},function(){return document.body.classList.contains("c256")}],["Wallpaper\u2026","",function(){pickWall()}],["Reset Wallpaper to Default","",function(){resetWall()}]],
  font:FONTS.map(function(f,i){return[f[0],"",function(){setFont(i)},function(){return fi===i}]}).reduce(function(r,x,i){if(i===1||i===2||i===7||i===12||i===16)r.push(null);r.push(x);return r},[]),
  tools:[["Lexicon\u2026","F3",BB.lex],["Excerpt Archive\u2026","F6",BB.arc],null,["Relay to Division\u2026","F4 (Library)",function(){showView("lib");relayAsk()}],null,["Document Statistics\u2026","",stats],["Reading Log\u2026","",readingLog]],
  help:[["Keyboard\u2026","F1",function(){help(true)}],null,["About Lamplight Write\u2026","",about]],
