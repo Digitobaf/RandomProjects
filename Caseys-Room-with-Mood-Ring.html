@@ -1531,10 +1531,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 #caseyMoodCalendar .mr-cal-paper{position:absolute;inset:0;pointer-events:none}
 #caseyMoodCalendar .mr-weekdays{position:absolute;left:285px;top:398px;width:700px;height:54px;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));color:#6b2c36;font:italic 32px/1 "MoodCalendarLetters",Georgia,serif;text-align:center;pointer-events:none}
 #caseyMoodCalendar .mr-weekdays span{position:relative;display:flex;align-items:center;justify-content:center;margin:5px 11px;border:2px solid #e6a341;border-radius:50%;background:radial-gradient(ellipse at 38% 20%,#fff0bb,#f3cd84 60%,#b87529);box-shadow:inset 0 0 0 2px #ffdf8b,inset 0 0 0 4px #aa5922,0 2px 3px #0c2927;z-index:1}
-#caseyMoodCalendar .mr-weekdays span:not(:last-child):after{content:"";position:absolute;left:100%;top:calc(50% - 2px);width:26px;height:4px;border-top:1px solid #ffe097;border-bottom:1px solid #855010;background:repeating-linear-gradient(90deg,#b56e18 0 3px,#ffdf83 3px 6px);z-index:-1}
-#caseyMoodCalendar .mr-day-grid,#caseyMoodCalendar .mr-calendar-chains{position:absolute;left:285px;top:458px;width:700px;height:380px}
+#caseyMoodCalendar .mr-day-grid{position:absolute;left:285px;top:458px;width:700px;height:380px}
 #caseyMoodCalendar .mr-day-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:0;padding:0;pointer-events:none}
-#caseyMoodCalendar .mr-calendar-chains{overflow:visible;pointer-events:none;filter:drop-shadow(0 2px 1px #102726aa)}
 #caseyMoodCalendar .mr-day,#caseyMoodCalendar .mr-day-blank{position:relative;display:block;min-width:0;min-height:0;margin:0;padding:0;border:0;background:none;box-shadow:none;box-sizing:border-box}
 #caseyMoodCalendar .mr-day{color:#fff0bf;cursor:pointer;font:italic 39px/1 "MoodCalendarLetters",Georgia,serif;pointer-events:auto;outline:none}
 #caseyMoodCalendar .mr-day .mr-day-charm{position:absolute;left:50%;top:50%;width:78px;height:78px;transform:translate(-50%,-50%);overflow:visible;filter:drop-shadow(0 3px 3px #0b202ab3);transition:filter .12s ease}
@@ -1562,8 +1560,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 
 #caseyMoodCalendar .mr-weekdays{left:235px;top:385px;width:800px;height:85px;display:block}
 #caseyMoodCalendar .mr-weekdays span{position:absolute;display:flex;width:84px;height:42px;margin:0;padding-bottom:2px;border:2px solid #d89b37;border-radius:50%;background:radial-gradient(ellipse at 35% 20%,#fff0bb,#f3cd84 60%,#b87529);box-shadow:inset 0 0 0 1px #ffe6a3,inset 0 0 0 3px #a15c27,0 2px 3px #102225;font-size:31px;transform-origin:center}
-#caseyMoodCalendar .mr-weekdays span:after{display:none}
-#caseyMoodCalendar .mr-day-grid,#caseyMoodCalendar .mr-calendar-chains{left:235px;top:385px;width:800px;height:480px}
+#caseyMoodCalendar .mr-day-grid{left:235px;top:385px;width:800px;height:480px}
 #caseyMoodCalendar .mr-day-grid{display:block}
 #caseyMoodCalendar .mr-day-blank{display:none}
 #caseyMoodCalendar .mr-day{position:absolute;width:80px;height:80px;clip-path:circle(44% at 50% 50%)}
@@ -1574,7 +1571,6 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 #caseyMoodCalendar .mr-day.mr-today:before{width:88px;height:88px}
 #caseyMoodCalendar .mr-day.mr-today:after{width:76px;height:76px}
 #caseyMoodCalendar .mr-six-rows .mr-day.mr-today:after{width:64px;height:64px}
-#caseyMoodCalendar .mr-calendar-chains{filter:drop-shadow(0 2px 1px #10232c99)}
 
 </style>
 <script id="caseyMoodRingProgram">
@@ -1745,35 +1741,6 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   }
   return {beads,rows,tailCount,lastRow,heading:necklaceHeading};
  }
- function calendarChains(start,days,rows){
-  const layout=necklaceLayout(start,days,rows),svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.classList.add('mr-calendar-chains');svg.setAttribute('viewBox','0 0 800 480');svg.setAttribute('aria-hidden','true');
-  const metal='mrNecklaceGold'+calendarRevision;let links='<defs><linearGradient id="'+metal+'" x1="0" y1="0" x2=".75" y2="1"><stop stop-color="#fff2a4"/><stop offset=".3" stop-color="#f2b937"/><stop offset=".55" stop-color="#955015"/><stop offset=".8" stop-color="#ffe7a0"/><stop offset="1" stop-color="#c47c24"/></linearGradient><radialGradient id="'+metal+'Pearl" cx="30%" cy="20%"><stop stop-color="#ffffed"/><stop offset=".45" stop-color="#ffebbb"/><stop offset=".8" stop-color="#c5964c"/><stop offset="1" stop-color="#ffdf97"/></radialGradient></defs>';
-  function chain(a,b,sag=12){
-   const dx=b.x-a.x,dy=b.y-a.y,control={x:(a.x+b.x)/2,y:Math.max(a.y,b.y)+sag},length=Math.hypot(dx,dy)+sag,steps=Math.max(2,Math.ceil(length/7));
-   for(let i=0;i<=steps;i++){const t=i/steps,u=1-t,x=u*u*a.x+2*u*t*control.x+t*t*b.x,y=u*u*a.y+2*u*t*control.y+t*t*b.y,tx=2*u*(control.x-a.x)+2*t*(b.x-control.x),ty=2*u*(control.y-a.y)+2*t*(b.y-control.y),angle=Math.atan2(ty,tx)*180/Math.PI;links+='<ellipse cx="'+x.toFixed(2)+'" cy="'+y.toFixed(2)+'" rx="4" ry="2.65" transform="rotate('+angle.toFixed(2)+' '+x.toFixed(2)+' '+y.toFixed(2)+')" fill="#85501a" stroke="'+(i%2?'#f8db82':'#d9a146')+'" stroke-width="1.45"/>';}
-  }
-  function dropLink(a,b){const length=Math.max(0,b.y-a.y),count=Math.max(1,Math.round(length/7));for(let i=0;i<=count;i++){const t=i/count,x=a.x+(b.x-a.x)*t,y=a.y+length*t;links+='<ellipse cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" rx="2.6" ry="4.2" fill="#8a4b1b" stroke="url(#'+metal+')" stroke-width="2"/>';}}
-  function bow(x,y,mirror){links+='<g transform="translate('+x+' '+y+') scale('+mirror+' 1)" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M0 0C-55-35-60 18 0 0C23-32 49-18 0 0C-9 15-30 20-30 51C-17 38-17 21 0 0M0 0C7 13 23 13 28 33" stroke="#92501c" stroke-width="7"/><path d="M0 0C-55-35-60 18 0 0C23-32 49-18 0 0C-9 15-30 20-30 51C-17 38-17 21 0 0M0 0C7 13 23 13 28 33" stroke="url(#'+metal+')" stroke-width="4.3"/><ellipse cx="0" cy="0" rx="6" ry="7" fill="url(#'+metal+')" stroke="#f9dc8e" stroke-width="1"/></g>';}
-  bow(32,15,1);bow(768,15,-1);
-  const heads=Array.from({length:7},(_,i)=>layout.heading(i));chain({x:38,y:17},{x:heads[0].x-43,y:heads[0].y},5);chain({x:heads[6].x+43,y:heads[6].y},{x:762,y:17},5);
-  for(let i=0;i<6;i++){const a=heads[i],b=heads[i+1];chain({x:a.x+43,y:a.y},{x:b.x-43,y:b.y},2);links+='<circle cx="'+((a.x+b.x)/2)+'" cy="'+((a.y+b.y)/2+1)+'" r="3.6" fill="url(#'+metal+')" stroke="#ffe5a0" stroke-width=".8"/>';}
-  const radius=rows===6?25:30;
-  for(const [day,p]of layout.beads){
-   const next=layout.beads.get(day+1);if(next&&next.row===p.row)chain({x:p.x+radius,y:p.y},{x:next.x-radius,y:next.y},18);
-   const below=layout.beads.get(day+7);if(below&&!below.tail)dropLink({x:p.x,y:p.y+radius+2},{x:below.x,y:below.y-radius-3});
-   if(p.row===0)dropLink({x:heads[p.column].x,y:heads[p.column].y+22},{x:p.x,y:p.y-radius-3});
-  }
-  const all=[...layout.beads.values()],left=all.find(p=>p.column===0&&!p.tail)||all[0],right=all.find(p=>p.column===6&&!p.tail)||all[Math.min(days-1,6-start)];
-  chain({x:35,y:23},{x:left.x-radius*.6,y:left.y-radius*.6},20);chain({x:right.x+radius*.6,y:right.y-radius*.6},{x:765,y:23},20);
-  const tail=all.filter(p=>p.row===layout.lastRow);
-  if(layout.tailCount<7){for(const p of tail){const upper=all.filter(q=>q.row===p.row-1).reduce((best,q)=>!best||Math.abs(q.x-p.x)<Math.abs(best.x-p.x)?q:best,null);if(upper)chain({x:upper.x+(p.x>=upper.x?radius*.5:-radius*.5),y:upper.y+radius*.8},{x:p.x+(p.x>=upper.x?-radius*.5:radius*.5),y:p.y-radius*.75},8);}}
-  const bottom=Math.max(...tail.map(p=>p.y)),pendantY=bottom+43;
-  if(tail.length===1)dropLink({x:400,y:bottom+radius+2},{x:400,y:pendantY});
-  else{const leftTail=tail.filter(p=>p.x<=400).at(-1)||tail[0],rightTail=tail.find(p=>p.x>=400)||tail.at(-1);chain({x:leftTail.x+radius*.55,y:leftTail.y+radius*.8},{x:400,y:pendantY-5},6);if(rightTail!==leftTail)chain({x:400,y:pendantY-5},{x:rightTail.x-radius*.55,y:rightTail.y+radius*.8},6);}
-  links+='<g transform="translate(400 '+pendantY+')"><ellipse cx="0" cy="-1" rx="3.4" ry="5" fill="none" stroke="url(#'+metal+')" stroke-width="2.5"/><path d="M0 4C-6 13-14 21-12 29C-9 42 10 42 13 29C15 21 6 13 0 4Z" fill="url(#'+metal+'Pearl)" stroke="url(#'+metal+')" stroke-width="2.5"/><path d="M0 8L-8 27 0 36 8 27Z" fill="#fff4d3" opacity=".48"/><path d="M-3 14L-8 26" fill="none" stroke="#fffef2" stroke-width="2" stroke-linecap="round" opacity=".8"/></g>';
-  svg.innerHTML=links;return svg;
- }
-
  function scheduleRollover(){
   clearTimeout(rolloverTimer);if(calendar.hidden||document.hidden)return;
   const now=new Date(),midnight=new Date(now.getFullYear(),now.getMonth(),now.getDate()+1);
@@ -1814,7 +1781,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
    const description=prettyDate(date)+' — '+(mood?mood.label:'No mood saved');button.setAttribute('aria-label',description);if(date===todayDate)button.setAttribute('aria-current','date');button.append(dayCharm(mood,calendarRevision+'d'+day),el('span','mr-date-number',String(day)));
    const show=()=>showTip(description,button,0,'calendar');button.addEventListener('pointerenter',show);button.addEventListener('focus',show);button.addEventListener('click',show);button.addEventListener('pointerleave',()=>{if(tipOwner==='calendar')hideTip();});button.addEventListener('blur',()=>{if(tipOwner==='calendar')hideTip();});calendarJewelHover(button);grid.append(button);
   }
-  paper.append(calendarChains(start,days,rows),grid);const legend=el('div','mr-legend');legend.setAttribute('role','list');legend.setAttribute('aria-label','Mood colors');
+  paper.append(grid);const legend=el('div','mr-legend');legend.setAttribute('role','list');legend.setAttribute('aria-label','Mood colors');
   ['angry','envious','happy','overwhelmed','anxious','confused','sad','tired','lonely','neutral','cozy'].forEach((id,i)=>{const mood=moodById(id),item=el('div','mr-legend-item');item.setAttribute('role','listitem');item.tabIndex=0;item.dataset.mood=mood.id;item.setAttribute('aria-label',mood.colorName+' — '+mood.label);const label=el('span','',mood.label);if(label.textContent.length>11)label.classList.add('mr-long-label');item.append(jewel(mood,calendarRevision+'l'+i),label);legend.append(item);});paper.append(legend);stage.append(paper,el('p','mr-cal-note','Each jewel holds one day’s mood.'));layoutCalendar();fitMonthLabel();if(document.fonts)document.fonts.load('italic 56px "MoodCalendarLetters"').then(fitMonthLabel).catch(()=>{});scheduleRollover();
  }
  async function openCalendar(){cancelPending();await ensureReady();const now=new Date();state.year=now.getFullYear();state.month=now.getMonth();calendarMinimized=false;calendar.hidden=false;bringForward();hideTip();renderCalendar();calendar.focus({preventScroll:true});}
