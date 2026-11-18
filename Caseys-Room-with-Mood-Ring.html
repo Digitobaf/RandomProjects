@@ -139,6 +139,15 @@ body.crt{--g:#cccbc7;--d:#878684}body.crt #taskbar,body.crt #taskbar .tb{backgro
 /* Lamplight page-color swatch, matching the existing format toolbar. */
 #page:focus{outline:none}
 #fbar #lamplightPageColor{flex:none;width:26px;height:22px;margin:0 3px 0 0;padding:2px;border:1px solid;border-color:#fff #000 #000 #fff;box-shadow:inset -1px -1px 0 var(--d);background:var(--g);cursor:pointer}
+#fbar{flex-wrap:wrap;row-gap:3px}
+#fbar .lamplight-guide-control{display:inline-flex;align-items:center;gap:4px;flex:none;white-space:nowrap;margin:0 4px 0 1px;font-size:11px}
+#fbar #lamplightGuideOpacity{appearance:none;width:80px;height:18px;margin:0;padding:0;background:transparent;cursor:pointer}
+#fbar #lamplightGuideOpacityValue{display:inline-block;min-width:30px;text-align:right;font-variant-numeric:tabular-nums}
+#fbar #lamplightGuideOpacity::-webkit-slider-runnable-track{height:4px;background:#808080;border-bottom:1px solid #fff;border-right:1px solid #fff}
+#fbar #lamplightGuideOpacity::-webkit-slider-thumb{appearance:none;width:10px;height:16px;margin-top:-6px;border:1px solid #000;border-radius:0;background:#c0c0c0;box-shadow:inset 1px 1px #fff,inset -1px -1px #808080}
+#fbar #lamplightGuideOpacity::-moz-range-track{height:3px;background:#808080;border-bottom:1px solid #fff;border-right:1px solid #fff}
+#fbar #lamplightGuideOpacity::-moz-range-thumb{width:8px;height:14px;border:1px solid #000;border-radius:0;background:#c0c0c0;box-shadow:inset 1px 1px #fff,inset -1px -1px #808080}
+#fbar #lamplightGuideOpacity:focus-visible{outline:1px dotted #000;outline-offset:1px}
 /* ruler */
 .ruler{flex:none;height:24px;background:#fff;border-bottom:1px solid #000;position:relative;overflow:hidden}
 .ruler canvas{position:absolute;left:0;top:0}
@@ -247,7 +256,7 @@ body.bezel #monitorControls{display:block;position:absolute;inset:0;width:100%;h
    <button class="ib" data-k="lex" title="Lexicon (F3)"><img data-ic="lex"></button><button class="ib" data-k="arc" title="Excerpt Archive (F6)"><img data-ic="page"></button><button class="ib" data-k="help" title="Help (F1)"><img data-ic="help"></button>
   </div>
   <div class="tool" id="fbar">
-   <select class="dd" id="fontDD" style="width:170px" title="Font"></select><select class="dd" id="sizeDD" style="width:52px" title="Size"></select><input type="color" id="lamplightPageColor" value="#ffffff" title="Page color" aria-label="Lamplight page color"><span class="tsep"></span>
+   <select class="dd" id="fontDD" style="width:170px" title="Font"></select><select class="dd" id="sizeDD" style="width:52px" title="Size"></select><input type="color" id="lamplightPageColor" value="#ffffff" title="Page color" aria-label="Lamplight page color"><label class="lamplight-guide-control" for="lamplightGuideOpacity" title="Untyped text opacity"><span>Guide</span><input type="range" id="lamplightGuideOpacity" min="0" max="100" step="1" value="33" aria-label="Untyped text opacity"><output id="lamplightGuideOpacityValue" for="lamplightGuideOpacity">33%</output></label><span class="tsep"></span>
    <button class="ib tx" data-fx="b" title="Bold"><b>B</b></button><button class="ib tx" data-fx="i" title="Italic"><i style="font-family:Times New Roman,serif;font-size:14px"><b>I</b></i></button><button class="ib tx" data-fx="u" title="Underline"><u><b>U</b></u></button><span class="tsep"></span>
    <button class="ib on" data-al="left" title="Align Left"><img data-ic="al"></button><button class="ib" data-al="center" title="Center"><img data-ic="ac"></button><button class="ib" data-al="right" title="Align Right"><img data-ic="ar"></button><button class="ib" data-al="justify" title="Justify"><img data-ic="aj"></button>
   </div>
@@ -617,18 +626,27 @@ function stamp(){var n=Date.now();if(sess.last)sess.act+=Math.min(n-sess.last,40
 
 var page=$("page"),pagearea=$("pagearea");
 /* Lamplight page appearance; book text and saved positions are unchanged. */
-var pageColorInput=$("lamplightPageColor"),pagePaper="#ffffff";
+var pageColorInput=$("lamplightPageColor"),pagePaper="#ffffff",guideOpacityInput=$("lamplightGuideOpacity"),guideOpacityOutput=$("lamplightGuideOpacityValue"),pageGuideOpacity=33;
 function pageBlend(paper,ink,amount){var color="#";for(var i=1;i<7;i+=2){var p=parseInt(paper.slice(i,i+2),16),n=parseInt(ink.slice(i,i+2),16);color+=Math.round(p+(n-p)*amount).toString(16).padStart(2,"0")}return color}
 function applyPageColor(value,remember){
  if(!/^#[0-9a-f]{6}$/i.test(value))return;pagePaper=value.toLowerCase();
  var rgb=[1,3,5].map(function(i){var n=parseInt(pagePaper.slice(i,i+2),16)/255;return n<=.04045?n/12.92:Math.pow((n+.055)/1.055,2.4)}),luma=.2126*rgb[0]+.7152*rgb[1]+.0722*rgb[2],dark=(luma+.05)/.05<1.05/(luma+.05),ink=dark?"#ffffff":"#000000";
- page.style.setProperty("--lamplight-paper",pagePaper);page.style.setProperty("--lamplight-ink",ink);page.style.setProperty("--lamplight-guide",pageBlend(pagePaper,ink,.33));page.style.setProperty("--lamplight-upcoming",pageBlend(pagePaper,ink,.26));page.style.setProperty("--lamplight-accent",dark?"#f0bfaa":"#800000");page.style.setProperty("--lamplight-skipped",dark?"#69cabe":"#008080");pageColorInput.value=pagePaper;
+ page.style.setProperty("--lamplight-paper",pagePaper);page.style.setProperty("--lamplight-ink",ink);page.style.setProperty("--lamplight-guide",pageBlend(pagePaper,ink,pageGuideOpacity/100));page.style.setProperty("--lamplight-upcoming",pageBlend(pagePaper,ink,pageGuideOpacity/100*26/33));page.style.setProperty("--lamplight-accent",dark?"#f0bfaa":"#800000");page.style.setProperty("--lamplight-skipped",dark?"#69cabe":"#008080");pageColorInput.value=pagePaper;
  if(remember)try{localStorage.setItem("lamplightPageColor",pagePaper)}catch(e){}
 }
 pageColorInput.addEventListener("input",function(){applyPageColor(this.value,true)});
 pageColorInput.addEventListener("change",function(){applyPageColor(this.value,true);page.focus({preventScroll:true})});
 ["keydown","keyup","keypress"].forEach(function(type){pageColorInput.addEventListener(type,function(e){e.stopPropagation()})});
-(function(){var saved;try{saved=localStorage.getItem("lamplightPageColor")}catch(e){}applyPageColor(/^#[0-9a-f]{6}$/i.test(saved||"")?saved:"#ffffff",false)})();
+function applyGuideOpacity(value,remember){
+ var n=Number(value);if(!Number.isFinite(n)||n<0||n>100)return;pageGuideOpacity=Math.round(n);guideOpacityInput.value=String(pageGuideOpacity);guideOpacityInput.setAttribute("aria-valuetext",pageGuideOpacity+" percent opacity");guideOpacityOutput.value=pageGuideOpacity+"%";guideOpacityOutput.textContent=pageGuideOpacity+"%";applyPageColor(pagePaper,false);
+ if(remember)try{localStorage.setItem("lamplightGuideOpacity",String(pageGuideOpacity))}catch(e){}
+}
+guideOpacityInput.addEventListener("input",function(){applyGuideOpacity(this.value,true)});
+guideOpacityInput.addEventListener("change",function(){applyGuideOpacity(this.value,true)});
+guideOpacityInput.addEventListener("pointerup",function(e){if(e.button===0)page.focus({preventScroll:true})});
+guideOpacityInput.addEventListener("keydown",function(e){e.stopPropagation();if(e.key==="Enter"||e.key==="Escape"){e.preventDefault();page.focus({preventScroll:true})}});
+["keyup","keypress"].forEach(function(type){guideOpacityInput.addEventListener(type,function(e){e.stopPropagation()})});
+(function(){var saved,opacity;try{saved=localStorage.getItem("lamplightPageColor");opacity=localStorage.getItem("lamplightGuideOpacity")}catch(e){}var n=opacity!==null&&opacity!==undefined&&opacity.trim()!==""?Number(opacity):NaN;applyGuideOpacity(Number.isFinite(n)&&n>=0&&n<=100?n:33,false);applyPageColor(/^#[0-9a-f]{6}$/i.test(saved||"")?saved:"#ffffff",false)})();
 
 function renderChapter(){var h='';
  TX[ch].forEach(function(p,j){h+='<p id="pp'+j+'">'+esc(p)+'</p>'});page.innerHTML=h;lastCh=ch;pagearea.scrollTop=0}
@@ -828,7 +846,7 @@ var MENUS={
  file:[["Library\u2026","Esc",BB.lib],["Load EPUB\u2026","Ctrl+O",load],null,["Save Place","",function(){savePos();st("Place saved")}],null,["Exit","",exitApp]],
  edit:[["Restart Paragraph","Tab",function(){if(B){goPara(ch,pi);st("Paragraph restarted")}}],["Fix Last Character","Backspace",function(){key({key:"Backspace",preventDefault:D})}],null,["Highlight from Cursor","Shift+\u2190/\u2192",D,null,1],["File Highlight to Excerpts","Shift+|",function(){if(XS)xsKey({key:"|",preventDefault:D});else st("Highlight first with Shift+\u2190 / \u2192")}]],
  go:[["Skip Part","Shift+Enter",skipPara],["Previous Part","Shift+Backspace",prevPara],null,["Next Chapter","Ctrl+\u2192",function(){chap(1)}],["Previous Chapter","Ctrl+\u2190",function(){chap(-1)}],null,["Chapter List\u2026","Esc",BB.lib]],
- view:[["Larger Text","+",function(){tsGo(1)}],["Smaller Text","\u2212",function(){tsGo(-1)}],null,["Page Color\u2026","",function(){pageColorInput.click()}],["Reset Page Color","",function(){applyPageColor("#ffffff",true);page.focus({preventScroll:true})}],null,["Button Bar","",function(){tog("bbar")},function(){return $("bbar").style.display!=="none"}],["Ruler","",function(){tog("rulerBox")},function(){return $("rulerBox").style.display!=="none"}],null,["Monitor Mode","",function(){document.body.classList.toggle("bezel");relayout()},function(){return document.body.classList.contains("bezel")}],["CRT Monitor Haze","",function(){var on=document.body.classList.toggle("crt");try{localStorage.setItem("lamplightCRT",on?"1":"0")}catch(e){}bakeWall();},function(){return document.body.classList.contains("crt")}],["256-Color Wallpaper","",function(){set256(!document.body.classList.contains("c256"))},function(){return document.body.classList.contains("c256")}],["Wallpaper\u2026","",function(){pickWall()}],["Reset Wallpaper to Default","",function(){resetWall()}]],
+ view:[["Larger Text","+",function(){tsGo(1)}],["Smaller Text","\u2212",function(){tsGo(-1)}],null,["Page Color\u2026","",function(){pageColorInput.click()}],["Reset Page Color","",function(){applyPageColor("#ffffff",true);page.focus({preventScroll:true})}],["Untyped Text Opacity","",function(){guideOpacityInput.focus({preventScroll:true})}],null,["Button Bar","",function(){tog("bbar")},function(){return $("bbar").style.display!=="none"}],["Ruler","",function(){tog("rulerBox")},function(){return $("rulerBox").style.display!=="none"}],null,["Monitor Mode","",function(){document.body.classList.toggle("bezel");relayout()},function(){return document.body.classList.contains("bezel")}],["CRT Monitor Haze","",function(){var on=document.body.classList.toggle("crt");try{localStorage.setItem("lamplightCRT",on?"1":"0")}catch(e){}bakeWall();},function(){return document.body.classList.contains("crt")}],["256-Color Wallpaper","",function(){set256(!document.body.classList.contains("c256"))},function(){return document.body.classList.contains("c256")}],["Wallpaper\u2026","",function(){pickWall()}],["Reset Wallpaper to Default","",function(){resetWall()}]],
  font:FONTS.map(function(f,i){return[f[0],"",function(){setFont(i)},function(){return fi===i}]}).reduce(function(r,x,i){if(i===1||i===2||i===7||i===12||i===16)r.push(null);r.push(x);return r},[]),
  tools:[["Lexicon\u2026","F3",BB.lex],["Excerpt Archive\u2026","F6",BB.arc],null,["Relay to Division\u2026","F4 (Library)",function(){showView("lib");relayAsk()}],null,["Document Statistics\u2026","",stats],["Reading Log\u2026","",readingLog]],
  help:[["Keyboard\u2026","F1",function(){help(true)}],null,["About Lamplight Write\u2026","",about]],
