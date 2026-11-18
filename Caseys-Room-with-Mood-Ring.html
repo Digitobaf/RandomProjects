@@ -340,7 +340,7 @@ body.bezel #monitorControls{display:block;position:absolute;inset:0;width:100%;h
 </div>
 
 <div id="modal"></div>
-<div id="taskbar"><button class="tb" id="startB"><img data-ic="cup">Start</button><button class="tb" id="taskWP" style=""><img data-ic="comp">Lamplight Write</button><div id="tray"></div></div>
+<div id="taskbar"><button class="tb" id="startB"><img data-ic="cup">Start</button><button class="tb" id="taskWP" style="display:none"><img data-ic="comp">Lamplight Write</button><div id="tray"></div></div>
 <input type="file" id="wfi" accept="image/*">
 
 <!-- LIBRARY (Open) -->
@@ -394,7 +394,7 @@ body.bezel #monitorControls{display:block;position:absolute;inset:0;width:100%;h
   <span class="kc">F3</span><span>Lexicon (type a word, Enter)</span>
   <span class="kc">F6</span><span>Excerpt Archive (&uarr;&darr; select, Del purge, E export)</span>
   <span class="kc">F1 or Ctrl+/</span><span>This help (Esc to close)</span>
-  <span class="sec">Page appearance</span><span class="kc">Ruler marker</span><span>Drag to fade untyped text (0–100%).</span><span class="kc">Page color</span><span>Use the swatch beside the formatting buttons.</span><span class="kc">Close (×)</span><span>Saves your place. Reopen from the taskbar.</span>
+  <span class="sec">Page appearance</span><span class="kc">Ruler marker</span><span>Drag to fade untyped text (0–100%).</span><span class="kc">Page color</span><span>Use the swatch beside the formatting buttons.</span><span class="kc">Close (×)</span><span>Saves your place. Reopen from the desktop or Start.</span>
  </div><div style="text-align:right;margin-top:10px"><button class="bev def" data-close="dHelp">OK</button></div></div></div>
 </div>
 
@@ -941,6 +941,11 @@ function focusWin(w){document.querySelectorAll(".win:not(.dlg)").forEach(functio
 document.querySelectorAll(".win:not(.dlg)").forEach(function(w){w.addEventListener("mousedown",function(){focusWin(w)})});
 function makeDrag(el){var h=el.querySelector(".tbar");h.addEventListener("mousedown",function(e){if(e.target.closest(".cbox,.tbtn"))return;if(el.id==="wp"&&preMax)return;e.preventDefault();
  var sx=e.clientX,sy=e.clientY,ox=el.offsetLeft,oy=el.offsetTop,S=$("screen");
+ if(el.id==="wp"){
+  function liveMove(ev){var nx=Math.max(-el.offsetWidth+60,Math.min(ox+(ev.clientX-sx)/SC,S.clientWidth-60)),ny=Math.max(0,Math.min(oy+(ev.clientY-sy)/SC,S.clientHeight-24));el.style.left=nx+"px";el.style.top=ny+"px";el.style.right="auto"}
+  function liveUp(){document.removeEventListener("mousemove",liveMove);document.removeEventListener("mouseup",liveUp);window.removeEventListener("blur",liveUp)}
+  document.addEventListener("mousemove",liveMove);document.addEventListener("mouseup",liveUp);window.addEventListener("blur",liveUp);return
+ }
  // Win 3.1 style: drag an XOR outline, move on release
  var ol=document.createElement("div");ol.style.cssText="position:absolute;z-index:16000;pointer-events:none;border:3px solid #808080;mix-blend-mode:difference;left:"+ox+"px;top:"+oy+"px;width:"+el.offsetWidth+"px;height:"+el.offsetHeight+"px";S.appendChild(ol);
  function mv(ev){var nx=Math.max(-el.offsetWidth+60,Math.min(ox+(ev.clientX-sx)/SC,S.clientWidth-60)),ny=Math.max(0,Math.min(oy+(ev.clientY-sy)/SC,S.clientHeight-24));ol.style.left=nx+"px";ol.style.top=ny+"px"}
@@ -959,7 +964,7 @@ function maxi(){var w=$("wp"),S=$("screen");if(preMax){Object.assign(w.style,pre
  $("maxBtn").innerHTML=preMax?'<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 1.5h6v6h-6z" fill="#c0c0c0" stroke="#000"/><path d="M5 3h5" stroke="#000"/><path d="M1.5 4.5h6v6h-6z" fill="#c0c0c0" stroke="#000"/><path d="M2 6h5" stroke="#000"/></svg>':'<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 1.5h9v9h-9z" fill="none" stroke="#000"/><path d="M2 3h8" stroke="#000"/></svg>';$("maxBtn").title=preMax?"Restore":"Maximize";drawRuler();draw()}
 function mini(){$("wp").style.display="none";$("taskWP").classList.remove("dn")}
 var wpClosed=true;
-function closeWP(){clearTimeout(sT);savePos();closeMenu();if(lexOn)lexOpen(false);if(excOn)exc(false);if(helpOn)help(false);["dLib","dAbout","dMsg"].forEach(closeDlg);XS=null;XP=0;view=B?"typ":"lib";page.innerHTML="";lastCh=-1;wpClosed=true;$("wp").style.display="none";$("taskWP").style.display="";$("taskWP").classList.remove("dn");$("taskWP").title="Open Lamplight Write";$("taskWP").dataset.closed="true";}
+function closeWP(){clearTimeout(sT);savePos();closeMenu();if(lexOn)lexOpen(false);if(excOn)exc(false);if(helpOn)help(false);["dLib","dAbout","dMsg"].forEach(closeDlg);XS=null;XP=0;view=B?"typ":"lib";page.innerHTML="";lastCh=-1;wpClosed=true;$("wp").style.display="none";$("taskWP").style.display="none";$("taskWP").classList.remove("dn");$("taskWP").title="Open Lamplight Write";$("taskWP").dataset.closed="true";}
 $("closeWPBtn").onclick=closeWP;["keydown","keyup","keypress"].forEach(function(type){$("closeWPBtn").addEventListener(type,function(e){e.stopPropagation()})});$("maxBtn").onclick=maxi;$("minBtn").onclick=mini;
 function showWP(){wpClosed=false;delete $("taskWP").dataset.closed;$("taskWP").title="Lamplight Write";var w=$("wp");w.style.display="flex";$("taskWP").style.display="";$("taskWP").classList.add("dn");focusWin(w);fitWin();drawRuler();draw()}
 function launchLamplight(){showWP();if(!B)showView("lib")}
