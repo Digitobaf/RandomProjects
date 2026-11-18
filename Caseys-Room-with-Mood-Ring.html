@@ -238,7 +238,9 @@ body.bezel #monitorControls{display:block;position:absolute;inset:0;width:100%;h
 #wp>.cl{border-color:#808080}
 #wp .tbar{height:24px;background:var(--m)}
 #wp .tbar .ttl{text-align:left;line-height:23px;padding-left:7px;color:#fff}
-#wp .tbar .cbox{width:23px;align-self:center;height:19px;margin:1px 2px}
+#wp .tbar .cbox{width:23px;align-self:center;height:19px;margin:1px 2px;background:transparent;border:0;display:flex;align-items:center;justify-content:center}
+#wp .tbar .cbox:after{display:none}
+#wp .tbar .cbox img{display:block;image-rendering:pixelated}
 #wp .tbar .tbtn{width:22px;height:19px;align-self:center;margin:0 2px 0 0}
 #wp .mbar{height:auto;min-height:24px;align-items:center;flex-wrap:wrap;background:var(--g);border-bottom:1px solid var(--d);padding:1px 4px;box-shadow:inset 0 1px #fff}
 #wp .mbar .m{height:22px;line-height:20px;padding:0 8px}
@@ -303,9 +305,9 @@ body.bezel #monitorControls{display:block;position:absolute;inset:0;width:100%;h
 <!-- MAIN WINDOW -->
 <div class="win" id="wp" style="display:none;left:470px;top:22px;width:960px;height:740px">
  <div class="cl">
-  <div class="tbar"><div class="cbox" data-sys="wp" title="Control menu"></div><div class="ttl" id="wpTitle">Lamplight Write</div>
-   <div class="tbtn" id="minBtn" title="Minimize"><svg width="9" height="5"><polygon points="0,0 9,0 4.5,5" fill="#000"/></svg></div>
-   <div class="tbtn" id="maxBtn" title="Maximize"><svg width="9" height="5"><polygon points="0,5 9,5 4.5,0" fill="#000"/></svg></div><button type="button" class="tbtn" id="closeWPBtn" title="Close Lamplight Write" aria-label="Close Lamplight Write"><svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><path d="m1 1 9 9M10 1l-9 9" stroke="#000" stroke-width="2"/></svg></button></div>
+  <div class="tbar"><div class="cbox" data-sys="wp" title="Lamplight Write menu"><img data-ic="page" width="16" height="16" alt=""></div><div class="ttl" id="wpTitle">Lamplight Write</div>
+   <div class="tbtn" id="minBtn" title="Minimize"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 9h8v2H2z" fill="#000"/></svg></div>
+   <div class="tbtn" id="maxBtn" title="Maximize"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 1.5h9v9h-9z" fill="none" stroke="#000"/><path d="M2 3h8" stroke="#000"/></svg></div><button type="button" class="tbtn" id="closeWPBtn" title="Close Lamplight Write" aria-label="Close Lamplight Write"><svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><path d="m1 1 9 9M10 1l-9 9" stroke="#000" stroke-width="2"/></svg></button></div>
   <div class="mbar" id="mbar">
    <div class="m" data-menu="file"><u>F</u>ile</div><div class="m" data-menu="edit"><u>E</u>dit</div><div class="m" data-menu="view"><u>V</u>iew</div><div class="m" data-menu="insert"><u>I</u>nsert</div><div class="m" data-menu="font">F<u>o</u>rmat</div><div class="m" data-menu="tools"><u>T</u>ools</div><div class="m" data-menu="table">T<u>a</u>ble</div><div class="m" data-menu="window"><u>W</u>indow</div><div class="m" data-menu="help"><u>H</u>elp</div><div class="m" data-menu="go"><u>G</u>o</div>
   </div>
@@ -954,7 +956,7 @@ document.querySelectorAll("[data-rz]").forEach(function(h){h.addEventListener("m
  document.addEventListener("mousemove",mv);document.addEventListener("mouseup",up)})});
 var preMax=null;
 function maxi(){var w=$("wp"),S=$("screen");if(preMax){Object.assign(w.style,preMax);preMax=null}else{preMax={left:w.style.left,top:w.style.top,width:w.style.width,height:w.style.height};Object.assign(w.style,{left:"0px",top:"0px",width:S.clientWidth+"px",height:(S.clientHeight-28)+"px"})}
- $("maxBtn").innerHTML=preMax?'<svg width="9" height="11"><polygon points="0,4 9,4 4.5,0" fill="#000"/><polygon points="0,7 9,7 4.5,11" fill="#000"/></svg>':'<svg width="9" height="5"><polygon points="0,5 9,5 4.5,0" fill="#000"/></svg>';drawRuler();draw()}
+ $("maxBtn").innerHTML=preMax?'<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 1.5h6v6h-6z" fill="#c0c0c0" stroke="#000"/><path d="M5 3h5" stroke="#000"/><path d="M1.5 4.5h6v6h-6z" fill="#c0c0c0" stroke="#000"/><path d="M2 6h5" stroke="#000"/></svg>':'<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 1.5h9v9h-9z" fill="none" stroke="#000"/><path d="M2 3h8" stroke="#000"/></svg>';$("maxBtn").title=preMax?"Restore":"Maximize";drawRuler();draw()}
 function mini(){$("wp").style.display="none";$("taskWP").classList.remove("dn")}
 var wpClosed=true;
 function closeWP(){clearTimeout(sT);savePos();closeMenu();if(lexOn)lexOpen(false);if(excOn)exc(false);if(helpOn)help(false);["dLib","dAbout","dMsg"].forEach(closeDlg);XS=null;XP=0;view=B?"typ":"lib";page.innerHTML="";lastCh=-1;wpClosed=true;$("wp").style.display="none";$("taskWP").style.display="";$("taskWP").classList.remove("dn");$("taskWP").title="Open Lamplight Write";$("taskWP").dataset.closed="true";}
