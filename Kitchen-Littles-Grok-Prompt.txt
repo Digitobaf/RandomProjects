@@ -1,0 +1,60 @@
+You are continuing my Kitchen Littles project. I want help applying my corrections and adding the sound-effect files I supply. Continue from the attached code and artwork; do not start over or redesign the project without asking.
+
+WHAT THE PROJECT IS
+Kitchen Littles is an interactive toy-kitchen program inside Casey’s Room, my existing standalone HTML desktop containing several independent little programs. The kitchen is inspired by real 1990s TYCO Kitchen Littles miniatures. It should feel like a tactile paper-doll/sticker game from the old Barbie, Hello Kitty, Polly Pocket, Postopia and girly Flash/CD-ROM era. The appliances, food, dishes and tools should look like photographed molded toys and real miniature metal cookware, rather than generic cartoon icons or a modern full-size kitchen.
+
+CURRENT STATE
+The gameplay code, artwork atlas, inventory and desktop integration shell have been written. There are 98 catalogue entries: six fixed appliances and 92 movable item types, with multiple pieces where specified. The inventory expands to 105 movable instances; the birthday cake additionally tracks four conserved serving segments. Core playthrough tests and desktop launch/minimize/drag/close tests passed. However, this kitchen has NOT yet been integrated into the canonical Casey’s Room HTML or published as an updated download.
+
+The remaining integration dependency is my ORIGINAL APPROVED WINDOW FRAME IMAGE. I will attach it. The previous assistant remembered the design but could not retrieve its original image from the earlier conversation. Do not pretend it is included or regenerate a substitute. The included frameless gameplay preview is a development preview, NOT the approved final window.
+
+APPROVED APPEARANCE
+- Preserve my exact purple molded window frame, TYCO Kitchen Littles logo at upper left, centred pink chef-hat badge with flowers, purple/white gingham trim, yellow inner border, and yellow minimize/close buttons. Use the actual supplied image and align control hit areas to its existing buttons.
+- Inside: warm wooden cupboards, cream tiled counters, delicate floral wallpaper and a cozy autumn window. This is an original made-up kitchen.
+- The kitchen wall is front-facing. The separate BLUE-AND-WHITE GINGHAM preparation/serving surface below is strictly TOP-DOWN: no angled tabletop, legs or chairs.
+- Both counters must meet the stove’s cooking surface at exactly the same height, not the top of its rear control panel.
+- Keep the game window small. Countertop appliances remain prominent and readable, while food and tableware have believable relative sizes. Use the scale and fit data in PLAN.json. Food must fit its bowls, pots, plates and oven; do not enlarge every object for display or scatter the whole inventory across the table.
+- Preserve the actual toy designs: cream fridge/stove with lavender handles, plain SILVER METAL fridge dispenser surround, real-metal rose-and-heart toaster with pink lever, floral metal blender, pink dome popcorn machine and yellow lever can opener.
+
+LAYOUT AND STORAGE
+Six fixed appliances: fridge at far left with clearance for both doors; toaster and narrow can opener on left counter; stove in centre; blender beside stove on right counter; popcorn machine at far right.
+
+There are five cupboards, two drawers and the fridge/freezer. Only ONE storage unit can be open at a time globally. Both fridge doors count as one unit. Opening a cupboard, drawer or fridge closes the previous storage unit. Oven doors and removable lids are independent of this storage rule.
+- Upper left pantry: bread, cereals and jam.
+- Upper right cupboard: dishes, bowls, mug and drinking vessels.
+- Lower left cupboard: frying pans, griddle, saucepans and matching lids.
+- Lower middle cupboard: turkey roaster, pizza tray and cake stand.
+- Lower right cupboard: food cans, pizza box, chips and popcorn snacks.
+- Shallow cutlery drawer above the lower-left cupboard: pink knife/fork/spoon and turquoise knife.
+- Cooking/serving drawer under blender: spatula, cooking spoon, pasta serving spoon, cake server, pizza cutter and ice-cream scooper.
+- Fridge/freezer: chilled foods, drinks, condiments, produce and frozen foods in their assigned groups.
+
+Every object must remain accounted for. Closing storage does not teleport loose objects home. Moving a container carries its contents. Alternate views, cooked states and drink fills are states of the same object, not duplicate inventory. Repeated items across reference packs are reused; there is only one turkey roasting pan. Follow FOOD-ACCOUNTING.md and ITEMS-AND-SOUNDS.csv, which cover all breakfast, Italian/Pasta Fun, freezer, birthday, pizza, cookout, picnic, canned-food and popcorn items.
+
+IMPORTANT INTERACTIONS
+- Drag food, dishes and tools between storage, table, counter and matching containers. Save the arrangement and contents between sessions.
+- Toaster: two bread/waffle slots, lever lowers, food heats and visibly pops up.
+- Stove: cookware on burners; spaghetti fits the green-handled pot; eggs/bacon use frying pans; pancakes/French toast use griddle. Turkey in its existing roaster, pizza on tray, and frozen dinner use the oven, with timer and warm glow.
+- Blender: remove lid, use scooper to lift the three ice-cream balls from Dreyer’s tub into jar, add milk, close lid, blend and pour into the dedicated shake vessel. Ingredients transfer into one batch without creating copies.
+- Popcorn: turning the crank makes enclosed white toy balls bounce, like its rubber-band mechanism; releasing it lets them settle. The serving popcorn insert and bowl are separate from the mechanism beads.
+- Yellow can opener: slot in peach, corn or SpaghettiOs can; lever releases its matching removable lid. Lids refit their own cans.
+- Fridge dispenser: clear glass under lever; clear, chunky, angular toy ice cubes drop into it, matching my supplied reference. No opaque white balls or milky ice.
+- One ordinary tumbler has empty, milk, orange-juice, cola and ice states; the tall shake has its own vessel.
+- Salad and green vegetable inserts must slot into a separate bowl and lift out again; one insert at a time.
+- Birthday cake has removable segments and a stand/server; served pieces leave a gap and can return. Pizza Party has four quarters that assemble on the tray, separate with its cutter, and serve on plates. The smaller Italian-pack whole pizza is a different toy.
+
+SOUND EFFECTS AND CORRECTIONS
+Use only sound files I supply. No replacement generated audio, stock sounds, background music or borrowed sounds from other Casey’s Room programs unless I request it. SOUND-CUES.csv lists 54 action cues; ITEMS-AND-SOUNDS.csv associates cues with items and has blank filename fields. Several passive items can share a placement/clink/rustle sound. Preserve the labels and update the filename mapping as I supply clips.
+
+The code exposes CaseyKitchen.setSounds(map) and emits kitchen:sound events. Add supplied clips through that routing and embed them for offline use. Appliance loops should follow the actual action and stop when it stops or the window is minimized/closed. One-shot sounds should not repeat from rendering. Keep volume comfortable. If a clip needs trimming or its intended action is unclear, use my instructions or ask a concise question.
+
+Apply my visual and behaviour corrections to this existing implementation. Preserve what already works. Tell me honestly what you changed and tested; do not claim files were edited or published unless you actually did so.
+
+TECHNICAL AND DELIVERY RULES
+The canonical app is Caseys-Room-with-Mood-Ring.html. Keep it a complete standalone HTML file with embedded artwork/fonts/audio. Preserve every other program, especially Lamplight Write and Diary, including their code, appearance and saved data. Kitchen uses its own storage key, caseysRoomKitchen:v1; preserve that key during corrections.
+
+Source is in program/kitchen.js, kitchen.css and desktop.js. PLAN.json is the catalogue/scale data; program/ASSETS.json maps sprites to the included WebP sheets. program/build-program.py produces the embedded block and gameplay preview. program/integrate.py appends only the independent kitchen block and deliberately requires frame-config.json using the original approved artwork and measured content/button rectangles. Read README-HANDOFF.md and program/IMPLEMENTATION.md before building.
+
+For delivery, retain the canonical filename and create Caseys-Room.zip containing that exact single HTML. If you have authorized access to Digitobaf/RandomProjects, follow AGENTS.md: normal commit/push to main, never force-push, verify the anonymous SHA-pinned raw ZIP matches, then provide the direct link. If you cannot access GitHub, say so and provide the actual revised files without pretending they were published. I normally unzip and replace the same filename in the same folder so local saved data stays available.
+
+First inspect the attached handoff files, identify any missing original frame or sound files, and continue from the existing program. My next messages will contain corrections and sound effects.
