@@ -4724,8 +4724,8 @@ window.CaseyWeatherDial={show,minimize,close:closeProgram,pull,state:()=>({opene
 <!-- END CASEY WEATHER DIAL PROGRAM -->
 <style id="caseyDesktopInteractionStyles">
 #icons{left:0!important;top:0!important;width:100%;height:calc(100% - 28px);max-height:none!important;display:block!important;pointer-events:none;overflow:visible}
-#icons .icon{pointer-events:auto;width:88px;cursor:default;user-select:none;-webkit-user-select:none}
-#icons .icon span{background:transparent;color:white;text-shadow:1px 1px 2px #000;overflow-wrap:anywhere}
+#icons .icon{pointer-events:auto;width:80px;height:82px;cursor:default;user-select:none;-webkit-user-select:none}
+#icons .icon span{background:transparent;color:white;text-shadow:1px 1px #000;overflow-wrap:normal}
 #icons .icon.sel span{background:#000080;color:white;outline:1px dotted white;text-shadow:none}
 #icons .desktop-selection{position:absolute;pointer-events:none;border:1px dotted #fff;background:rgba(30,90,200,.18);z-index:100}
 #icons .desktop-selection[hidden]{display:none}
@@ -4739,22 +4739,38 @@ const replacements={"caseyDiaryIcon":{"task":"caseyDiaryTask","src":"data:image/
 'use strict';
 const screen=document.getElementById('screen'),icons=document.getElementById('icons');
 if(!screen||!icons)return;
-const KEY='caseysRoom:desktopIcons:v1';let saved={};
+const KEY='caseysRoom:desktopIcons:v2';let saved={};
 try{saved=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(_){}
-let gesture=null,draggedUntil=0;const items=()=>[...icons.querySelectorAll('.icon')];
+let gesture=null,draggedUntil=0,draggedIcons=new Set();const items=()=>[...icons.querySelectorAll('.icon')];
 const key=n=>n.id||'legacy-'+n.dataset.i;
 const bounds=()=>({w:screen.clientWidth,h:Math.max(100,screen.clientHeight-(document.getElementById('taskbar')?.offsetHeight||28))});
 const point=e=>{const r=screen.getBoundingClientRect();return{x:(e.clientX-r.left)*screen.clientWidth/r.width,y:(e.clientY-r.top)*screen.clientHeight/r.height};};
 const clear=()=>items().forEach(n=>n.classList.remove('sel'));
 const set=(n,on)=>{n.classList.toggle('sel',on);n.setAttribute('aria-selected',String(on));};
+const GX=90,GY=88,PAD=8;
+function grid(){const {w,h}=bounds();return{cols:Math.max(1,Math.floor((w-PAD*2)/GX)),rows:Math.max(1,Math.floor((h-PAD*2)/GY))};}
+const cell=n=>({c:Math.round((n.offsetLeft-PAD)/GX),r:Math.round((n.offsetTop-PAD)/GY)});
+const stamp=p=>p.c+','+p.r;
+function place(n,p){n.style.left=PAD+p.c*GX+'px';n.style.top=PAD+p.r*GY+'px';}
+function freeCells(){const {cols,rows}=grid(),out=[];for(let c=0;c<cols;c++)for(let r=0;r<rows;r++)out.push({c,r});return out;}
+function snapGroup(g,dx,dy){
+ const {cols,rows}=grid(),moving=new Set(g.group.map(a=>a.n)),occupied=new Set(items().filter(n=>!moving.has(n)).map(n=>stamp(cell(n))));
+ const anchor=g.group.find(a=>a.n===g.n)||g.group[0];if(!anchor)return false;
+ const ac=Math.round((anchor.x-PAD)/GX),ar=Math.round((anchor.y-PAD)/GY),wanted={c:ac+Math.round(dx/GX),r:ar+Math.round(dy/GY)};
+ const candidates=freeCells().sort((a,b)=>(a.c-wanted.c)**2+(a.r-wanted.r)**2-((b.c-wanted.c)**2+(b.r-wanted.r)**2));
+ for(const p of candidates){const proposed=g.group.map(a=>({n:a.n,c:p.c+Math.round((a.x-PAD)/GX)-ac,r:p.r+Math.round((a.y-PAD)/GY)-ar}));
+  if(proposed.every(q=>q.c>=0&&q.c<cols&&q.r>=0&&q.r<rows&&!occupied.has(stamp(q)))){proposed.forEach(q=>place(q.n,q));return true;}
+ }return false;
+}
 function layout(){
- const {w,h}=bounds(),rows=Math.max(1,Math.floor((h-20)/100));
+ const {rows}=grid(),occupied=new Set(),cells=freeCells();
  items().forEach((n,i)=>{n.style.position='absolute';n.style.touchAction='none';n.setAttribute('role','option');n.tabIndex=0;
-  const p=saved[key(n)],x=p&&Number.isFinite(p.x)?p.x*w/(p.w||w):12+Math.floor(i/rows)*104,y=p&&Number.isFinite(p.y)?p.y*h/(p.h||h):12+(i%rows)*100;
-  n.style.left=Math.max(0,Math.min(w-n.offsetWidth,x))+'px';n.style.top=Math.max(0,Math.min(h-n.offsetHeight,y))+'px';n.setAttribute('aria-selected',String(n.classList.contains('sel')));
+  const p=saved[key(n)],wanted=p&&Number.isInteger(p.c)&&Number.isInteger(p.r)?p:{c:Math.floor(i/rows),r:i%rows};
+  const chosen=cells.filter(q=>!occupied.has(stamp(q))).sort((a,b)=>(a.c-wanted.c)**2+(a.r-wanted.r)**2-((b.c-wanted.c)**2+(b.r-wanted.r)**2))[0];
+  if(chosen){place(n,chosen);occupied.add(stamp(chosen));}n.setAttribute('aria-selected',String(n.classList.contains('sel')));
  });
 }
-function persist(){const {w,h}=bounds();items().forEach(n=>{saved[key(n)]={x:n.offsetLeft,y:n.offsetTop,w,h};});try{localStorage.setItem(KEY,JSON.stringify(saved));}catch(_){} }
+function persist(){items().forEach(n=>{saved[key(n)]=cell(n);});try{localStorage.setItem(KEY,JSON.stringify(saved));}catch(_){} }
 const marquee=document.createElement('div');marquee.className='desktop-selection';marquee.hidden=true;icons.append(marquee);
 function blank(t){return ['screen','wall','wall256','icons'].includes(t.id);}
 document.addEventListener('pointerdown',e=>{
@@ -4784,11 +4800,11 @@ document.addEventListener('pointermove',e=>{
 },true);
 function end(e,cancel=false){const g=gesture;if(!g||e.pointerId!==g.id)return;gesture=null;marquee.hidden=true;
  if(cancel&&g.kind==='icons')g.group.forEach(a=>{a.n.style.left=a.x+'px';a.n.style.top=a.y+'px';});
- else if(g.kind==='icons'){if(g.moved){persist();draggedUntil=Date.now()+350;}else if(g.collapse){clear();set(g.n,true);}}
+ else if(g.kind==='icons'){if(g.moved){const a=g.group.find(a=>a.n===g.n)||g.group[0];const dx=a?a.n.offsetLeft-a.x:0,dy=a?a.n.offsetTop-a.y:0;if(!snapGroup(g,dx,dy))g.group.forEach(a=>{a.n.style.left=a.x+'px';a.n.style.top=a.y+'px';});persist();draggedIcons=new Set(g.group.map(a=>a.n));draggedUntil=Date.now()+350;}else if(g.collapse){clear();set(g.n,true);}}
  items().forEach(n=>n.setAttribute('aria-selected',String(n.classList.contains('sel'))));
 }
 document.addEventListener('pointerup',e=>end(e),true);document.addEventListener('pointercancel',e=>end(e,true),true);
-document.addEventListener('dblclick',e=>{if(e.target.closest('#icons .icon')&&Date.now()<draggedUntil){e.preventDefault();e.stopImmediatePropagation();}},true);
+document.addEventListener('dblclick',e=>{if(draggedIcons.has(e.target.closest('#icons .icon'))&&Date.now()<draggedUntil){e.preventDefault();e.stopImmediatePropagation();}},true);
 document.addEventListener('contextmenu',e=>{if(e.target.closest('#icons .icon'))e.preventDefault();},true);
 document.addEventListener('keydown',e=>{if(!document.activeElement?.closest('#icons'))return;if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='a'){e.preventDefault();e.stopImmediatePropagation();items().forEach(n=>set(n,true));}else if(e.key==='Escape'){clear();items().forEach(n=>n.setAttribute('aria-selected','false'));}},true);
 new MutationObserver(ms=>{if(ms.some(m=>[...m.addedNodes].some(n=>n.nodeType===1&&n.classList.contains('icon'))))layout();}).observe(icons,{childList:true});
