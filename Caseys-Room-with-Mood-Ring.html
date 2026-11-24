@@ -1011,7 +1011,7 @@ var blinkOn=true;setInterval(function(){if(document.hidden)return;blinkOn=!blink
 function caretSolid(){blinkOn=true}
 (function flick(){var c=$("crt");function at(ms,v){setTimeout(function(){if(!document.hidden&&document.body.classList.contains("crt"))c.style.opacity=v},ms)}at(2350,.96);at(2500,1);at(4150,.96);at(4600,1);setTimeout(flick,5000)})();
 $("taskWP").onclick=function(){var w=$("wp");if(w.style.display==="none"){if(wpClosed)launchLamplight();else showWP()}else mini()};
-$("startB").onclick=function(e){e.stopPropagation();showMenu($("startB"),"start")};
+$("startB").onclick=function(e){e.stopPropagation();if(openM===$("startB")&&drop.style.display!=="none")closeMenu();else showMenu($("startB"),"start")};
 $("startB").addEventListener("mousedown",function(e){e.stopPropagation()});
 /* wallpaper picker (remembered in IndexedDB) */
 var DEFWALL=null;
@@ -4724,9 +4724,10 @@ window.CaseyWeatherDial={show,minimize,close:closeProgram,pull,state:()=>({opene
 <!-- END CASEY WEATHER DIAL PROGRAM -->
 <style id="caseyDesktopInteractionStyles">
 #icons{left:0!important;top:0!important;width:100%;height:calc(100% - 28px);max-height:none!important;display:block!important;pointer-events:none;overflow:visible}
-#icons .icon{pointer-events:auto;width:80px;height:82px;cursor:default;user-select:none;-webkit-user-select:none}
+#icons .icon{pointer-events:auto;width:80px;height:78px;line-height:13px;cursor:default;user-select:none;-webkit-user-select:none}
 #icons .icon span{background:transparent;color:white;text-shadow:1px 1px #000;overflow-wrap:normal}
-#icons .icon.sel span{background:#000080;color:white;outline:1px dotted white;text-shadow:none}
+#icons .icon.sel span{background:#000080;color:white;outline:none!important;text-shadow:none}
+#icons .icon,#icons .icon:focus,#icons .icon:focus-visible,#icons .icon span{outline:none!important;box-shadow:none!important}
 #icons .desktop-selection{position:absolute;pointer-events:none;border:1px dotted #fff;background:rgba(30,90,200,.18);z-index:100}
 #icons .desktop-selection[hidden]{display:none}
 #icons .icon img{object-fit:contain;image-rendering:auto}
@@ -4739,7 +4740,7 @@ const replacements={"caseyDiaryIcon":{"task":"caseyDiaryTask","src":"data:image/
 'use strict';
 const screen=document.getElementById('screen'),icons=document.getElementById('icons');
 if(!screen||!icons)return;
-const KEY='caseysRoom:desktopIcons:v2';let saved={};
+const KEY='caseysRoom:desktopIcons:v3';let saved={};
 try{saved=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(_){}
 let gesture=null,draggedUntil=0,draggedIcons=new Set();const items=()=>[...icons.querySelectorAll('.icon')];
 const key=n=>n.id||'legacy-'+n.dataset.i;
@@ -4747,8 +4748,8 @@ const bounds=()=>({w:screen.clientWidth,h:Math.max(100,screen.clientHeight-(docu
 const point=e=>{const r=screen.getBoundingClientRect();return{x:(e.clientX-r.left)*screen.clientWidth/r.width,y:(e.clientY-r.top)*screen.clientHeight/r.height};};
 const clear=()=>items().forEach(n=>n.classList.remove('sel'));
 const set=(n,on)=>{n.classList.toggle('sel',on);n.setAttribute('aria-selected',String(on));};
-const GX=90,GY=88,PAD=8;
-function grid(){const {w,h}=bounds();return{cols:Math.max(1,Math.floor((w-PAD*2)/GX)),rows:Math.max(1,Math.floor((h-PAD*2)/GY))};}
+const GX=88,GY=80,PAD=8;
+function grid(){const {w,h}=bounds();return{cols:Math.max(1,Math.floor((w-PAD*2)/GX)),rows:Math.max(1,Math.min(10,Math.floor((h-PAD*2)/GY)))};}
 const cell=n=>({c:Math.round((n.offsetLeft-PAD)/GX),r:Math.round((n.offsetTop-PAD)/GY)});
 const stamp=p=>p.c+','+p.r;
 function place(n,p){n.style.left=PAD+p.c*GX+'px';n.style.top=PAD+p.r*GY+'px';}
