@@ -212,7 +212,7 @@ for(const name of ['brokenness','ink','fontSize','volume'])$(name).addEventListe
 for(const name of ['erase','strict','autoReturn'])$(name).addEventListener('change',()=>{engine.set(name,$(name).checked);controls();save();});
 $('correction').onclick=()=>{apply({type:'correction',value:!engine.correction});message(engine.correction?'Correction loaded. Backspace and retype the wrong letter to cover it; then remove the correction paper.':'Correction paper removed. Return to the covered position and type the replacement.');};
 $('zoomHotspot').onclick=()=>setZoom(true);$('exitZoom').onclick=()=>setZoom(false);
-function fresh(){apply({type:'new'});selected=engine.current;message('Fresh sheet loaded. Your earlier sheets are in the books.');if($('booksDialog').open)renderSheets();else focus();}
+function fresh(){apply({type:'new'});selected=engine.current;clearTimeout(toastTimer);$('toast').textContent='';if($('booksDialog').open)renderSheets();else focus();}
 $('newSheetHotspot').onclick=fresh;$('zoomNewSheet').onclick=fresh;$('newSheet').onclick=fresh;
 $('lampHotspot').onclick=()=>{engine.set('lamp',!engine.prefs.lamp);controls();renderer.invalidate();save();focus();};
 function editing(target){return target instanceof Element&&!!target.closest('input,select,textarea,[contenteditable=true]');}
