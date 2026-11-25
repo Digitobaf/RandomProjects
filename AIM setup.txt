@@ -2,7 +2,7 @@ ABBY IN CASEY'S ROOM — WINDOWS
 
 1. Extract the entire ZIP. Keep the updated Casey's Room HTML in its usual folder and use your usual browser/profile so your existing local saves remain accessible.
 2. Double-click Start AIM.cmd. The first run installs Google's official Gemini SDK using Node.js.
-3. At the private Key prompt, paste your Gemini API key and press Enter. The key is not displayed. It is saved only in aim-local/.env on your computer.
+3. A window titled Connect Abby to Gemini opens. Paste your key into its text field and choose Save key. The field shows your typing and accepts Ctrl+V. Your key is saved only in aim-local/.env on your computer.
 4. Keep the launcher window open. Casey's Room opens in your default browser.
 5. Open AOL Instant Messenger. Enter any screen name and choose Sign On; the AIM password field is unused. Cancel skips the connecting animation.
 6. Select xXx_SoupSlut_xXx to talk to Abby. Enter sends a message; Shift+Enter adds a line. Book buddies such as Helga still transcribe ebooks as before.
@@ -17,7 +17,7 @@ ABBY'S CHARACTER
 Edit Abby.cmd opens her local character notes. Save the file and restart the launcher to apply changes. Your local abby-profile.txt is preserved on future updates and excluded from Git and download ZIPs.
 
 YOUR KEY
-Do not enter the API key into AIM's chat or password field. To change the key, close the running launcher and use Set Gemini Key.cmd. Then start AIM again.
+Do not enter the API key into AIM's chat or password field. To change the key, close the running launcher and use Set Gemini Key.cmd. A normal Windows dialog opens; you do not enter the key in the black window. Then start AIM again.
 The Google key stays in the local service. The HTML sends messages only to 127.0.0.1, using a temporary local session token. It does not receive the Google key.
 .env, local session files, and installed dependencies are excluded from version control and from the distributed ZIP.
 
