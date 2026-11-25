@@ -5149,11 +5149,11 @@ window.CaseyDesktopRefresh={run,get lastReport(){return lastReport;},get busy(){
  const rimPaint=gradient('rk-new-rim',[[0,'#dfb77b'],[.45,'#b17d43'],[1,'#78502e']]);
  const emptyPaint=gradient('rk-new-empty',[[0,'#38291f'],[1,'#594031']]);
  const tracks=[
-  ['hunger',105,245,'#f5bc81','#db8148'],
-  ['fun',298,229,'#f2d675','#d1a532'],
-  ['hygiene',486,230,'#9bceca','#5caaa8'],
-  ['energy',674,233,'#c7b3db','#9b7dbb'],
-  ['creativity',861,227,'#b9ca83','#8da34e']
+  ['hunger',105,245,'#c6a17c','#a47f5b'],
+  ['fun',298,229,'#b56760','#91463e'],
+  ['hygiene',486,230,'#8da3ba','#627d9d'],
+  ['energy',674,233,'#b2a2ba','#8b7898'],
+  ['creativity',861,227,'#a7ad87','#808c62']
  ];
  for(const [key,left,originalWidth,light,dark] of tracks){
   const meter=meters.querySelector('.rk-meter[data-metric='+key+']'),source=meter.querySelector('.rk-painted-fill');
