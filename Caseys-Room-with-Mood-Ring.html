@@ -5146,6 +5146,8 @@ window.CaseyDesktopRefresh={run,get lastReport(){return lastReport;},get busy(){
 #caseyRuskin .rk-meter-full,#caseyRuskin .rk-meter-depleted{pointer-events:none}
 #caseyRuskin .rk-meter-depleted{fill:url(#rk-frame-empty-track);transition:x .8s linear,width .8s linear}
 @media(prefers-reduced-motion:reduce){#caseyRuskin .rk-meter-depleted{transition:none}}
+
+#caseyRuskin .rk-meter-rim{fill:#603416;pointer-events:none}
 </style>
 <script id="caseyRuskinMeterPresentation">
 /* Presentation only. The full left-anchored color never moves; empty space grows from the right. */
@@ -5160,7 +5162,9 @@ window.CaseyDesktopRefresh={run,get lastReport(){return lastReport;},get busy(){
   const fill=meters.querySelector('.rk-meter[data-metric='+key+'] .rk-painted-fill');if(!fill)continue;
   const id='rk-frame-track-'+key,clip=make('clipPath',{id,clipPathUnits:'userSpaceOnUse'});clip.append(make('rect',bounds));defs.append(clip);
   const layer=make('g',{'clip-path':'url(#'+id+')',class:'rk-meter-track','aria-hidden':'true'}),color=make('rect',{...bounds,rx:0,class:'rk-meter-full'}),depleted=make('rect',{x:bounds.x,y:bounds.y,width:bounds.width,height:bounds.height,class:'rk-meter-depleted'});
-  fill.before(layer);layer.append(color,depleted);
+  // An opaque rim covers the old orange paint beneath the complete recess.
+  const rimSize=3*(2172/1008),rim=make('rect',{x:bounds.x-rimSize,y:bounds.y-rimSize,width:bounds.width+rimSize*2,height:bounds.height+rimSize*2,rx:bounds.rx+rimSize,class:'rk-meter-rim','aria-hidden':'true'});
+  fill.before(rim,layer);layer.append(color,depleted);
   const sync=()=>{const ratio=Math.max(0,Math.min(1,Number(fill.getAttribute('width'))/originalWidths[key]));depleted.style.x=(bounds.x+bounds.width*ratio)+'px';depleted.style.width=(bounds.width*(1-ratio))+'px';};sync();
   new MutationObserver(sync).observe(fill,{attributes:true,attributeFilter:['width']});
  }
