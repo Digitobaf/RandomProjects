@@ -1,0 +1,36 @@
+ABBY IN CASEY'S ROOM — WINDOWS
+
+1. Extract the entire ZIP. Keep the updated Casey's Room HTML in its usual folder and use your usual browser/profile so your existing local saves remain accessible.
+2. Double-click Start AIM.cmd. The first run installs Google's official Gemini SDK using Node.js.
+3. At the private Key prompt, paste your Gemini API key and press Enter. The key is not displayed. It is saved only in aim-local/.env on your computer.
+4. Keep the launcher window open. Casey's Room opens in your default browser.
+5. Open AOL Instant Messenger. Enter any screen name and choose Sign On; the AIM password field is unused. Cancel skips the connecting animation.
+6. Select xXx_SoupSlut_xXx to talk to Abby. Enter sends a message; Shift+Enter adds a line. Book buddies such as Helga still transcribe ebooks as before.
+
+If the browser asks whether Casey's Room can connect to your local network, allow it for the local AIM connection.
+
+YOUR SAVES
+Abby's messages and unfinished draft are stored in a separate browser database. Closing AIM, restarting the launcher, or a failed API call does not intentionally delete them. Keep using the same browser/profile and HTML location. Clearing site data or using a private browsing window can remove or isolate these saves.
+Recent conversation is sent to Gemini with Abby's character instructions. Older messages remain in the local history; this first version does not add a separate long-term memory/summary system.
+
+ABBY'S CHARACTER
+Edit Abby.cmd opens her local character notes. Save the file and restart the launcher to apply changes. Your local abby-profile.txt is preserved on future updates and excluded from Git and download ZIPs.
+
+YOUR KEY
+Do not enter the API key into AIM's chat or password field. To change the key, close the running launcher and use Set Gemini Key.cmd. Then start AIM again.
+The Google key stays in the local service. The HTML sends messages only to 127.0.0.1, using a temporary local session token. It does not receive the Google key.
+.env, local session files, and installed dependencies are excluded from version control and from the distributed ZIP.
+
+CONNECTION TROUBLE
+- Keep Start AIM.cmd open while chatting. Opening the HTML directly still runs the existing apps, but Abby needs the launcher for a new connection.
+- If a reply fails, the sent message remains visible. Choose Retry beside the error to ask for the reply again.
+- Free-tier limits can require waiting before retrying. There is no automatic switch to another model or to paid billing.
+- The model defaults to gemini-3.1-flash-lite. If Google reports that this model is unavailable for your project, select an available free-tier text model in AI Studio and change GEMINI_MODEL in aim-local/.env. Restart the launcher.
+- If setup says Node.js is missing or too old, install the current LTS from https://nodejs.org/.
+- Close any old AIM launcher window before replacing its files or changing the key.
+
+PRIVACY
+Gemini needs internet access. The unpaid API can use submitted content and responses for product improvement, including human review, subject to Google's applicable regional terms. Your messages are sent to Google only when you send or retry a chat message. No API subscription to Gemini Advanced is required.
+
+VERIFICATION
+The chat flow, storage, retry behavior, book-mode compatibility, and official SDK request format were tested with controlled responses. A live Google request requires your own key and project access on your computer. This build environment cannot run Windows .cmd files or open local file:// browser pages.

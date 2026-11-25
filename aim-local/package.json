@@ -1,0 +1,1 @@
+{"name":"caseys-room-aim-local","version":"1.0.0","private":true,"type":"module","engines":{"node":">=22"},"scripts":{"start":"node launch.mjs","test":"node --test server.test.mjs"},"dependencies":{"@google/genai":"3.6.1"}}
