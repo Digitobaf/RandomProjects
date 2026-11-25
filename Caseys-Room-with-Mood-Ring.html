@@ -920,7 +920,7 @@ var MENUS={
  table:[["Insert Table\u2026","",D,null,1],["Select Table","",D,null,1],["Table Properties\u2026","",D,null,1]],
  window:[["Library\u2026","Esc",BB.lib],null,["Minimize","",mini],["Maximize / Restore","",maxi],["Close Lamplight Write","",closeWP]],
  help:[["Keyboard\u2026","F1",function(){help(true)}],null,["About Lamplight Write\u2026","",about]],
- desk:[["Wallpaper\u2026","",function(){pickWall()}],["Reset Wallpaper to Default","",function(){resetWall()}],null,["256-Color Wallpaper","",function(){set256(!document.body.classList.contains("c256"))},function(){return document.body.classList.contains("c256")}]],
+ desk:[["Refresh","",function(){window.CaseyDesktopRefresh.run()}],null,["Wallpaper\u2026","",function(){pickWall()}],["Reset Wallpaper to Default","",function(){resetWall()}],null,["256-Color Wallpaper","",function(){set256(!document.body.classList.contains("c256"))},function(){return document.body.classList.contains("c256")}]],
  start:[["Lamplight Write","",function(){launchLamplight()}],["My Books\u2026","",function(){showWP();showView("lib")}],["Excerpt Archive\u2026","F6",function(){showWP();exc(true)}],null,["Monitor Mode","",function(){document.body.classList.toggle("bezel");relayout()},function(){return document.body.classList.contains("bezel")}],["CRT Monitor Haze","",function(){var on=document.body.classList.toggle("crt");try{localStorage.setItem("lamplightCRT",on?"1":"0")}catch(e){}bakeWall();},function(){return document.body.classList.contains("crt")}],["256-Color Wallpaper","",function(){set256(!document.body.classList.contains("c256"))},function(){return document.body.classList.contains("c256")}],["Wallpaper\u2026","",function(){pickWall()}],null,["About Casey's Room\u2026","",aboutRoom]],
  sys:[["Restore","",function(){if(preMax)maxi()}],["Move","",D,null,1],["Size","",D,null,1],["Minimize","",mini],["Maximize","",maxi],null,["Close","Alt+F4",function(){if(sysTarget==="wp")closeWP();else $(sysTarget).style.display="none"}]]
 };
@@ -4751,6 +4751,8 @@ document.getElementById('startB')?.addEventListener('click',()=>{const menu=docu
 screen.addEventListener('pointerdown',e=>{if(opened&&!root.hidden&&!hit.contains(e.target)&&!icon.contains(e.target)&&!task.contains(e.target))lower();},true);
 window.addEventListener('resize',layout);if(window.ResizeObserver)new ResizeObserver(layout).observe(screen);
 window.CaseyWeatherDial={show,minimize,close:closeProgram,pull,state:()=>({opened,hidden:root.hidden,step,knob,vol:vol(),idx:curIdx,ctx:AC&&AC.state})};
+window.addEventListener('caseysroom:refresh',event=>event.detail.add('Elsewhere',async()=>{if(opened||!AC)return null;const context=AC;await loading;if(opened||AC!==context)return null;const buffers=bufs.filter(Boolean),bytes=buffers.reduce((n,b)=>n+b.length*b.numberOfChannels*4,0);if(cur){try{cur.s.stop();}catch(_){}cur.s.disconnect();cur.g.disconnect();}cur=null;curIdx=-1;master?.disconnect();master=null;bufs=[null,null,null,null];leverBuf=null;loading=null;AC=null;await context.close().catch(()=>{});return{audioBuffersReleased:buffers.length,bytesOfCacheReleased:bytes};}));
+
 })();
 </script>
 <!-- END CASEY WEATHER DIAL PROGRAM -->
@@ -4843,6 +4845,7 @@ document.addEventListener('keydown',e=>{if(!document.activeElement?.closest('#ic
 new MutationObserver(ms=>{if(ms.some(m=>[...m.addedNodes].some(n=>n.nodeType===1&&n.classList.contains('icon'))))layout();}).observe(icons,{childList:true});
 new ResizeObserver(()=>{if(!gesture)layout();}).observe(screen);
 icons.setAttribute('role','listbox');icons.setAttribute('aria-label','Desktop programs');icons.setAttribute('aria-multiselectable','true');layout();
+window.addEventListener('caseysroom:refresh',event=>event.detail.add('Desktop icons',()=>{if(gesture)return null;layout();return{layoutRefreshed:true};}));
 })();
 
 </script>
@@ -5048,7 +5051,8 @@ function prepareClip(){const a=api(),c=document.createElement('canvas');c.width=
 }
 function activate(){const a=api();if(!a||root.hidden||document.hidden)return;a.audio.wake();a.renderer.resize();clipDesk();const d=frame.contentDocument;if(frontmost&&!d.querySelector('dialog[open]'))d.getElementById('work')?.focus({preventScroll:true});}
 function relay(){front();root.dispatchEvent(new PointerEvent('pointerdown',{bubbles:true,cancelable:true,button:0,isPrimary:true,pointerType:'mouse'}));root.dispatchEvent(new MouseEvent('mousedown',{bubbles:true,cancelable:true,button:0}));}
-function wire(){const current=frame;if(!current)return;current.contentDocument.addEventListener('pointerdown',relay,true);const started=performance.now();function ready(){if(frame!==current)return;if(!api()?.renderer.ready){if(performance.now()-started<30000)readyTimer=setTimeout(ready,40);return;}prepareClip();new MutationObserver(clipDesk).observe(current.contentDocument.getElementById('work'),{attributes:true,attributeFilter:['class']});new MutationObserver(clipDesk).observe(current.contentDocument.body,{attributes:true,attributeFilter:['open'],subtree:true});if(root.hidden||document.hidden)pause();else activate();}ready();}
+function wire(){const current=frame;if(!current)return;current.contentDocument.addEventListener('pointerdown',relay,true);current.contentDocument.addEventListener('contextmenu',event=>{const target=event.target;if(!(target instanceof current.contentWindow.Element)||target.closest('button,input,textarea,select,dialog'))return;const canvas=target.closest('canvas');let empty=!canvas;if(canvas){const rect=canvas.getBoundingClientRect(),x=Math.floor((event.clientX-rect.left)*canvas.width/rect.width),y=Math.floor((event.clientY-rect.top)*canvas.height/rect.height);try{empty=canvas.getContext('2d').getImageData(Math.max(0,Math.min(canvas.width-1,x)),Math.max(0,Math.min(canvas.height-1,y)),1,1).data[3]<8;}catch(_){return;}}if(!empty)return;event.preventDefault();const rect=current.getBoundingClientRect();document.getElementById('wall').dispatchEvent(new MouseEvent('contextmenu',{bubbles:true,cancelable:true,clientX:rect.left+event.clientX*rect.width/current.clientWidth,clientY:rect.top+event.clientY*rect.height/current.clientHeight}));});
+const started=performance.now();function ready(){if(frame!==current)return;if(!api()?.renderer.ready){if(performance.now()-started<30000)readyTimer=setTimeout(ready,40);return;}prepareClip();new MutationObserver(clipDesk).observe(current.contentDocument.getElementById('work'),{attributes:true,attributeFilter:['class']});new MutationObserver(clipDesk).observe(current.contentDocument.body,{attributes:true,attributeFilter:['open'],subtree:true});if(root.hidden||document.hidden)pause();else activate();}ready();}
 function ensureFrame(){clearTimeout(dropTimer);if(frame)return;frame=el('iframe','tw-frame');frame.title='Typewriter writing desk';frame.setAttribute('allow','autoplay');frame.addEventListener('load',wire);frame.srcdoc=PROGRAM;body.append(frame);}
 function dropFrame(){clearTimeout(readyTimer);if(frame){frame.remove();frame=null;}}
 function show(){opened=true;root.hidden=false;task.hidden=false;ensureFrame();document.querySelectorAll('#icons .icon').forEach(n=>n.classList.remove('sel'));layout();front();activate();}
@@ -5067,8 +5071,37 @@ window.addEventListener('pointerdown',e=>{if(opened&&!root.hidden&&!root.contain
 window.addEventListener('resize',layout);if(window.ResizeObserver)new ResizeObserver(layout).observe(screen);
 document.addEventListener('visibilitychange',()=>{if(document.hidden)pause();else if(opened&&!root.hidden)activate();});window.addEventListener('pagehide',pause);
 window.CaseyTypewriter={show,minimize,close:closeProgram,frame:()=>frame,windowKey:WIN_KEY};
+window.addEventListener('caseysroom:refresh',event=>event.detail.add('Typewriter',()=>{if(!opened){clearTimeout(dropTimer);const hadFrame=!!frame,old=api(),context=old?.audio.ctx;dropFrame();if(old)old.audio.buffers={};if(context&&context.state!=='closed')context.close().catch(()=>{});return{closedFramesReleased:Number(hadFrame),audioContextsClosed:Number(!!context)};}const a=api();if(!a?.renderer.ready)return null;a.save();const r=a.renderer;let canvases=0,bytes=0;for(const[id,cache]of [...r.pages])if(id!==a.engine.current){bytes+=cache.image.width*cache.image.height*4;cache.image.width=cache.image.height=1;r.pages.delete(id);canvases++;}const unused=a.engine.prefs.zoom?r.full:r.zoom;if(unused.width>1||unused.height>1){bytes+=unused.width*unused.height*4;unused.width=unused.height=1;canvases++;}return{graphicsCachesReleased:canvases,bytesOfCacheReleased:bytes};}));
+
 })();
 
 </script>
 <!-- END CASEY TYPEWRITER PROGRAM -->
+<!-- BEGIN CASEY DESKTOP REFRESH -->
+<style id="caseyDesktopRefreshStyles">#screen.casey-refreshing{cursor:progress}</style>
+<script id="caseyDesktopRefreshProgram">
+(()=>{
+'use strict';
+const screen=document.getElementById('screen'),wall=document.getElementById('wall'),drop=document.getElementById('drop'),icons=document.getElementById('icons');
+if(!screen||!wall||!drop||!icons)return;
+const EVENT='caseysroom:refresh';let pending=null,lastReport=null,previousFocus=null;
+const announcer=document.createElement('span');announcer.id='caseyRefreshStatus';announcer.setAttribute('role','status');announcer.setAttribute('aria-live','polite');announcer.style.cssText='position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);pointer-events:none';screen.append(announcer);
+function run(){if(pending)return pending;screen.classList.add('casey-refreshing');announcer.textContent='';
+ pending=(async()=>{const jobs=[],report={apps:[],completed:false};window.dispatchEvent(new CustomEvent(EVENT,{detail:{add(name,cleanup){jobs.push(Promise.resolve().then(cleanup).then(result=>{if(result)report.apps.push({name,...result});}).catch(()=>{report.apps.push({name,skipped:true});}));}}}));await Promise.all(jobs);
+ // Redraw from the existing wallpaper and layout models, retaining preferences and positions.
+ window.make256x?.();window.dispatchEvent(new Event('resize'));await new Promise(resolve=>requestAnimationFrame(resolve));report.completed=true;lastReport=report;announcer.textContent='Desktop refreshed.';return report;
+ })().finally(()=>{screen.classList.remove('casey-refreshing');pending=null;});return pending;
+}
+function refreshRow(){return [...drop.querySelectorAll('.it')].find(row=>row.firstElementChild?.textContent==='Refresh');}
+function decorateMenu(){const refresh=refreshRow();if(!refresh||drop.style.display==='none')return;refresh.dataset.desktopRefresh='true';drop.setAttribute('role','menu');drop.setAttribute('aria-label','Desktop');for(const row of drop.querySelectorAll('.it')){row.setAttribute('role','menuitem');row.tabIndex=-1;}
+ const available=Math.max(60,screen.clientHeight-(document.getElementById('taskbar')?.offsetHeight||28)-6);drop.style.maxHeight=available+'px';drop.style.overflowY='auto';drop.style.left=Math.max(2,Math.min(parseFloat(drop.style.left)||0,screen.clientWidth-drop.offsetWidth-2))+'px';drop.style.top=Math.max(2,Math.min(parseFloat(drop.style.top)||0,available-drop.offsetHeight))+'px';
+}
+// Keep the desktop's existing Wallpaper and palette commands in the same classic menu.
+document.addEventListener('contextmenu',event=>{if(!(event.target instanceof Element)||!['wall','wall256','screen','icons'].includes(event.target.id))return;previousFocus=document.activeElement;if(!['wall','wall256'].includes(event.target.id)){event.preventDefault();wall.dispatchEvent(new MouseEvent('contextmenu',{bubbles:true,cancelable:true,clientX:event.clientX,clientY:event.clientY}));}decorateMenu();});
+drop.addEventListener('keydown',event=>{if(!refreshRow()||drop.style.display==='none')return;const rows=[...drop.querySelectorAll('.it:not(.dis)')],i=rows.indexOf(document.activeElement);let next=null;if(event.key==='ArrowDown')next=rows[(i+1)%rows.length];else if(event.key==='ArrowUp')next=rows[(i+rows.length-1)%rows.length];else if(event.key==='Home')next=rows[0];else if(event.key==='End')next=rows.at(-1);else if(['Enter',' '].includes(event.key)&&rows.includes(document.activeElement)){event.preventDefault();event.stopImmediatePropagation();document.activeElement.dispatchEvent(new MouseEvent('mouseup',{bubbles:true,button:0}));return;}else if(event.key==='Escape'){event.preventDefault();event.stopImmediatePropagation();wall.dispatchEvent(new MouseEvent('mousedown',{bubbles:true}));previousFocus?.focus?.({preventScroll:true});return;}if(next){event.preventDefault();event.stopImmediatePropagation();next.focus({preventScroll:true});}});
+window.CaseyDesktopRefresh={run,get lastReport(){return lastReport;},get busy(){return !!pending;}};
+})();
+
+</script>
+<!-- END CASEY DESKTOP REFRESH -->
 </body></html>
