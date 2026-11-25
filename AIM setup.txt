@@ -9,6 +9,9 @@ ABBY IN CASEY'S ROOM — WINDOWS
 
 If the browser asks whether Casey's Room can connect to your local network, allow it for the local AIM connection.
 
+MOVING CASEY'S ROOM
+Close the black launcher window before moving files. Move the entire app folder, including aim-local, so your local key and Abby profile come with it. Then run Start AIM.cmd from the new location. Browser-saved data may be tied to the old HTML location; keep the old copy until any game saves or diary entries you want are checked. Book progress can be restarted. For mGBA, keep the game ROM and the JSON file from File -> Export All Saves. Restore that JSON through File -> Import Save Backup, then open the matching .gba game. An individual .sav export instead uses Import Game Save.
+
 YOUR SAVES
 Abby's messages and unfinished draft are stored in a separate browser database. Closing AIM, restarting the launcher, or a failed API call does not intentionally delete them. Keep using the same browser/profile and HTML location. Clearing site data or using a private browsing window can remove or isolate these saves.
 Recent conversation is sent to Gemini with Abby's character instructions. Older messages remain in the local history; this first version does not add a separate long-term memory/summary system.
