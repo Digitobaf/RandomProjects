@@ -1762,12 +1762,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
    state.logs=new Map(logs.filter(validRecord).map(record=>[record.date,record]));state.prefs={...state.prefs,...prefs};const found=MOODS.findIndex(m=>m.id===state.prefs.selected);state.index=found<0?9:found;state.ready=true;renderStone();layout();
   })();return initialization;
  }
- function write(record,prefs){
-  const saveFallback=()=>{let cached={moods:[]};try{cached=JSON.parse(localStorage.getItem(FALLBACK_KEY)||'{"moods":[]}');}catch(e){}const rows=new Map((cached.moods||[]).filter(validRecord).map(r=>[r.date,r]));if(record)rows.set(record.date,record);localStorage.setItem(FALLBACK_KEY,JSON.stringify({moods:[...rows.values()],prefs}));};
+ function write(record,prefs,removeDate){
+  const saveFallback=()=>{let cached={moods:[]};try{cached=JSON.parse(localStorage.getItem(FALLBACK_KEY)||'{"moods":[]}');}catch(e){}const rows=new Map((cached.moods||[]).filter(validRecord).map(r=>[r.date,r]));if(record)rows.set(record.date,record);if(removeDate)rows.delete(removeDate);localStorage.setItem(FALLBACK_KEY,JSON.stringify({moods:[...rows.values()],prefs}));};
   if(state.fallback){try{saveFallback();return Promise.resolve();}catch(error){return Promise.reject(error);}}
-  return new Promise((resolve,reject)=>{const tx=state.db.transaction(['moods','prefs'],'readwrite');if(record)tx.objectStore('moods').put(record);tx.objectStore('prefs').put({key:'settings',value:prefs});tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error||new Error('Mood Ring save interrupted'));}).catch(error=>{localStorage.setItem(FALLBACK_KEY,JSON.stringify({moods:[...state.logs.values()],prefs}));state.fallback=true;});
+  return new Promise((resolve,reject)=>{const tx=state.db.transaction(['moods','prefs'],'readwrite');if(record)tx.objectStore('moods').put(record);if(removeDate)tx.objectStore('moods').delete(removeDate);tx.objectStore('prefs').put({key:'settings',value:prefs});tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error||new Error('Mood Ring save interrupted'));}).catch(error=>{localStorage.setItem(FALLBACK_KEY,JSON.stringify({moods:[...state.logs.values()],prefs}));state.fallback=true;});
  }
- function persist(record){clearTimeout(prefsTimer);const prefs={...state.prefs};const op=writeChain.catch(()=>{}).then(()=>write(record,prefs));writeChain=op;return op;}
+ function persist(record,removeDate){clearTimeout(prefsTimer);const prefs={...state.prefs};const op=writeChain.catch(()=>{}).then(()=>write(record,prefs,removeDate));writeChain=op;return op;}
  function savePreferences(){clearTimeout(prefsTimer);if(state.ready)prefsTimer=setTimeout(()=>persist(null).catch(()=>showTip('Your position could not be saved.',stoneHit,1600,'error')),160);}
 
  function renderStone(){const mood=selected();stone.src=ASSETS[mood.id];root.dataset.mood=mood.id;root.style.setProperty('--mr-stone-color',mood.color);stoneHit.setAttribute('aria-label','Ring stone: '+mood.colorName+' — '+mood.label+'. Click to change color.');mouseHit.setAttribute('aria-label','Mouse: save '+mood.label+' as today’s mood. Double-click for Month in Jewels.');}
@@ -1917,7 +1917,14 @@ const NECKLACE_POSITIONS=[{"x":515.07,"y":344.59,"rx":18.5,"ry":18.26},{"x":467.
    choices.querySelectorAll('button').forEach(n=>n.disabled=true);const previous=state.logs.get(date),record={date,mood:mood.id,updatedAt:Date.now()};state.logs.set(date,record);
    try{await persist(record);play('celebrate');live.textContent='Saved '+mood.label+' for '+prettyDate(date);renderCalendar();}
    catch(error){if(previous)state.logs.set(date,previous);else state.logs.delete(date);choices.querySelectorAll('button').forEach(n=>n.disabled=false);editor.append(el('p','','Could not save. Please try again.'));}
-  });choices.append(b);}editor.append(choices);const cancel=el('button','mr-necklace-cancel','Cancel');cancel.type='button';cancel.addEventListener('click',()=>editor.remove());editor.append(cancel);stage.append(editor);choices.querySelector('button').focus({preventScroll:true});
+  });choices.append(b);}
+   const empty=el('button','mr-necklace-choice mr-necklace-empty');empty.type='button';empty.dataset.mood='empty';empty.setAttribute('aria-label','Empty — clear mood for '+prettyDate(date));empty.setAttribute('aria-pressed',String(!state.logs.has(date)));
+   const socket=el('span','mr-necklace-empty-stone');socket.setAttribute('aria-hidden','true');empty.append(socket,el('span','','Empty'));
+   empty.addEventListener('click',async()=>{
+    choices.querySelectorAll('button').forEach(n=>n.disabled=true);const previous=state.logs.get(date);state.logs.delete(date);
+    try{await persist(null,date);live.textContent='Cleared mood for '+prettyDate(date);renderCalendar();calendar.querySelector('.mr-necklace-day[data-date="'+date+'"]')?.focus({preventScroll:true});}
+    catch(error){if(previous&&!state.logs.has(date))state.logs.set(date,previous);choices.querySelectorAll('button').forEach(n=>n.disabled=false);editor.append(el('p','','Could not clear. Please try again.'));}
+   });choices.append(empty);editor.append(choices);const cancel=el('button','mr-necklace-cancel','Cancel');cancel.type='button';cancel.addEventListener('click',()=>editor.remove());editor.append(cancel);stage.append(editor);choices.querySelector('button').focus({preventScroll:true});
  }
 
  async function openCalendar(){cancelPending();await ensureReady();const now=new Date();state.year=now.getFullYear();state.month=now.getMonth();calendarMinimized=false;calendar.hidden=false;bringForward();hideTip();renderCalendar();calendar.focus({preventScroll:true});}
@@ -4969,6 +4976,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE. */
 .mr-necklace-choices{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
 .mr-necklace-choice{display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 3px;border:1px solid #bfa06e;border-radius:8px;background:#fff5e0;color:#49321d;font:19px Georgia,serif;cursor:pointer}
 .mr-necklace-choice svg{width:43px;height:40px}
+.mr-necklace-empty-stone{display:block;box-sizing:border-box;width:39px;height:39px;margin:0 2px 1px;border:3px solid #b68b45;border-radius:50%;background:radial-gradient(ellipse at 45% 38%,#4b392b,#211c16);box-shadow:inset 0 1px 3px #0009,0 1px 1px #fff6}
 .mr-necklace-cancel{display:block;margin:15px auto 0;padding:6px 20px;font:20px Georgia,serif;background:#e8d3aa;border:1px solid #98723c;color:#49321d;cursor:pointer}
 
 .mr-necklace-day:focus-visible{box-shadow:0 0 0 2px #edcf80;border-radius:50%}
