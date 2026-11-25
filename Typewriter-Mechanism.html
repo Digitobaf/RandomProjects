@@ -117,6 +117,8 @@ function grad(c,x1,y1,x2,y2,colors){const g=c.createLinearGradient(x1,y1,x2,y2);
 const LEVER='M18 356Q64 245 157 192Q176 183 190 194L195 209Q191 228 179 230L169 218Q102 264 65 361Q59 380 38 379Q12 375 18 356Z';
 const GUIDES='M645 313Q652 315 653 331L648 374H651V382H660V388H664V439Q662 444 658 444H638Q634 443 634 439V381H630L625 384L622 423H625V420Q631 418 631 424L630 431Q622 436 614 430L613 425L617 421L620 381Q622 374 629 374L638 335Z M691 313Q681 315 681 331L687 374H677V382H670V388H666V439Q668 444 672 444H696Q700 443 700 439V381H704L709 384L712 423H709V420Q703 418 703 424L704 431Q712 436 720 430L721 425L717 421L714 381Q712 374 705 374L699 335Z';
 const SIDES='M158 245L166 239V211L184 204V238H266V203H278V322L270 392H158Z M1061 204H1076V226H1114V244L1144 236L1156 252H1187V275H1158L1166 309L1172 400H1096L1061 326Z';
+// Both platen knobs remain mechanically connected to their carriage bearings.
+const AXLES='M136 320L146 319Q151 315 158 316L164 320V375L157 380Q147 378 145 372L136 370Z M1161 313L1171 315Q1181 317 1183 325L1198 328V371L1183 375Q1179 385 1167 381L1161 376Z';
 class TypewriterRenderer{
  constructor(engine,assets){this.engine=engine;this.assets=assets;this.full=document.getElementById('desk');this.zoom=document.getElementById('closeupCanvas');this.sceneWidth=1605;this.sceneLeft=70;this.dpr=Math.min(1.5,devicePixelRatio||1);this.pages=new Map();this.pulses=new Map();this.held=new Set();this.raf=0;this.armStart=-1000;this.armCode='KeyA';this.feedStart=-1000;this.moveStart=0;this.moveDuration=0;this.pan=0;this.frames=0;this.drawTimes=[];this.position=this.target();this.from={...this.position};this.to={...this.position};this.ready=false;}
  async init(){[this.photo,this.deskArt,this.keyboardArt,this.magnifierArt,this.cleanPhoto,this.cleanSpools]=await Promise.all([load(this.assets.photo),load(this.assets.desk),load(this.assets.keyboardBed),load(this.assets.magnifier),load(this.assets.cleanPhoto),load(this.assets.cleanSpools)]);this.buildParts();this.buildBody();this.buildCaps();this.resize();this.ready=true;this.ensurePage();this.draw(performance.now());}
@@ -126,7 +128,7 @@ class TypewriterRenderer{
  photoPart(path,excludeSpools=false){const c=canvas(2624,2398),g=c.getContext('2d');g.scale(2,2);g.imageSmoothingQuality='high';g.clip(new Path2D(path));g.drawImage(this.cleanPhoto,0,0,1312,1199);if(excludeSpools){g.globalCompositeOperation='destination-out';g.drawImage(this.cleanSpools,0,0,1312,1199);}return this.compact(c,2);}
  makeSpools(){const c=canvas(2624,2398),g=c.getContext('2d');g.imageSmoothingQuality='high';g.drawImage(this.cleanSpools,0,0,2624,2398);return this.compact(c,2);}
  buildParts(){let g;
-  this.lever=this.photoPart(LEVER);this.sideParts=this.photoPart(SIDES,true);this.spools=this.makeSpools();this.guides=this.photoPart(GUIDES);
+  this.lever=this.photoPart(LEVER);this.sideParts=this.photoPart(SIDES,true);this.axles=this.photoPart(AXLES);this.spools=this.makeSpools();this.guides=this.photoPart(GUIDES);
   this.knobs=this.photoPart('M142 344A29 66 0 1 1 84 344A29 66 0 1 1 142 344Z M1243 343A28 67 0 1 1 1187 343A28 67 0 1 1 1243 343Z');
   // The bail is a narrow real metal rod and all four original rubber rollers.
   this.bail=this.photoPart('M199 258H1190V270H199Z M334 254Q335 246 343 246H370Q379 247 380 258V271Q379 282 371 282H343Q334 282 334 272Z M467 254Q468 246 477 246H503Q512 247 513 258V271Q512 282 504 282H477Q467 282 467 272Z M838 254Q839 246 848 246H875Q884 247 885 258V271Q884 282 876 282H848Q838 282 838 272Z M984 254Q985 246 994 246H1020Q1029 247 1030 258V271Q1029 282 1021 282H994Q984 282 984 272Z');
@@ -183,7 +185,7 @@ class TypewriterRenderer{
  drawMachine(g,now){
   g.save();drawPart(g,this.rear);const x=this.position.x,y=this.position.y,cache=this.ensurePage(),p=this.engine.page;
   // The photographed carriage sides, knobs and lever sit on the rear casting.
-  g.save();g.translate(x,0);drawPart(g,this.sideParts);g.save();g.translate(242,281);const pattern=g.createPattern(this.rubber,'repeat');g.fillStyle=pattern;round(g,0,0,882,76,24);g.fill();g.restore();
+  g.save();g.translate(x,0);drawPart(g,this.sideParts);drawPart(g,this.axles);g.save();g.translate(242,281);const pattern=g.createPattern(this.rubber,'repeat');g.fillStyle=pattern;round(g,0,0,882,76,24);g.fill();g.restore();
   const loadAge=now-this.feedStart,loadOffset=loadAge<230?Math.pow(1-loadAge/230,2)*85:0;g.save();g.beginPath();g.rect(280,-40000,P.width,40342);g.clip();g.drawImage(cache.image,0,0,cache.image.width,cache.image.height,280,y+loadOffset,p.width,p.height);g.restore();
   // Continue the same page around the platen. No duplicate paper layer exists.
   const baseline=P.top+p.y;for(let i=0;i<15;i++){const sourceY=(baseline+2+i)*this.dpr;if(sourceY>=cache.image.height)break;g.drawImage(cache.image,0,sourceY,cache.image.width,this.dpr,280,342+i*.75,P.width,.85);g.fillStyle='rgba(36,30,18,'+(i*.009)+')';g.fillRect(280,342+i*.75,P.width,.85);}
