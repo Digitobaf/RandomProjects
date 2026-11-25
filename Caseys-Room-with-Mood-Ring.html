@@ -5134,21 +5134,35 @@ window.CaseyDesktopRefresh={run,get lastReport(){return lastReport;},get busy(){
 /* Clip each live fill to its illustrated track; leave the painted border untouched. */
 #caseyRuskin .rk-painted-fill{rx:0;ry:0;opacity:1}
 #caseyRuskin .rk-meter-empty{fill:url(#rk-frame-empty-track);pointer-events:none}
+
+/* High-contrast fills stay anchored on the left, with no numeric labels. */
+#caseyRuskin .rk-meter[data-metric=hunger] .rk-meter-full{fill:#ed833f}
+#caseyRuskin .rk-meter[data-metric=fun] .rk-meter-full{fill:#e9c14b}
+#caseyRuskin .rk-meter[data-metric=hygiene] .rk-meter-full{fill:#65bcba}
+#caseyRuskin .rk-meter[data-metric=energy] .rk-meter-full{fill:#b093cc}
+#caseyRuskin .rk-meter[data-metric=creativity] .rk-meter-full{fill:#9bb65b}
+
+#caseyRuskin .rk-meters .rk-painted-fill{visibility:hidden}
+#caseyRuskin .rk-meter-full,#caseyRuskin .rk-meter-depleted{pointer-events:none}
+#caseyRuskin .rk-meter-depleted{fill:url(#rk-frame-empty-track);transition:x .8s linear,width .8s linear}
+@media(prefers-reduced-motion:reduce){#caseyRuskin .rk-meter-depleted{transition:none}}
 </style>
 <script id="caseyRuskinMeterPresentation">
-/* Presentation only: reuse the original live stat rects and their existing updates. */
+/* Presentation only. The full left-anchored color never moves; empty space grows from the right. */
 (function(){
  'use strict';
  const meters=document.querySelector('#caseyRuskin .rk-meters');if(!meters)return;
  const NS='http://www.w3.org/2000/svg',make=(tag,attrs={})=>{const n=document.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs))n.setAttribute(k,v);return n;};
  const defs=make('defs'),empty=make('linearGradient',{id:'rk-frame-empty-track',x1:0,y1:0,x2:0,y2:1});
- empty.append(make('stop',{offset:0,'stop-color':'#a17e5d'}),make('stop',{offset:'.25','stop-color':'#c3a27b'}),make('stop',{offset:1,'stop-color':'#d0b28b'}));defs.append(empty);meters.prepend(defs);
- const tracks=[{"key":"hunger","x":213.321429,"y":55.808333,"width":228.404762,"height":32.321429,"rx":16.160714},{"key":"fun","x":637.809524,"y":56.885714,"width":209.011905,"height":32.321429,"rx":16.160714},{"key":"hygiene","x":1038.595238,"y":56.885714,"width":211.166667,"height":32.321429,"rx":16.160714},{"key":"energy","x":1437.22619,"y":54.730952,"width":215.47619,"height":34.47619,"rx":17.238095},{"key":"creativity","x":1844.47619,"y":56.885714,"width":209.011905,"height":32.321429,"rx":16.160714}];
+ empty.append(make('stop',{offset:0,'stop-color':'#2b1d17'}),make('stop',{offset:'.3','stop-color':'#3b291f'}),make('stop',{offset:1,'stop-color':'#4b3426'}));defs.append(empty);meters.prepend(defs);
+ const tracks=[{"key":"hunger","x":212.24404804761903,"y":54.73095204761905,"width":230.5595239047619,"height":34.47619090476191,"rx":17.238095452380954},{"key":"fun","x":636.732143047619,"y":55.80833304761905,"width":211.1666669047619,"height":34.47619090476191,"rx":17.238095452380954},{"key":"hygiene","x":1037.5178570476191,"y":55.80833304761905,"width":213.3214289047619,"height":34.47619090476191,"rx":17.238095452380954},{"key":"energy","x":1436.1488090476191,"y":53.65357104761905,"width":217.6309519047619,"height":36.63095190476191,"rx":18.315475952380954},{"key":"creativity","x":1843.3988090476191,"y":55.80833304761905,"width":211.1666669047619,"height":34.47619090476191,"rx":17.238095452380954}],originalWidths={hunger:245,fun:229,hygiene:230,energy:233,creativity:227};
  for(const {key,...bounds} of tracks){
   const fill=meters.querySelector('.rk-meter[data-metric='+key+'] .rk-painted-fill');if(!fill)continue;
   const id='rk-frame-track-'+key,clip=make('clipPath',{id,clipPathUnits:'userSpaceOnUse'});clip.append(make('rect',bounds));defs.append(clip);
-  const layer=make('g',{'clip-path':'url(#'+id+')',class:'rk-meter-track'}),background=make('rect',{...bounds,class:'rk-meter-empty','aria-hidden':'true'});
-  fill.before(layer);layer.append(background,fill);
+  const layer=make('g',{'clip-path':'url(#'+id+')',class:'rk-meter-track','aria-hidden':'true'}),color=make('rect',{...bounds,rx:0,class:'rk-meter-full'}),depleted=make('rect',{x:bounds.x,y:bounds.y,width:bounds.width,height:bounds.height,class:'rk-meter-depleted'});
+  fill.before(layer);layer.append(color,depleted);
+  const sync=()=>{const ratio=Math.max(0,Math.min(1,Number(fill.getAttribute('width'))/originalWidths[key]));depleted.style.x=(bounds.x+bounds.width*ratio)+'px';depleted.style.width=(bounds.width*(1-ratio))+'px';};sync();
+  new MutationObserver(sync).observe(fill,{attributes:true,attributeFilter:['width']});
  }
 })();
 </script>
