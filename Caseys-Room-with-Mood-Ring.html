@@ -5120,15 +5120,36 @@ window.CaseyDesktopRefresh={run,get lastReport(){return lastReport;},get busy(){
 #caseyRuskin .rk-meters>image{display:none}
 #caseyRuskin .rk-painted-fill{mix-blend-mode:normal;opacity:.9;filter:none;transform-origin:0 0}
 #caseyRuskin .rk-settings-overlay{inset:7.5% 4.9% 8.3%;z-index:6;border-radius:3%;overflow:hidden}
-#caseyRuskin .rk-meter[data-metric=hunger] .rk-painted-fill{transform:matrix(0.93226433,0,0,1.18164363,59.49781341,-54.18878648)}
+#caseyRuskin .rk-meter[data-metric=hunger] .rk-painted-fill{transform:matrix(0.93226433,0,0,1.04262673,59.49781341,-42.19857911)}
 #caseyRuskin .rk-meter[data-metric=hunger] .rk-meter-hit{x:77.5714px;y:0;width:390.0119px;height:144.3690px}
-#caseyRuskin .rk-meter[data-metric=fun] .rk-painted-fill{transform:matrix(0.91271574,0,0,1.18164363,80.72359118,-54.18878648)}
+#caseyRuskin .rk-meter[data-metric=fun] .rk-painted-fill{transform:matrix(0.91271574,0,0,1.04262673,82.87835309,-41.12119816)}
 #caseyRuskin .rk-meter[data-metric=fun] .rk-meter-hit{x:482.6667px;y:0;width:390.0119px;height:144.3690px}
-#caseyRuskin .rk-meter[data-metric=hygiene] .rk-painted-fill{transform:matrix(0.89937888,0,0,1.18164363,112.94699793,-54.18878648)}
+#caseyRuskin .rk-meter[data-metric=hygiene] .rk-painted-fill{transform:matrix(0.91811594,0,0,1.04262673,89.26335404,-41.12119816)}
 #caseyRuskin .rk-meter[data-metric=hygiene] .rk-meter-hit{x:887.7619px;y:0;width:390.0119px;height:144.3690px}
-#caseyRuskin .rk-meter[data-metric=energy] .rk-painted-fill{transform:matrix(0.86930309,0,0,1.18164363,181.42540364,-54.18878648)}
+#caseyRuskin .rk-meter[data-metric=energy] .rk-painted-fill{transform:matrix(0.92479052,0,0,1.11213518,89.80640711,-49.80975422)}
 #caseyRuskin .rk-meter[data-metric=energy] .rk-meter-hit{x:1292.8571px;y:0;width:390.0119px;height:144.3690px}
-#caseyRuskin .rk-meter[data-metric=creativity] .rk-painted-fill{transform:matrix(0.89228026,0,0,1.18164363,166.31534508,-54.18878648)}
+#caseyRuskin .rk-meter[data-metric=creativity] .rk-painted-fill{transform:matrix(0.92075729,0,0,1.04262673,106.08642752,-41.12119816)}
 #caseyRuskin .rk-meter[data-metric=creativity] .rk-meter-hit{x:1697.9524px;y:0;width:390.0119px;height:144.3690px}
+
+/* Clip each live fill to its illustrated track; leave the painted border untouched. */
+#caseyRuskin .rk-painted-fill{rx:0;ry:0;opacity:1}
+#caseyRuskin .rk-meter-empty{fill:url(#rk-frame-empty-track);pointer-events:none}
 </style>
+<script id="caseyRuskinMeterPresentation">
+/* Presentation only: reuse the original live stat rects and their existing updates. */
+(function(){
+ 'use strict';
+ const meters=document.querySelector('#caseyRuskin .rk-meters');if(!meters)return;
+ const NS='http://www.w3.org/2000/svg',make=(tag,attrs={})=>{const n=document.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs))n.setAttribute(k,v);return n;};
+ const defs=make('defs'),empty=make('linearGradient',{id:'rk-frame-empty-track',x1:0,y1:0,x2:0,y2:1});
+ empty.append(make('stop',{offset:0,'stop-color':'#a17e5d'}),make('stop',{offset:'.25','stop-color':'#c3a27b'}),make('stop',{offset:1,'stop-color':'#d0b28b'}));defs.append(empty);meters.prepend(defs);
+ const tracks=[{"key":"hunger","x":213.321429,"y":55.808333,"width":228.404762,"height":32.321429,"rx":16.160714},{"key":"fun","x":637.809524,"y":56.885714,"width":209.011905,"height":32.321429,"rx":16.160714},{"key":"hygiene","x":1038.595238,"y":56.885714,"width":211.166667,"height":32.321429,"rx":16.160714},{"key":"energy","x":1437.22619,"y":54.730952,"width":215.47619,"height":34.47619,"rx":17.238095},{"key":"creativity","x":1844.47619,"y":56.885714,"width":209.011905,"height":32.321429,"rx":16.160714}];
+ for(const {key,...bounds} of tracks){
+  const fill=meters.querySelector('.rk-meter[data-metric='+key+'] .rk-painted-fill');if(!fill)continue;
+  const id='rk-frame-track-'+key,clip=make('clipPath',{id,clipPathUnits:'userSpaceOnUse'});clip.append(make('rect',bounds));defs.append(clip);
+  const layer=make('g',{'clip-path':'url(#'+id+')',class:'rk-meter-track'}),background=make('rect',{...bounds,class:'rk-meter-empty','aria-hidden':'true'});
+  fill.before(layer);layer.append(background,fill);
+ }
+})();
+</script>
 </body></html>
