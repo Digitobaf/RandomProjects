@@ -1,6 +1,6 @@
 import http from 'node:http';
 import { timingSafeEqual } from 'node:crypto';
-import { stat } from 'node:fs/promises';
+import { stat,open } from 'node:fs/promises';
 import { createReadStream } from 'node:fs';
 import { GoogleGenAI } from '@google/genai';
 export const PORT=43187;
@@ -26,6 +26,7 @@ export function createGeminiResponder({apiKey,model='gemini-3.1-flash-lite',clie
  };
 }
 export function createAIMServer({token,responder,htmlPath,port=PORT}){
+ if(!/^[a-f0-9]{64}$/.test(token))throw new Error('Invalid local session');
  let active=0;const cache=new Map(),pending=new Set();const expected=Buffer.from(token);
  return http.createServer(async(req,res)=>{
   const host=req.headers.host;if(host!==`127.0.0.1:${port}`){json(res,403,{error:{code:'HOST',message:'Local requests only.'}});return;}
@@ -33,9 +34,15 @@ export function createAIMServer({token,responder,htmlPath,port=PORT}){
   if(!allowed){json(res,403,{error:{code:'ORIGIN',message:'This website cannot access the local AIM service.'}});return;}
   if(origin){res.setHeader('Access-Control-Allow-Origin',origin);res.setHeader('Vary','Origin');}
   if(req.method==='OPTIONS'){res.writeHead(204,{'Access-Control-Allow-Methods':'GET, POST, OPTIONS','Access-Control-Allow-Headers':'Authorization, Content-Type','Access-Control-Max-Age':'600'});res.end();return;}
-  if(req.method==='GET'&&(req.url==='/'||req.url==='/Caseys-Room-with-Mood-Ring.html')&&htmlPath){try{const info=await stat(htmlPath);res.writeHead(200,{'Content-Type':'text/html; charset=utf-8','Content-Length':info.size,'Cache-Control':'no-store','Referrer-Policy':'no-referrer'});createReadStream(htmlPath).on('error',()=>res.destroy()).pipe(res);}catch{json(res,404,{error:{code:'FILE',message:'Casey’s Room HTML was not found. Extract the full ZIP first.'}});}return;}
+  if(req.method==='GET'&&(req.url==='/'||req.url==='/Caseys-Room-with-Mood-Ring.html')&&htmlPath){
+   // The bootstrap contains a local service token. Never expose it through cross-origin CORS.
+   if(origin&&origin!==`http://127.0.0.1:${port}`){json(res,403,{error:{code:'ORIGIN',message:'Open this page through Start AIM.cmd.'}});return;}
+   try{const info=await stat(htmlPath),handle=await open(htmlPath,'r');let head;try{const buffer=Buffer.alloc(Math.min(info.size,65536));const read=await handle.read(buffer,0,buffer.length,0);head=buffer.subarray(0,read.bytesRead);}finally{await handle.close();}
+    const match=/<head(?:\s[^>]*)?>/i.exec(head.toString('latin1'));if(!match)throw new Error('HTML head missing');const at=match.index+match[0].length,bootstrap=Buffer.from('<script>try{sessionStorage.setItem("caseysAIM:localSession:v1",'+JSON.stringify(token)+')}catch(_){}<\/script>');
+    res.writeHead(200,{'Content-Type':'text/html; charset=utf-8','Content-Length':info.size+bootstrap.length,'Cache-Control':'no-store','Referrer-Policy':'no-referrer','X-Frame-Options':'DENY','X-Content-Type-Options':'nosniff','Cross-Origin-Resource-Policy':'same-origin'});res.write(head.subarray(0,at));res.write(bootstrap);res.write(head.subarray(at));const body=createReadStream(htmlPath,{start:head.length});res.once('close',()=>body.destroy());body.on('error',()=>res.destroy()).pipe(res);
+   }catch{if(!res.headersSent)json(res,404,{error:{code:'FILE',message:'Casey’s Room HTML could not be opened. Extract the full ZIP first.'}});else res.destroy();}return;}
   const supplied=Buffer.from(String(req.headers.authorization||'').replace(/^Bearer /,''));if(supplied.length!==expected.length||!timingSafeEqual(supplied,expected)){json(res,401,{error:{code:'SESSION',message:'Open Start AIM.cmd to reconnect Abby.'}});return;}
-  if(req.method==='GET'&&req.url==='/api/health'){json(res,200,{ready:true});return;}
+  if(req.method==='GET'&&req.url==='/api/health'){json(res,200,{ready:true,browserSession:true});return;}
   if(req.method!=='POST'||req.url!=='/api/chat'){json(res,404,{error:{code:'NOT_FOUND',message:'Not found.'}});return;}
   if(!/^application\/json(?:;|$)/i.test(req.headers['content-type']||'')){json(res,415,{error:{code:'CONTENT_TYPE',message:'JSON required.'}});return;}
   let body;try{let size=0;const chunks=[];for await(const chunk of req){size+=chunk.length;if(size>262144){json(res,413,{error:{code:'TOO_LARGE',message:'That message is too long.'}});return;}chunks.push(chunk);}body=JSON.parse(Buffer.concat(chunks).toString('utf8'));}catch{json(res,400,{error:{code:'BODY',message:'Invalid request.'}});return;}

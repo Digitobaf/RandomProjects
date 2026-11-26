@@ -3,17 +3,17 @@ ABBY IN CASEY'S ROOM — WINDOWS
 1. Extract the entire ZIP. Keep the updated Casey's Room HTML in its usual folder and use your usual browser/profile so your existing local saves remain accessible.
 2. Double-click Start AIM.cmd. The first run installs Google's official Gemini SDK using Node.js.
 3. Notepad opens an empty document. Paste ONLY your Gemini API key into it, then press Ctrl+S. The launcher detects the saved key automatically. Close Notepad when the launcher says Key saved. Your key is saved in aim-local/.env on your computer.
-4. Keep the launcher window open. Casey's Room opens in your default browser.
+4. Keep the launcher window open. Casey's Room opens in your default browser at http://127.0.0.1:43187/. Use this page for Abby; the local service connects it automatically.
 5. Open AOL Instant Messenger. Enter any screen name and choose Sign On; the AIM password field is unused. Cancel skips the connecting animation.
 6. Select xXx_SoupSlut_xXx to talk to Abby. Enter sends a message; Shift+Enter adds a line. Book buddies such as Helga still transcribe ebooks as before.
 
 If the browser asks whether Casey's Room can connect to your local network, allow it for the local AIM connection.
 
 MOVING CASEY'S ROOM
-Close the black launcher window before moving files. Move the entire app folder, including aim-local, so your local key and Abby profile come with it. Then run Start AIM.cmd from the new location. Browser-saved data may be tied to the old HTML location; keep the old copy until any game saves or diary entries you want are checked. Book progress can be restarted. For mGBA, keep the game ROM and the JSON file from File -> Export All Saves. Restore that JSON through File -> Import Save Backup, then open the matching .gba game. An individual .sav export instead uses Import Game Save.
+Close the black launcher window before moving files. Move the entire app folder, including aim-local, so your local key and Abby profile come with it. Then run Start AIM.cmd from the new location. The launcher now uses a stable local web address, so its browser data stays at that address even when the folder moves. Data saved while opening the HTML directly remains at that old file location; open the old file to export any diary entries or other records you want to transfer. The first local-web launch can look like a fresh app. Book progress can be restarted. For mGBA, keep the game ROM and the JSON file from File -> Export All Saves. Restore that JSON through File -> Import Save Backup, then open the matching .gba game. An individual .sav export instead uses Import Game Save.
 
 YOUR SAVES
-Abby's messages and unfinished draft are stored in a separate browser database. Closing AIM, restarting the launcher, or a failed API call does not intentionally delete them. Keep using the same browser/profile and HTML location. Clearing site data or using a private browsing window can remove or isolate these saves.
+Abby's messages and unfinished draft are stored in a separate browser database. Closing AIM, restarting the launcher, or a failed API call does not intentionally delete them. Keep using the same browser/profile and local web address. The old direct-file copy keeps its own browser data separately. Clearing site data or using a private browsing window can remove or isolate these saves.
 Recent conversation is sent to Gemini with Abby's character instructions. Older messages remain in the local history; this first version does not add a separate long-term memory/summary system.
 
 ABBY'S CHARACTER
@@ -21,11 +21,11 @@ Edit Abby.cmd opens her local character notes. Save the file and restart the lau
 
 YOUR KEY
 Do not enter the API key into AIM's chat or password field. To change the key, close the running launcher and use Set Gemini Key.cmd. Paste the new key into the empty Notepad document and press Ctrl+S. Do not type the key in the black window. Then start AIM again.
-The Google key stays in the local service. The HTML sends messages only to 127.0.0.1, using a temporary local session token. It does not receive the Google key.
+The Google key stays in the local service. The local web page connects automatically using a temporary local session token. It sends chat messages only to 127.0.0.1. It does not receive the Google key.
 .env, local session files, and installed dependencies are excluded from version control and from the distributed ZIP.
 
 CONNECTION TROUBLE
-- Keep Start AIM.cmd open while chatting. Opening the HTML directly still runs the existing apps, but Abby needs the launcher for a new connection.
+- Keep Start AIM.cmd open while chatting. For Abby, use the page at http://127.0.0.1:43187/ that the launcher opens. Opening the HTML directly does not connect Abby.
 - If a reply fails, the sent message remains visible. Choose Retry beside the error to ask for the reply again.
 - Free-tier limits can require waiting before retrying. There is no automatic switch to another model or to paid billing.
 - The model defaults to gemini-3.1-flash-lite. If Google reports that this model is unavailable for your project, select an available free-tier text model in AI Studio and change GEMINI_MODEL in aim-local/.env. Restart the launcher.
