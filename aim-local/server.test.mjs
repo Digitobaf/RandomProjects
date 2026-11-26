@@ -94,3 +94,8 @@ test('newer text models omit deprecated sampling settings while preserving Abby 
   if(model==='gemini-3.1-flash-lite')assert.equal(request.config.temperature,.85);else assert(!('temperature'in request.config));
  }
 });
+test('Abby output and old model context use classic smileys while user emoji remain untouched',async()=>{
+ let request;const responder=createGeminiResponder({profile:'She likes friendly conversation.',client:{models:{generateContent:async args=>{request=args;return {text:'xXx_SoupSlut_xXx: Those were the days. 🥹'};}}}});
+ const result=await responder([{role:'user',text:'I sent 🥹.'},{role:'model',text:'Abby: I remember. 😊'},{role:'user',text:'Tell me more. ❤️'}]);assert.equal(result,'Those were the days. :)');assert.equal(request.contents[0].parts[0].text,'I sent 🥹.');assert.equal(request.contents[1].parts[0].text,'I remember. :)');assert.equal(request.contents[2].parts[0].text,'Tell me more. ❤️');assert(request.config.systemInstruction.includes('Never include modern emoji'));assert(request.config.systemInstruction.endsWith(MESSAGE_ONLY_INSTRUCTION));
+});
+test('HTTP gateway and cached retries return classic emoticons even with a custom responder',async()=>{let calls=0;await local(async()=>{calls++;return 'Abby: Absolutely! 🥹';},async base=>{for(let i=0;i<2;i++){const r=await fetch(base+'/api/chat',{method:'POST',headers,body:body('classic-reply-123')});assert.equal((await r.json()).text,'Absolutely! :)');}assert.equal(calls,1);});});

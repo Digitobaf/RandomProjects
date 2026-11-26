@@ -31,6 +31,7 @@ REPLY STYLE AND TIMING
 Abby defaults to brief instant messages, usually 1–3 sentences. Add conversational preferences to Edit Abby, such as: "Keep most replies to one or two sentences. Match my message length. Avoid long monologues or elaborate invented stories." Save to apply to the next message. Replies have a length-aware typing pause of about 2–6.5 seconds, including time Gemini already spent generating the reply. Longer generation times do not add another full pause. AIM shows Abby is typing while waiting. Warnings and the Retry button wrap within the status area without clipping.
 
 SMILEYS
+Abby uses classic text emoticons instead of modern Unicode emoji. Her incoming reactions are converted to old-school smileys before saving new replies; older saved originals stay intact and are displayed in the classic style. User messages and book passages are preserved.
 In Abby chat, use the smiley face on the formatting toolbar to choose from 16 classic yellow smileys. You can navigate the picker with arrow keys and Enter, and close it with Escape. The face inserts at your cursor or replaces selected text. Messages store and send the plain-text emoticon, and display it as a yellow face in the chat. Book transcription keeps its original text and controls.
 
 YOUR KEY
