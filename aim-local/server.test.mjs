@@ -74,3 +74,16 @@ test('profile read errors are actionable without leaking private paths or notes'
  }
 });
 test('invalid reply values stay empty instead of becoming visible object text',()=>{for(const value of [null,undefined,{},123])assert.equal(normalizeAbbyReply(value),'');});
+test('official SDK recovers from server errors, then caches one clean reply for the original message',async()=>{
+ let calls=0;const requests=[];
+ const upstream=http.createServer(async(req,res)=>{const chunks=[];for await(const c of req)chunks.push(c);requests.push(JSON.parse(Buffer.concat(chunks)));calls++;res.setHeader('Content-Type','application/json');if(calls<=2){res.writeHead(calls===1?503:500);res.end(JSON.stringify({error:{code:calls===1?503:500,message:'temporary error',status:'UNAVAILABLE'}}));return;}res.end(JSON.stringify({candidates:[{content:{role:'model',parts:[{text:'Abby: I am here. :)'}]},finishReason:'STOP'}]}));});const port=await listen(upstream);
+ try{
+  const client=new GoogleGenAI({apiKey:'AQ.TEST_ONLY_NEVER_VALID_123456789',httpOptions:{baseUrl:`http://127.0.0.1:${port}`,retryOptions:{attempts:1}}});
+  const responder=createGeminiResponder({client,recovery:{wait:async()=>{},random:()=>0}});
+  await local(responder,async base=>{for(let i=0;i<2;i++){const r=await fetch(base+'/api/chat',{method:'POST',headers,body:body('recover-sdk-123')});assert.equal(r.status,200);assert.equal((await r.json()).text,'I am here. :)');}assert.equal(calls,3);for(const request of requests)assert.deepEqual(request.contents,requests[0].contents);});
+ }finally{await stop(upstream);}
+});
+test('persistent failures report a specific safe cause after retries instead of blaming internet for everything',async()=>{
+ const cases=[[Object.assign(new Error('secret URL and FAKE_TEST_KEY'),{status:503}),'UPSTREAM_UNAVAILABLE','HTTP 503',3],[Object.assign(new Error('quota'),{status:429}),'RATE_LIMIT','Google AI Studio',1],[new TypeError('fetch failed',{cause:{code:'ENOTFOUND'}}),'DNS','look up',3],[new TypeError('fetch failed',{cause:{code:'SELF_SIGNED_CERT_IN_CHAIN'}}),'SECURE_CONNECTION','secure connection',1],[new TypeError('fetch failed',{cause:{name:'TimeoutError'}}),'TIMEOUT','time limit',3]];
+ for(const [error,code,phrase,count]of cases){let calls=0;const responder=createGeminiResponder({client:{models:{generateContent:async()=>{calls++;throw error;}}},recovery:{wait:async()=>{},random:()=>0}});await local(responder,async base=>{const r=await fetch(base+'/api/chat',{method:'POST',headers,body:body()});const data=await r.json();assert(!r.ok);assert.equal(data.error.code,code);assert(data.error.message.includes(phrase));assert(!JSON.stringify(data).includes('FAKE_TEST_KEY'));assert.equal(calls,count);});}
+});

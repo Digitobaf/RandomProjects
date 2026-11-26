@@ -32,7 +32,10 @@ The Google key stays in the local service. The local web page connects automatic
 
 CONNECTION TROUBLE
 - Keep Start AIM.cmd open while chatting. For Abby, use the page at http://127.0.0.1:43187/ that the launcher opens. Opening the HTML directly does not connect Abby.
-- If a reply fails, the sent message remains visible. Choose Retry beside the error to ask for the reply again.
+- Temporary Google server errors, connection interruptions, and timeouts are retried automatically, up to three attempts with brief pauses. The total recovery window stays under 48 seconds; Abby remains typing while it runs.
+- If all attempts fail, the sent message remains visible. Choose Retry beside the error to ask for the reply again. A retry does not add another copy of your sent message.
+- Persistent errors now distinguish Google server failures (including HTTP status), timeouts, DNS lookup failures, secure-connection failures, access problems, and quota limits. The black launcher window prints short diagnostic codes for retries and failures. It does not print your key, messages, or character notes.
+- Quota, key/access, model, and invalid-request errors are not automatically retried. Check the displayed cause before choosing Retry.
 - Free-tier limits can require waiting before retrying. There is no automatic switch to another model or to paid billing.
 - The model defaults to gemini-3.1-flash-lite. If Google reports that this model is unavailable for your project, select an available free-tier text model in AI Studio and change GEMINI_MODEL in aim-local/.env. Restart the launcher.
 - If setup says Node.js is missing or too old, install the current LTS from https://nodejs.org/.
