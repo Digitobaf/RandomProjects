@@ -1,7 +1,7 @@
 import {readFile,writeFile,mkdir,rename} from 'node:fs/promises';
 import path from 'node:path';
 export const DEFAULT_MODEL='gemini-3.5-flash-lite';
-export const AIM_REVISION='abby-sessions-2';
+export const AIM_REVISION='ai-buddies-3';
 // One-time, user-requested model change. Later manual model choices remain respected.
 export async function applyAbbyModelUpgrade(envFile,runtimeDir){
  const marker=path.join(runtimeDir,'model-choice-3-5-v1');

@@ -8,8 +8,8 @@ template=(ROOT/'src/Caseys-Room.template.html').read_text()
 assert template.count('__TAMASCAPE_PAYLOAD__')==1
 html=template.replace('__TAMASCAPE_PAYLOAD__',payload).encode()
 (ROOT/'Caseys-Room-with-Mood-Ring.html').write_bytes(html)
-runtime=['package.json','package-lock.json','server.mjs','launch.mjs','profile.mjs','smileys.mjs','gemini-connection.mjs','model.mjs','setup-key.mjs','chat-scroll.mjs','classic-text.mjs','quick-lookup.mjs','.gitignore','.env.example','abby-profile.example.txt']
-files=['Caseys-Room-with-Mood-Ring.html','Start AIM.cmd','Set Gemini Key.cmd','Edit Abby.cmd','AIM setup.txt']+['aim-local/'+n for n in runtime]
+runtime=['package.json','package-lock.json','server.mjs','launch.mjs','profile.mjs','smileys.mjs','gemini-connection.mjs','model.mjs','setup-key.mjs','chat-scroll.mjs','classic-text.mjs','quick-lookup.mjs','.gitignore','.env.example','abby-profile.example.txt','mercer-profile.example.txt']
+files=['Caseys-Room-with-Mood-Ring.html','Start AIM.cmd','Set Gemini Key.cmd','Edit Abby.cmd','Edit Mercer.cmd','AIM setup.txt']+['aim-local/'+n for n in runtime]
 with zipfile.ZipFile(ROOT/'Caseys-Room.zip','w',zipfile.ZIP_DEFLATED,compresslevel=9)as z:
  for name in files:z.write(ROOT/name,name)
 with zipfile.ZipFile(ROOT/'Caseys-Room.zip')as z:

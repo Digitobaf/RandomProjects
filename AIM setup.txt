@@ -1,3 +1,15 @@
+AI BUDDIES AND CO-WORKERS
+
+Buddies contains Abby (xXx_SoupSlut_xXx) and Julian Mercer (mercer_type).
+Co-Workers contains your transcription buddies. Add Buddy always adds a Co-Worker.
+Right-click either AI buddy -> Buddy Settings to choose Available, Away, or Offline and an away message. Away and Offline disable sending and Retry. Status changes use the existing AIM arrival/departure sounds.
+
+Each AI has independent messages, drafts, and Chat History. Every successful AIM sign-in archives both previous chats and starts fresh ones. Opening or closing just a conversation does not start over. Select a character, then File -> Chat History to read, export, or delete that character's old chats. Old Abby archives remain Abby's.
+
+Permanent character details survive fresh chats. Edit Abby.cmd opens Abby's local profile; Edit Mercer.cmd opens Julian's. Save changes to apply them to the next reply. Their profiles never replace one another. Updates preserve existing local profile files. Both use your existing Gemini key and the same free Wikipedia quick lookup, typing pause, and classic smileys. No paid search is enabled.
+
+Close the old black launcher window before extracting this update into the existing folder and choosing Replace. Then run Start AIM.cmd, using your usual browser/profile. Your key, local profiles, books, and browser saves stay in place.
+
 ABBY IN CASEY'S ROOM — WINDOWS
 
 1. Extract the entire ZIP. Keep the updated Casey's Room HTML in its usual folder and use your usual browser/profile so your existing local saves remain accessible.

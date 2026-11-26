@@ -3,7 +3,7 @@ import { randomBytes,createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { spawn } from 'node:child_process';
-import { PORT,createAIMServer,createGeminiResponder } from './server.mjs';
+import { PORT,createAIMServer,createGeminiResponder,MERCER_CHARACTER } from './server.mjs';
 import { createProfileLoader } from './profile.mjs';
 import { DEFAULT_MODEL,AIM_REVISION,applyAbbyModelUpgrade } from './model.mjs';
 import { setupKey,validKey } from './setup-key.mjs';
@@ -17,10 +17,13 @@ async function main(){
  if(await applyAbbyModelUpgrade(path.join(dir,'.env'),runtime)){process.env.GEMINI_MODEL=DEFAULT_MODEL;console.log('Updated Abby to Gemini 3.5 Flash-Lite. Your key was kept.');}
  const model=process.env.GEMINI_MODEL||DEFAULT_MODEL;if(!/^[a-z0-9.-]+$/.test(model))throw new Error('Invalid model');
  const profilePath=path.join(dir,'abby-profile.txt');try{await copyFile(path.join(dir,'abby-profile.example.txt'),profilePath,1);}catch(e){if(e.code!=='EEXIST')throw e;}const profile=createProfileLoader(profilePath);
+ const mercerPath=path.join(dir,'mercer-profile.txt');try{await copyFile(path.join(dir,'mercer-profile.example.txt'),mercerPath,1);}catch(e){if(e.code!=='EEXIST')throw e;}const mercerProfile=createProfileLoader(mercerPath);
  const diagnostic=info=>{console.log('[AIM '+new Date().toISOString()+'] '+(info.event==='retry'?'Temporary error; retry '+info.nextAttempt+'/3':'Reply failed')+': '+info.kind+(info.status?' HTTP '+info.status:'')+(info.networkCode?' '+info.networkCode:''));};
- const token=randomBytes(32).toString('hex'),server=createAIMServer({token,responder:createGeminiResponder({apiKey:process.env.GEMINI_API_KEY,model,profile,recovery:{onRetry:info=>diagnostic({event:'retry',...info})}}),htmlPath:html,appId,onDiagnostic:diagnostic});
+ const options={apiKey:process.env.GEMINI_API_KEY,model,recovery:{onRetry:info=>diagnostic({event:'retry',...info})}};
+ const responders={'abby-gemini':createGeminiResponder({...options,profile}),'mercer-gemini':createGeminiResponder({...options,profile:mercerProfile,character:MERCER_CHARACTER})};
+ const token=randomBytes(32).toString('hex'),server=createAIMServer({token,responders,htmlPath:html,appId,onDiagnostic:diagnostic});
  await new Promise((resolve,reject)=>{server.once('error',reject);server.listen(PORT,'127.0.0.1',resolve);});await mkdir(runtime,{recursive:true,mode:0o700});await writeFile(session,JSON.stringify({token,pid:process.pid}),{mode:0o600});
- console.log('Abby’s local connection is ready. Keep this window open while you chat.');console.log('Gemini model: '+model);console.log('Abby profile: '+profilePath);console.log('Saved profile edits apply to the next message automatically.');console.log('In AIM, sign on and select xXx_SoupSlut_xXx. Cancel skips the connecting animation.');console.log('Close this window to stop the connection. Your conversations stay saved in the browser.');openRoom();
+ console.log('AIM’s local connection is ready. Keep this window open while you chat.');console.log('Gemini model: '+model);console.log('Abby profile: '+profilePath);console.log('Mercer profile: '+mercerPath);console.log('Saved profile edits apply to the next message automatically.');console.log('In AIM, sign on and select Abby (xXx_SoupSlut_xXx) or Julian (mercer_type). Cancel skips the connecting animation.');console.log('Close this window to stop the connection. Your conversations stay saved in the browser.');openRoom();
  async function shutdown(){try{const saved=JSON.parse(await readFile(session,'utf8'));if(saved.token===token)await unlink(session);}catch{}server.close();setTimeout(()=>process.exit(0),250).unref();}
  process.on('SIGINT',shutdown);process.on('SIGTERM',shutdown);
 }
