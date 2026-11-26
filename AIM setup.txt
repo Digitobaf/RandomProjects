@@ -55,3 +55,7 @@ Gemini needs internet access. The unpaid API can use submitted content and respo
 
 VERIFICATION
 The chat flow, storage, retry behavior, book-mode compatibility, and official SDK request format were tested with controlled responses. A live Google request requires your own key and project access on your computer. This build environment cannot run Windows .cmd files or open local file:// browser pages.
+
+FREE QUICK FACT LOOKUPS
+Abby can make one short Wikipedia topic lookup when a public fact may be outdated or you ask her to check it. The app uses the public Wikipedia API, not paid Google Search. No new key or account is needed. Regular Gemini free-tier message/token quotas still apply, including the extra reply step after a lookup.
+This is basic encyclopedia fact-checking, not general web search or deep research. Lookup results stay behind the scenes; Abby replies normally without source links. If results are missing or unavailable, she is instructed to acknowledge uncertainty.

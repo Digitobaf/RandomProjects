@@ -5,6 +5,7 @@ import { createReadStream } from 'node:fs';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { GoogleGenAI } from '@google/genai';
 import { installAIMSmileys } from './smileys.mjs';
+import { createFreeQuickLookup,QUICK_LOOKUP_TOOL,QUICK_LOOKUP_INSTRUCTION } from './quick-lookup.mjs';
 import { classicAbbyText } from './classic-text.mjs';
 import { installAIMAutoScroll } from './chat-scroll.mjs';
 import { DEFAULT_MODEL,AIM_REVISION } from './model.mjs';
@@ -42,13 +43,22 @@ function publicError(error){
  if(info.kind==='NETWORK')return failure(502,'CONNECTION','The connection between the local AIM service and Google was interrupted. Your message is saved; choose Retry.');
  return failure(502,'UNEXPECTED','The local AIM service hit an unexpected error. Your message is saved; choose Retry. If it continues, report error code UNEXPECTED.');
 }
-export function createGeminiResponder({apiKey,model=DEFAULT_MODEL,client,profile='',recovery={}}){
+export function createGeminiResponder({apiKey,model=DEFAULT_MODEL,client,profile='',recovery={},lookup=createFreeQuickLookup()}){
  const ai=client??new GoogleGenAI({apiKey,httpOptions:{timeout:45000,retryOptions:{attempts:1}}});
  const readProfile=async()=>{const value=typeof profile==='function'?await profile():profile;if(typeof value!=='string'){const error=new Error('Invalid profile');error.code='PROFILE_UNAVAILABLE';throw error;}return value;};
  const respond=async(messages,snapshot)=>{
   const notes=snapshot===undefined?await readProfile():snapshot;
   const contents=[];for(const m of messages){const text=m.role==='model'?normalizeAbbyReply(m.text):m.text;if(!text.trim())continue;const last=contents.at(-1);if(last?.role===m.role)last.parts.push({text});else contents.push({role:m.role,parts:[{text}]});}
-  const response=await withGeminiRecovery(({timeoutMs})=>ai.models.generateContent({model,contents,config:{httpOptions:{timeout:timeoutMs,retryOptions:{attempts:1}},abortSignal:AbortSignal.timeout(timeoutMs),systemInstruction:ABBY_INSTRUCTION+'\n\nCurrent UTC date and time: '+new Date().toISOString()+'. The conversation takes place in the present day. Abby is in China (UTC+8).'+(notes?'\n\nCurrent saved character notes (these are the latest biography and preferences; use them instead of conflicting older chat details):\n'+notes:'')+'\n\n'+MESSAGE_ONLY_INSTRUCTION,...(Number(model.match(/^gemini-(\d+(?:\.\d+)?)/)?.[1])>=3.5?{}:{temperature:.85}),maxOutputTokens:1024}}),recovery);
+  const now=recovery.now??(()=>performance.now()),deadline=now()+(recovery.budgetMs??48000);
+  const instruction=ABBY_INSTRUCTION+'\n\nCurrent UTC date and time: '+new Date().toISOString()+'. The conversation takes place in the present day. Abby is in China (UTC+8).'+(notes?'\n\nCurrent saved character notes (these are the latest biography and preferences; use them instead of conflicting older chat details):\n'+notes:'')+'\n\n'+QUICK_LOOKUP_INSTRUCTION+'\n\n'+MESSAGE_ONLY_INSTRUCTION;
+  const generate=async(turns,allowLookup)=>{if(deadline-now()<1)throw Object.assign(new Error('Reply timed out'),{name:'TimeoutError'});return withGeminiRecovery(({timeoutMs})=>ai.models.generateContent({model,contents:turns,config:{httpOptions:{timeout:timeoutMs,retryOptions:{attempts:1}},abortSignal:AbortSignal.timeout(timeoutMs),systemInstruction:instruction,tools:[QUICK_LOOKUP_TOOL],toolConfig:{functionCallingConfig:{mode:allowLookup?'AUTO':'NONE'}},...(Number(model.match(/^gemini-(\d+(?:\.\d+)?)/)?.[1])>=3.5?{}:{temperature:.85}),maxOutputTokens:1024}}),{...recovery,budgetMs:Math.max(1,deadline-now())});};
+  let response=await generate(contents,true),result=null;const calls=response.functionCalls||[];
+  if(calls.length){
+   const first=calls[0];if(first.name==='quick_fact_lookup'){try{result=await lookup(first.args?.query,{timeoutMs:Math.max(1,Math.min(6500,deadline-now()))});}catch{result={status:'unavailable',results:[]};}}
+   const callContent=response.candidates?.[0]?.content;if(!callContent)throw Object.assign(new Error('Invalid tool response'),{status:422});
+   const replies=calls.map((call,index)=>({functionResponse:{name:call.name,...(call.id?{id:call.id}:{}),response:index===0&&result?result:{status:'unavailable',results:[],reason:'Only one brief public-fact lookup is allowed per reply.'}}}));
+   response=await generate([...contents,callContent,{role:'user',parts:replies}],false);
+  }
   const text=normalizeAbbyReply(response.text);if(!text){const e=new Error('No reply');e.status=422;throw e;}return text;
  };
  respond.readProfile=readProfile;return respond;
