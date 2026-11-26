@@ -5,6 +5,7 @@ import { createReadStream } from 'node:fs';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { GoogleGenAI } from '@google/genai';
 import { installAIMSmileys } from './smileys.mjs';
+import { installAIMAutoScroll } from './chat-scroll.mjs';
 import { DEFAULT_MODEL,AIM_REVISION } from './model.mjs';
 import { classifyGeminiError,withGeminiRecovery } from './gemini-connection.mjs';
 export const PORT=43187;
@@ -65,7 +66,7 @@ export function createAIMServer({token,responder,htmlPath,port=PORT,appId='',typ
    // The bootstrap contains a local service token. Never expose it through cross-origin CORS.
    if(origin&&origin!==`http://127.0.0.1:${port}`){json(res,403,{error:{code:'ORIGIN',message:'Open this page through Start AIM.cmd.'}});return;}
    try{const info=await stat(htmlPath),handle=await open(htmlPath,'r');let head;try{const buffer=Buffer.alloc(Math.min(info.size,65536));const read=await handle.read(buffer,0,buffer.length,0);head=buffer.subarray(0,read.bytesRead);}finally{await handle.close();}
-    const match=/<head(?:\s[^>]*)?>/i.exec(head.toString('latin1'));if(!match)throw new Error('HTML head missing');const at=match.index+match[0].length,bootstrap=Buffer.from('<script>try{sessionStorage.setItem("caseysAIM:localSession:v1",'+JSON.stringify(token)+')}catch(_){};('+installAbbyDisplayCleanup.toString()+')('+normalizeAbbyReply.toString()+');('+installAIMSmileys.toString()+')();<\/script>');
+    const match=/<head(?:\s[^>]*)?>/i.exec(head.toString('latin1'));if(!match)throw new Error('HTML head missing');const at=match.index+match[0].length,bootstrap=Buffer.from('<script>try{sessionStorage.setItem("caseysAIM:localSession:v1",'+JSON.stringify(token)+')}catch(_){};('+installAbbyDisplayCleanup.toString()+')('+normalizeAbbyReply.toString()+');('+installAIMSmileys.toString()+')();('+installAIMAutoScroll.toString()+')();<\/script>');
     res.writeHead(200,{'Content-Type':'text/html; charset=utf-8','Content-Length':info.size+bootstrap.length,'Cache-Control':'no-store','Referrer-Policy':'no-referrer','X-Frame-Options':'DENY','X-Content-Type-Options':'nosniff','Cross-Origin-Resource-Policy':'same-origin'});res.write(head.subarray(0,at));res.write(bootstrap);res.write(head.subarray(at));const body=createReadStream(htmlPath,{start:head.length});res.once('close',()=>body.destroy());body.on('error',()=>res.destroy()).pipe(res);
    }catch{if(!res.headersSent)json(res,404,{error:{code:'FILE',message:'Casey’s Room HTML could not be opened. Extract the full ZIP first.'}});else res.destroy();}return;}
   const supplied=Buffer.from(String(req.headers.authorization||'').replace(/^Bearer /,''));if(supplied.length!==expected.length||!timingSafeEqual(supplied,expected)){json(res,401,{error:{code:'SESSION',message:'Open Start AIM.cmd to reconnect Abby.'}});return;}

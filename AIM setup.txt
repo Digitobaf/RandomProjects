@@ -24,6 +24,9 @@ Use Export .txt to save a selected chat outside Firefox. Delete removes only tha
 ABBY'S CHARACTER
 Edit Abby.cmd opens her local character notes. Save the file; each new reply uses the latest saved notes without restarting. A reply already underway uses the notes saved when it started. Use Edit Abby.cmd from the same folder as Start AIM.cmd; the launcher prints the active profile path. Your local abby-profile.txt is preserved on future updates and excluded from Git and download ZIPs.
 
+CHAT SCROLLING
+New messages automatically scroll the conversation fully to the bottom after the text and smileys finish laying out. The view stays at the bottom through late layout and window-size changes. You can scroll up to read older messages between replies; the next new message brings the latest reply into view. The separate Chat History reader keeps its own scroll position.
+
 REPLY STYLE AND TIMING
 Abby defaults to brief instant messages, usually 1–3 sentences. Add conversational preferences to Edit Abby, such as: "Keep most replies to one or two sentences. Match my message length. Avoid long monologues or elaborate invented stories." Save to apply to the next message. Replies have a length-aware typing pause of about 2–6.5 seconds, including time Gemini already spent generating the reply. Longer generation times do not add another full pause. AIM shows Abby is typing while waiting. Warnings and the Retry button wrap within the status area without clipping.
 
