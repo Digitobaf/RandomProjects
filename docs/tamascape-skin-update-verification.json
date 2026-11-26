@@ -1,0 +1,13 @@
+{
+  "animation_and_program_code_unchanged": true,
+  "embedded_code_sha256": "7ba9dbe2f26d1d4d3b66bd24af1052e0008ce9bfcb7952dd883820dd423a2d0f",
+  "standalone_code_sha256": "e68d0b715de57abf605a362aa1ef43a1b29249e3ff9f5cd764c51124afe15cd3",
+  "skin_count": 6,
+  "cutout": {
+    "x": 512,
+    "y": 660,
+    "width": 512,
+    "height": 512
+  },
+  "canonical_bytes": 110135694
+}
