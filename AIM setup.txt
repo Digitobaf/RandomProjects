@@ -17,7 +17,10 @@ Abby's messages and unfinished draft are stored in a separate browser database. 
 Recent conversation is sent to Gemini with Abby's character instructions. Older messages remain in the local history; this first version does not add a separate long-term memory/summary system.
 
 ABBY'S CHARACTER
-Edit Abby.cmd opens her local character notes. Save the file and restart the launcher to apply changes. Your local abby-profile.txt is preserved on future updates and excluded from Git and download ZIPs.
+Edit Abby.cmd opens her local character notes. Save the file; each new reply uses the latest saved notes without restarting. A reply already underway uses the notes saved when it started. Use Edit Abby.cmd from the same folder as Start AIM.cmd; the launcher prints the active profile path. Your local abby-profile.txt is preserved on future updates and excluded from Git and download ZIPs.
+
+REPLY STYLE AND TIMING
+Abby defaults to brief instant messages, usually 1–3 sentences. Add conversational preferences to Edit Abby, such as: "Keep most replies to one or two sentences. Match my message length. Avoid long monologues or elaborate invented stories." Save to apply to the next message. Replies have a length-aware typing pause of about 2–6.5 seconds, including time Gemini already spent generating the reply. Longer generation times do not add another full pause. AIM shows Abby is typing while waiting. Warnings and the Retry button wrap within the status area without clipping.
 
 YOUR KEY
 Do not enter the API key into AIM's chat or password field. To change the key, close the running launcher and use Set Gemini Key.cmd. Paste the new key into the empty Notepad document and press Ctrl+S. Do not type the key in the black window. Then start AIM again.
