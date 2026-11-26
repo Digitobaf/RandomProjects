@@ -1,3 +1,4 @@
+import { DEFAULT_MODEL } from './model.mjs';
 import { writeFile,readFile,unlink,mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
@@ -10,7 +11,7 @@ export function keyFromText(text){const value=text.replace(/^\uFEFF/,'').trim();
 export async function saveKey(file,key){
  if(!validKey(key))throw new Error('Invalid key text');
  let old='';try{old=await readFile(file,'utf8');}catch(e){if(e.code!=='ENOENT')throw e;}
- const kept=old.split(/\r?\n/).filter(line=>!/^\s*GEMINI_API_KEY\s*=/.test(line));while(kept.at(-1)==='')kept.pop();if(!kept.some(line=>/^\s*GEMINI_MODEL\s*=/.test(line)))kept.push('GEMINI_MODEL=gemini-3.1-flash-lite');
+ const kept=old.split(/\r?\n/).filter(line=>!/^\s*GEMINI_API_KEY\s*=/.test(line));while(kept.at(-1)==='')kept.pop();if(!kept.some(line=>/^\s*GEMINI_MODEL\s*=/.test(line)))kept.push('GEMINI_MODEL='+DEFAULT_MODEL);
  await writeFile(file,['GEMINI_API_KEY='+key,...kept,''].join('\r\n'),{mode:0o600});
 }
 export async function windowsKeySetup(file,{spawnProcess=spawn,pollMs=250,timeoutMs=600000,signal}={}){
