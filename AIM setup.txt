@@ -61,4 +61,4 @@ Abby can make one short Wikipedia topic lookup when a public fact may be outdate
 This is basic encyclopedia fact-checking, not general web search or deep research. Lookup results stay behind the scenes; Abby replies normally without source links. If results are missing or unavailable, she is instructed to acknowledge uncertainty.
 
 NEW DOWNLOAD PACKAGING
-Full downloads are now GitHub Release ZIP assets. Extract into the existing app folder and choose Replace, then run Start AIM.cmd. Your key, local Abby notes, browser origin, and saved data remain in their usual locations.
+Full downloads are packaged ZIP files; use the versioned download link supplied with each update. Extract into the existing app folder and choose Replace, then run Start AIM.cmd. Your key, local Abby notes, browser origin, and saved data remain in their usual locations.
