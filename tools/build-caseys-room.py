@@ -13,7 +13,8 @@ def write_zip(name,files):
  with zipfile.ZipFile(ROOT/name,'w',zipfile.ZIP_DEFLATED,compresslevel=9)as z:
   for n in sorted(set(files)):
    assert not n.lower().endswith(('.gba','.gbc','.gb','.sav'))and n not in ['aim-local/.env','aim-local/abby-profile.txt','aim-local/mercer-profile.txt']
-   z.write(ROOT/n,n)
+   entry=zipfile.ZipInfo(n,date_time=(1980,1,1,0,0,0));entry.external_attr=0o100644<<16
+   z.writestr(entry,(ROOT/n).read_bytes(),compress_type=zipfile.ZIP_DEFLATED,compresslevel=9)
  with zipfile.ZipFile(ROOT/name)as z:
   assert z.testzip()is None
   for n in z.namelist():assert hashlib.sha256(z.read(n)).hexdigest()==digest(ROOT/n)
