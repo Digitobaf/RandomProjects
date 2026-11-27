@@ -31,7 +31,11 @@ def main():
   previous=json.loads(subprocess.check_output(['git','show',args.base+':assets/manifest.json'],cwd=ROOT,text=True))
   known={a['path']:a['sha256']for a in previous['assets']}
   changed=[a['path']for a in manifest['assets']if known.get(a['path'])!=a['sha256']]
-  write_zip('Caseys-Room-update.zip',CODE+changed)
+  changed_code=[]
+  for n in CODE:
+   baseline=subprocess.run(['git','show',args.base+':'+n],cwd=ROOT,stdout=subprocess.PIPE,stderr=subprocess.DEVNULL)
+   if baseline.returncode or hashlib.sha256(baseline.stdout).hexdigest()!=digest(ROOT/n):changed_code.append(n)
+  write_zip('Caseys-Room-update.zip',changed_code+changed)
  if args.full:write_zip('Caseys-Room-full.zip',CODE+[a['path']for a in manifest['assets']])
  print('Use the migration ZIP for an existing embedded installation. Code ZIP requires its matching media set. Never replace a newer local HTML with an older code ZIP.')
 if __name__=='__main__':main()

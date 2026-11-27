@@ -29,3 +29,23 @@ test('HTTP character routing and retry caches stay separate even with the same r
  try{for(let i=0;i<2;i++){assert.equal((await(await send('abby-gemini')).json()).text,'Abby reply');assert.equal((await(await send('mercer-gemini')).json()).text,'Julian reply');}assert.deepEqual(calls,{abby:1,mercer:1});assert.equal((await send('transcription-buddy')).status,400);assert.deepEqual(calls,{abby:1,mercer:1});}
  finally{server.closeAllConnections();await new Promise(r=>server.close(r));}
 });
+
+test('Abby uses established Chongqing context and restrained delivery after conflicting old notes',async()=>{
+ let request;const notes='OLD NOTES: Location Shanghai; three hours ahead of the user. Always drinking Earl Grey. Every greeting should mention tea.';
+ const responder=createGeminiResponder({profile:notes,client:{models:{generateContent:async args=>{request=args;return{text:'All right. How about you?'};}}}});
+ const messages=[{role:'user',text:'Hi.'},{role:'model',text:'It is evening here. Still working with my Earl Grey.'},{role:'user',text:'It is 2 a.m. here. Why are you still at work?'}];
+ await responder(messages);const prompt=request.config.systemInstruction;
+ assert(prompt.startsWith('You are Abby'));assert(prompt.includes('corporate job in Chongqing, China'));assert(prompt.includes(notes));
+ assert(prompt.indexOf('Established current context:')>prompt.indexOf(notes));assert(prompt.includes('share the same local time as the user'));assert(prompt.includes('Do not claim a time difference'));assert(prompt.includes('especially if the user has established that it is 2 a.m.'));
+ assert(prompt.indexOf('Conversational delivery rules:')>prompt.indexOf(notes));assert(prompt.includes('not a recurring prop'));assert(prompt.includes('Discuss favorites naturally when relevant or when asked'));assert(prompt.includes('Do not infer current activities'));
+ assert(prompt.includes('No current clock time is supplied.'));assert(!prompt.includes('Current UTC date and time:'));assert(!/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/.test(prompt));
+ assert.equal(request.contents.at(-1).parts[0].text,messages.at(-1).text);assert.equal(request.contents[1].parts[0].text,messages[1].text);
+});
+
+test('Mercer voice guidance overrides performance cues without replacing private biography',async()=>{
+ let request;const notes='PRIVATE BIO: London. Favorite restaurant St. JOHN. Sarcasm: frequent. Always use Hello, kid. Usual online hours: late evenings.';
+ const responder=createGeminiResponder({character:MERCER_CHARACTER,profile:notes,client:{models:{generateContent:async args=>{request=args;return{text:"Fair point. I'll tone it down."};}}}});
+ await responder([{role:'user',text:'You sound like a cartoon. Please talk normally.'}]);const prompt=request.config.systemInstruction;
+ assert(prompt.includes(notes));assert(prompt.indexOf("Mercer's delivery:")>prompt.indexOf(notes));assert(prompt.includes('plain, contemporary language'));assert(prompt.includes('Dry humor is occasional'));assert(prompt.includes('without another joke'));assert(prompt.includes('not a line to repeat'));assert(prompt.includes('Do not repeatedly use signature greetings'));assert(prompt.includes('Do not volunteer clock times'));
+ assert(!prompt.includes('Current UTC date and time:'));assert(!prompt.includes('use Europe/London local time'));assert(!prompt.includes('Established current context:'));assert(!prompt.includes('Chongqing'));
+});
