@@ -1,3 +1,4 @@
+import { serveAsset } from './asset-server.mjs';
 import http from 'node:http';
 import { timingSafeEqual,createHash } from 'node:crypto';
 import { stat,open } from 'node:fs/promises';
@@ -82,6 +83,7 @@ export function createAIMServer({token,responder,htmlPath,port=PORT,appId='',typ
     const match=/<head(?:\s[^>]*)?>/i.exec(head.toString('latin1'));if(!match)throw new Error('HTML head missing');const at=match.index+match[0].length,bootstrap=Buffer.from('<script>try{sessionStorage.setItem("caseysAIM:localSession:v1",'+JSON.stringify(token)+')}catch(_){};('+installAbbyDisplayCleanup.toString()+')('+normalizeAbbyReply.toString()+','+classicAbbyText.toString()+');('+installAIMSmileys.toString()+')();('+installAIMAutoScroll.toString()+')();<\/script>');
     res.writeHead(200,{'Content-Type':'text/html; charset=utf-8','Content-Length':info.size+bootstrap.length,'Cache-Control':'no-store','Referrer-Policy':'no-referrer','X-Frame-Options':'DENY','X-Content-Type-Options':'nosniff','Cross-Origin-Resource-Policy':'same-origin'});res.write(head.subarray(0,at));res.write(bootstrap);res.write(head.subarray(at));const body=createReadStream(htmlPath,{start:head.length});res.once('close',()=>body.destroy());body.on('error',()=>res.destroy()).pipe(res);
    }catch{if(!res.headersSent)json(res,404,{error:{code:'FILE',message:'Casey’s Room HTML could not be opened. Extract the full ZIP first.'}});else res.destroy();}return;}
+  if(htmlPath&&await serveAsset(req,res,htmlPath))return;
   const supplied=Buffer.from(String(req.headers.authorization||'').replace(/^Bearer /,''));if(supplied.length!==expected.length||!timingSafeEqual(supplied,expected)){json(res,401,{error:{code:'SESSION',message:'Open Start AIM.cmd to reconnect your AI buddies.'}});return;}
   if(req.method==='GET'&&req.url==='/api/health'){json(res,200,{ready:true,browserSession:true,appId,revision:AIM_REVISION});return;}
   if(req.method!=='POST'||req.url!=='/api/chat'){json(res,404,{error:{code:'NOT_FOUND',message:'Not found.'}});return;}

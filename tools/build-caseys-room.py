@@ -1,19 +1,36 @@
-"""Build the complete standalone app from source; distribute ZIPs via GitHub Releases."""
+"""Validate the split app and package small migration/code updates.
+Use --base COMMIT to include changed media; --full is an optional new-install ZIP.
+"""
 from pathlib import Path
-import base64,gzip,zipfile
+import argparse,hashlib,json,subprocess,zipfile
 ROOT=Path(__file__).resolve().parents[1]
-source=(ROOT/'src/TamaScape-embedded.html').read_bytes()
-payload=base64.b85encode(gzip.compress(source,compresslevel=9,mtime=0)).decode()
-template=(ROOT/'src/Caseys-Room.template.html').read_text()
-assert template.count('__TAMASCAPE_PAYLOAD__')==1
-html=template.replace('__TAMASCAPE_PAYLOAD__',payload).encode()
-(ROOT/'Caseys-Room-with-Mood-Ring.html').write_bytes(html)
-runtime=['package.json','package-lock.json','server.mjs','launch.mjs','profile.mjs','smileys.mjs','gemini-connection.mjs','model.mjs','setup-key.mjs','chat-scroll.mjs','classic-text.mjs','quick-lookup.mjs','.gitignore','.env.example','abby-profile.example.txt','mercer-profile.example.txt']
-files=['Caseys-Room-with-Mood-Ring.html','Start AIM.cmd','Set Gemini Key.cmd','Edit Abby.cmd','Edit Mercer.cmd','AIM setup.txt','assets/fonts/Yellowtail-LICENSE.txt']+['aim-local/'+n for n in runtime]
-with zipfile.ZipFile(ROOT/'Caseys-Room.zip','w',zipfile.ZIP_DEFLATED,compresslevel=9)as z:
- for name in files:z.write(ROOT/name,name)
-with zipfile.ZipFile(ROOT/'Caseys-Room.zip')as z:
- assert z.testzip()is None
- assert z.read('Caseys-Room-with-Mood-Ring.html')==html
-with zipfile.ZipFile(ROOT/'TamaScape.zip','w',zipfile.ZIP_DEFLATED,compresslevel=9)as z:z.write(ROOT/'TamaScape.html','TamaScape.html')
-print('Built and verified Caseys-Room.zip and TamaScape.zip.')
+RUNTIME=['package.json','package-lock.json','server.mjs','asset-server.mjs','launch.mjs','profile.mjs','smileys.mjs','gemini-connection.mjs','model.mjs','setup-key.mjs','chat-scroll.mjs','classic-text.mjs','quick-lookup.mjs','.gitignore','.env.example','abby-profile.example.txt','mercer-profile.example.txt']
+CODE=['Caseys-Room-with-Mood-Ring.html','Start AIM.cmd','Set Gemini Key.cmd','Edit Abby.cmd','Edit Mercer.cmd','AIM setup.txt','ASSET-WORKFLOW.md','assets/runtime/asset-loader.js','assets/apps/tamascape.html','assets/manifest.json']+['aim-local/'+n for n in RUNTIME]
+MIGRATION=['Split Media.cmd','tools/split-casey-assets.mjs','assets/runtime/asset-loader.js','aim-local/asset-server.mjs','ASSET-WORKFLOW.md']
+def digest(p):
+ with p.open('rb')as f:return hashlib.file_digest(f,'sha256').hexdigest()
+def write_zip(name,files):
+ with zipfile.ZipFile(ROOT/name,'w',zipfile.ZIP_DEFLATED,compresslevel=9)as z:
+  for n in sorted(set(files)):
+   assert not n.lower().endswith(('.gba','.gbc','.gb','.sav'))and n not in ['aim-local/.env','aim-local/abby-profile.txt','aim-local/mercer-profile.txt']
+   z.write(ROOT/n,n)
+ with zipfile.ZipFile(ROOT/name)as z:
+  assert z.testzip()is None
+  for n in z.namelist():assert hashlib.sha256(z.read(n)).hexdigest()==digest(ROOT/n)
+ print(name,round((ROOT/name).stat().st_size/1024,1),'KiB; verified')
+def main():
+ parser=argparse.ArgumentParser();parser.add_argument('--base',help='Last delivered split-layout Git commit; include all media added/changed since it.');parser.add_argument('--full',action='store_true');args=parser.parse_args()
+ html=ROOT/'Caseys-Room-with-Mood-Ring.html';assert html.stat().st_size<4*1024*1024,'HTML must remain below 4 MiB'
+ manifest=json.loads((ROOT/'assets/manifest.json').read_text());assert manifest['format']=='caseys-assets-v1'
+ for a in manifest['assets']:assert digest(ROOT/a['path'])==a['sha256'],a['path']
+ manifest['htmlSha256']=digest(html);manifest['htmlBytes']=html.stat().st_size;(ROOT/'assets/manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+ write_zip('Caseys-Room-Migration.zip',MIGRATION)
+ write_zip('Caseys-Room-Code.zip',CODE)
+ if args.base:
+  previous=json.loads(subprocess.check_output(['git','show',args.base+':assets/manifest.json'],cwd=ROOT,text=True))
+  known={a['path']:a['sha256']for a in previous['assets']}
+  changed=[a['path']for a in manifest['assets']if known.get(a['path'])!=a['sha256']]
+  write_zip('Caseys-Room-update.zip',CODE+changed)
+ if args.full:write_zip('Caseys-Room-full.zip',CODE+[a['path']for a in manifest['assets']])
+ print('Use the migration ZIP for an existing embedded installation. Code ZIP requires its matching media set. Never replace a newer local HTML with an older code ZIP.')
+if __name__=='__main__':main()

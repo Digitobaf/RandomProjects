@@ -1,3 +1,10 @@
 
-# The oversized standalone HTML is generated from the source files.
-/Caseys-Room-with-Mood-Ring.html
+# Local migration backups, private ROMs, and optional generated full bundles.
+
+
+/_migration-backups/
+/Caseys-Room-full.zip
+/Caseys-Room-update.zip
+/Caseys-Room.zip
+*.[gG][bB][aA]
+*.sav

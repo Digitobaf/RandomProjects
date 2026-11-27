@@ -1,3 +1,6 @@
+ASSET LAYOUT UPDATE
+Read ASSET-WORKFLOW.md for the one-time local split and future small updates. Keep Start AIM.cmd and http://127.0.0.1:43187/ unchanged. Existing private profiles, key, ROM and browser saves stay in place.
+
 AI BUDDIES AND CO-WORKERS
 
 Buddies contains Abby (xXx_SoupSlut_xXx) and Julian Mercer (mercer_type).

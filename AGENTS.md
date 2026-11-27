@@ -1,23 +1,24 @@
 # Casey's Room
 
-These instructions apply to Casey's Room and its downloadable ZIP in this repository.
+## Canonical sources and private files
 
-## Source and scope
+- `Caseys-Room-with-Mood-Ring.html` is the editable, Git-tracked main code/markup. Keep it below 4 MiB. The old embedded template/payload build is retired.
+- `assets/apps/tamascape.html` is the embedded TamaScape code/config. Keep media external. The legacy standalone `TamaScape.html` is separate; preserve its independent behavior.
+- Media lives under `assets/images`, `audio`, `video`, `fonts`, `data`, and `tamascape/{images,audio}`. The manifest records checksums and paths. Never overwrite hash-named media in place; write a new hash name and update references.
+- Preserve all independent programs' behavior/storage unless requested. No unrelated animation, audio-gain, save, or profile changes during packaging.
+- Never commit or distribute `.env`, actual `abby-profile.txt`/`mercer-profile.txt`, `.gba` ROMs, browser save exports, `_migration-backups`, SDK dependencies, or node_modules.
+- The user's actual installed HTML may contain newer changes by another assistant. Use the one-time local migration kit rather than replacing that HTML with a possibly older repository copy. Reconcile the small migrated HTML, manifest and TamaScape code before subsequent feature edits.
 
-- Editable sources are `src/Caseys-Room.template.html` and `src/TamaScape-embedded.html`. `TamaScape.html` is the separate standalone app and may have different animation code; preserve each version. Build with `python tools/build-caseys-room.py`. The generated canonical app is `Caseys-Room-with-Mood-Ring.html`, a complete standalone HTML with its artwork, fonts, and sounds included. The generated HTML is excluded from Git because it exceeds the 100 MiB per-file limit. The compressed ZIPs are still below that limit and remain tracked for direct downloads.
-- Preserve Lamplight Write and Diary's code, appearance, behavior, and storage unless the user explicitly requests changes to them. Keep independent programs and their storage separate.
+## Serving and save continuity
 
-## Revision delivery
+Keep `Start AIM.cmd`, `http://127.0.0.1:43187/`, and the existing Firefox profile/origin. The server only exposes explicit app/API routes and the public assets directory; preserve traversal/symlink protections and media range responses. Do not change localStorage/IndexedDB keys or clear user data. Private companions and ROM stay in the permanent folder.
 
-The user confirmed that GitHub downloads work and requested this method for future revisions.
+## Validation and delivery
 
-1. Edit and verify the source files. Keep animation code unchanged for skin-only changes; only edit skin assets/configuration.
-2. Run `python tools/build-caseys-room.py`. Verify ZIP contents exactly match the generated canonical HTML.
-3. Commit and push source changes to `main` without rewriting history.
-4. Commit the generated ZIPs while each is below 100 MiB. Publish a Release page linking the SHA-pinned ZIP downloads. Release asset uploads currently return an authentication error on this connection; if uploads become available, assets can replace Git-tracked ZIPs. Verify anonymous downloads and extracted HTML bytes.
-5. Deliver the version-specific raw GitHub ZIP link. Never commit the oversized generated HTML.
+1. Read `ASSET-WORKFLOW.md`; follow its shared editing/update rules. Run tests appropriate to the change, plus `python tools/build-caseys-room.py` for checksum/package verification.
+2. For the one-time transition deliver the small `Caseys-Room-Migration.zip`. It converts the installed HTML, backs up HTML/server, and preserves private companions. Do not tell the user to install the repository code ZIP over a newer local version.
+3. For subsequent releases use `python tools/build-caseys-room.py --base <last-delivered-split-commit>`. Deliver only code and media added/changed since that base. Do not re-export/download full bundles for routine edits. A full new-install ZIP is optional with `--full`.
+4. Commit and push to `main` without rewriting history. Publish a Release page with SHA-pinned raw download links for the small migration/update ZIP. Release asset uploads currently fail authentication on this connection; raw Git-tracked small ZIPs work.
+5. Verify anonymous downloads and ZIP bytes before delivery. Explain extraction into the existing app folder, keeping the origin unchanged. Include a handoff note with the exact layout/update rules for the other assistant when requested.
 
-The repository is:
-`https://github.com/Digitobaf/RandomProjects`
-
-Use the SHA-pinned ZIP download links; Release pages can link those downloads. Tell the user to extract into the existing app folder and use Start AIM.cmd for connected Abby. Preserve local keys, profiles, browser origin, and save data. Confirm the release is published and anonymously downloadable before delivering it.
+Repository: https://github.com/Digitobaf/RandomProjects
