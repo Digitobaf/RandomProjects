@@ -7928,6 +7928,10 @@
       "sha256": "bb4f75bc5f71dfaee893756fb905c0d5860ac02474d76bc0311af0d56ce99f75",
       "bytes": 1018098,
       "losslessSource": "f5b59a7f297a980e2e4bc48ab6b87539e1c5bf20335cc1f9b8ce72a03da6dd81"
+    },
+    "assets/audio/640c7db34eae1741d3241729.mp3": {
+      "sha256": "640c7db34eae1741d32417290431e0b51cbfbdbee1ad585bd52501834edfda02",
+      "bytes": 10666
     }
   },
   "upscaledObjects": 24,

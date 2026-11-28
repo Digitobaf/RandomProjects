@@ -1,17 +1,17 @@
-SIMPOM — DRINKS, STEAMER AND COOKING BOOK UPDATE (v4)
+SIMPOM — GAME UI UPDATE (v5)
 
-Apply this small update over your existing SimPom v3 folder:
-1. Close the SimPom tab.
-2. Extract into the folder containing SimPom.html. Replace included files.
-3. Keep your existing assets folder, then open SimPom.html in Firefox.
+1. Close SimPom.
+2. Extract into your EXISTING v4 SimPom folder (with SimPom.html).
+3. Replace included files, keep existing assets, and reopen SimPom.html.
 
-This remains separate from Casey's Room. No Start AIM launcher is needed.
-Your timer preferences keep the same storage key and folder/browser.
+New: curved blue game-style controls, green timer display, Play/Pause/Reset
+icons, and a connected Buy Mode dock. Durations still edits your own times.
 
-Bachman and Whether Vain finish their drink sequences with an original
-"guk-guk-guk" drinking effect. It plays once after the close sound finishes.
-The steamer opens, closes again, then keeps its steam sound looping with
-the doors shut. The cooking book uses original sprites at twice native size.
+Buy Mode uses picture-only slots. Hover for the original object name,
+price and description. Keyboard focus works too; Escape closes the preview.
+The supplied selection sound plays before a running item's animation/audio.
+Sound off skips the cue. While paused, select an item and press Start as usual.
 
-All other v3 changes remain. Fire/TV programme audio still awaits your files.
-See README-for-Pollux.md and ANIMATION-FIXES.md for current shared notes.
+All 95 items remain. Previous drink/steam/book changes and saves are retained.
+This is separate from Casey's Room; no Start AIM launcher is needed.
+See UI-NOTES.md and README-for-Pollux.md for the current shared workflow.

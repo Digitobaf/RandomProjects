@@ -1,5 +1,5 @@
 {
-  "version": "drink-steam-book-v4",
+  "version": "game-ui-v5",
   "drinks": [
     {
       "id": "c2a91fd0",
@@ -271,5 +271,125 @@
   },
   "existingV3SeamFixesPreserved": true,
   "caseysRoomModified": false,
-  "allCurrentMediaChecksumsVerified": 1902
+  "allCurrentMediaChecksumsVerified": 1903,
+  "gameUI": {
+    "catalogObjects": 95,
+    "allPagesReachable": true,
+    "desktopGrid": "8 by 2",
+    "thumbnailNamesHidden": true,
+    "hoverUsesOriginalNameDescriptionAndPrice": true,
+    "hoverDoesNotSelectOrPlayAudio": true,
+    "previewHoverableAndDismissible": true,
+    "keyboardFocusAndSelection": true,
+    "searchAndEmptyResults": true,
+    "previewClampedToViewport": true,
+    "touchSelectionAndDismissal": true,
+    "pageErrors": []
+  },
+  "selectionCue": {
+    "actualSelectionAudioPlayback": true,
+    "itemStartsOnlyAfterCueEnds": true,
+    "staticIdleDuringCue": true,
+    "rapidSelectionCancelsOldCueAndActivation": true,
+    "resetCancelsPendingActivation": true,
+    "muteSkipsCueAndContinuesSilentActivity": true,
+    "pausedPickDoesNotAutostartTimerOrAnimation": true,
+    "returnFromBackgroundReleasesPendingCue": true,
+    "timerExpiryCancelsUnstartedItem": true,
+    "pageErrors": []
+  },
+  "timerUI": {
+    "gameStyleGreenClock": true,
+    "iconPlayPauseResetWork": true,
+    "accessibleStartResumeLabels": true,
+    "customDurationsPersist": true,
+    "phaseSelectionWorks": true,
+    "rotationAndBuyModeToggleWork": true
+  },
+  "currentGameplayRegression": {
+    "version": "drink-steam-book-v4",
+    "drinks": [
+      {
+        "id": "c2a91fd0",
+        "action": "start",
+        "playOrder": [
+          "bar_open",
+          "bar_pourdrink",
+          "bar_glassclink",
+          "bar_close",
+          "bar_drink_gulp_vox"
+        ],
+        "gulpFinishes": true,
+        "gulpDurationSec": 0.64517,
+        "startsAfterCloseFinishes": true
+      },
+      {
+        "id": "c2a91fd0",
+        "action": "click",
+        "playOrder": [
+          "bar_open",
+          "bar_pourdrink",
+          "bar_glassclink",
+          "bar_close",
+          "bar_drink_gulp_vox"
+        ],
+        "gulpFinishes": true,
+        "gulpDurationSec": 0.745669,
+        "startsAfterCloseFinishes": true
+      },
+      {
+        "id": "da2b8f79",
+        "action": "start",
+        "playOrder": [
+          "bar_open",
+          "bar_pourdrink",
+          "bar_glassclink",
+          "bar_close",
+          "bar_drink_gulp_vox"
+        ],
+        "gulpFinishes": true,
+        "gulpDurationSec": 0.728481,
+        "startsAfterCloseFinishes": true
+      },
+      {
+        "id": "da2b8f79",
+        "action": "click",
+        "playOrder": [
+          "bar_open",
+          "bar_pourdrink",
+          "bar_glassclink",
+          "bar_close",
+          "bar_drink_gulp_vox"
+        ],
+        "gulpFinishes": true,
+        "gulpDurationSec": 0.728481,
+        "startsAfterCloseFinishes": true
+      }
+    ],
+    "steamer": {
+      "poses": [
+        "1",
+        "2",
+        "3",
+        "2",
+        "1",
+        "0"
+      ],
+      "steamStartsWithClosedDoors": true,
+      "realLoopPlayback": true,
+      "staysClosedWhileLooping": true
+    },
+    "book": {
+      "usesOriginalFrames": true,
+      "scale": 2,
+      "views": [
+        "SE",
+        "SW",
+        "NW",
+        "NE"
+      ],
+      "AIAtlasAbsent": true
+    },
+    "pageErrors": []
+  }
 }

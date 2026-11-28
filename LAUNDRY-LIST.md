@@ -16,6 +16,8 @@ The combined installer patches the installed HTML/helper selectively and creates
 
 Applied the 18-item review and reconciled Pollux’s supplied files in `SimPom-Revisions-v3.zip`. The v4 `SimPom-Drink-Steam-Book-Update.zip` adds original gulp effects after both drink sequences, closes the steamer before its steam loop, and restores the original cooking book at 2×. There are 95 objects after the requested five removals. Original 2× sprites replace Moneywell/Brahma/microwave AI art; copied Pollux originals, seamless contours, canning hold/boil, protected Playhouse interior animation, mud-stream omission and specified TV channel images are implemented. See `previews/simpom/ANIMATION-FIXES.md`.
 
+The v5 `SimPom-Game-UI-Update.zip` adds the game-style timer console, picture-only catalog, original hover descriptions/prices, and the supplied purchase cue before activity. Custom durations and existing item behavior are retained.
+
 Pending media:
 
 - User will supply the fireplace loop. The rejected burning-Sim clip is no longer reachable or played; active flame is silent after ignition.

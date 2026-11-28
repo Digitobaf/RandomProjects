@@ -77,11 +77,58 @@ body{margin:0;background:#191b1c;color:#fff;min-height:100vh;background-image:ra
 
 body>main{max-width:920px}#sims-pomodoro-preview .sp-layout{grid-template-columns:minmax(0,420px) minmax(280px,390px);align-items:end;gap:20px}
 #sims-pomodoro-preview .sp-object{height:330px!important}#sims-pomodoro-preview .sp-object-caption{max-width:260px;font-size:13px;min-height:34px;display:flex;align-items:center;justify-content:center}
-#sims-pomodoro-preview .sp-catalog{max-width:390px}#sims-pomodoro-preview .sp-catalog-grid{grid-template-columns:repeat(4,minmax(0,1fr));min-height:196px}
-#sims-pomodoro-preview .sp-tile{min-height:94px;justify-content:flex-end}#sims-pomodoro-preview .sp-tile span{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;height:26px;font-size:10px}
-#sims-pomodoro-preview .sp-tile img{height:52px}#sims-pomodoro-preview .sp-catalog-grid{grid-auto-rows:94px;align-content:start}#sims-pomodoro-preview .sp-search{width:100%;padding:6px 8px;background:#eef7ff;color:#10184b;border:2px inset #bbc9ee;border-radius:4px;margin-bottom:8px;font:inherit;font-size:13px}
+#sims-pomodoro-preview .sp-catalog{max-width:390px;border-radius:4px}
+#sims-pomodoro-preview .sp-catalog-grid{grid-template-columns:repeat(8,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));aspect-ratio:4/1;min-height:0;gap:3px;padding:4px;border-radius:0;background:#07134e;align-content:start}
+#sims-pomodoro-preview .sp-tile{min-height:0;min-width:0;justify-content:center;gap:0;padding:3px;border-radius:0;background:#a3cbdc;border-color:#253873}
+#sims-pomodoro-preview .sp-tile img{height:100%;width:100%;min-height:0;min-width:0;object-fit:contain}
+#sims-pomodoro-preview .sp-tile span,#sims-pomodoro-preview .sp-selected-name{display:none}
+#sims-pomodoro-preview .sp-catalog-footer{justify-content:flex-end}
+#sims-pomodoro-preview .sp-search{width:100%;padding:6px 8px;background:#eef7ff;color:#10184b;border:2px inset #bbc9ee;border-radius:4px;margin-bottom:8px;font:inherit;font-size:13px}
 #sims-pomodoro-preview .sp-pages{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px;font-size:12px}#sims-pomodoro-preview .sp-pages button{font-size:13px;min-height:27px;padding:3px 9px}
 #sims-pomodoro-preview .sp-announcement{min-height:36px}#sims-pomodoro-preview .sp-mode-status{font-size:12px;text-align:center;color:#d5e9f9;margin:4px 0 0;min-height:16px}
 #sims-pomodoro-preview .sp-sprite-button:hover{background:radial-gradient(ellipse,#57d5ff08,transparent 70%)}#sims-pomodoro-preview .sp-preview-options input[type=range]{width:140px}
-#sims-pomodoro-preview .sp-phase{font-size:15px}#sims-pomodoro-preview .sp-empty{grid-column:1/-1;align-self:center;text-align:center;font-size:13px;color:#0a1744}
+#sims-pomodoro-preview .sp-sprite-button:disabled{opacity:1;cursor:default}
+#sims-pomodoro-preview .sp-phase{font-size:15px}#sims-pomodoro-preview .sp-empty{grid-column:1/-1;grid-row:1/-1;align-self:center;text-align:center;font-size:13px;color:#e6f1ff}
+#sims-pomodoro-preview .sp-object-preview{position:fixed;z-index:30;display:grid;grid-template-columns:132px minmax(0,1fr);gap:18px;padding:18px;background:linear-gradient(135deg,#080f77,#01044d);border:2px solid #5a66c2;border-radius:5px;box-shadow:inset 1px 1px 0 #d3d7fb,inset -1px -1px 0 #000129,0 5px 12px #0008;color:#f3f4ff;overflow:auto;overscroll-behavior:contain;text-align:left}
+#sims-pomodoro-preview .sp-preview-image{display:block;width:132px;height:170px;object-fit:contain;image-rendering:auto;align-self:center}
+#sims-pomodoro-preview .sp-preview-heading{display:flex;justify-content:space-between;align-items:baseline;gap:14px;margin-bottom:8px}
+#sims-pomodoro-preview .sp-preview-name{font:inherit;font-size:18px;line-height:1.3;margin:0;font-weight:normal}
+#sims-pomodoro-preview .sp-preview-price{white-space:nowrap;font-size:17px}
+#sims-pomodoro-preview .sp-preview-description{font-size:14px;line-height:1.5;color:#e1e8fa;white-space:pre-line;margin:0;overflow-wrap:anywhere}
 @media(max-width:730px){#sims-pomodoro-preview .sp-layout{grid-template-columns:minmax(0,420px)}#sims-pomodoro-preview .sp-catalog{justify-self:center;width:100%}body>main{padding:8px;margin:8px auto}}
+@media(max-width:420px){#sims-pomodoro-preview .sp-catalog-grid{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(4,minmax(0,1fr));aspect-ratio:1}}
+@media(max-width:480px){#sims-pomodoro-preview .sp-object-preview{grid-template-columns:74px minmax(0,1fr);gap:10px;padding:12px}#sims-pomodoro-preview .sp-preview-image{width:74px;height:126px}#sims-pomodoro-preview .sp-preview-heading{flex-wrap:wrap;gap:4px 10px}#sims-pomodoro-preview .sp-preview-name{font-size:16px}#sims-pomodoro-preview .sp-preview-description{font-size:13px}}
+
+/* Sims-style timer console and connected Buy Mode dock. */
+#sims-pomodoro-preview .sp-layout{gap:0}
+#sims-pomodoro-preview .sp-widget{position:relative;z-index:1}
+#sims-pomodoro-preview .sp-object-caption{display:none}
+#sims-pomodoro-preview .sp-panel{position:relative;isolation:isolate;width:min(100%,360px);margin-top:28px;padding:26px 22px 12px;border:3px solid #1666ab;border-radius:70px 104px 15px 15px;background:linear-gradient(145deg,#0b9dc0 0%,#067aa5 27%,#082c87 62%,#050953 100%);box-shadow:inset 2px 2px 0 #71e5ec,inset -3px -3px 0 #040b4b,0 3px 3px #0005}
+#sims-pomodoro-preview .sp-panel::before{content:'';position:absolute;inset:9px 12px auto 12px;height:80px;border-top:3px solid #c5ffff;border-right:2px solid #61c4e5;border-radius:65px 110px 0 0;pointer-events:none;opacity:.9;z-index:-1}
+#sims-pomodoro-preview .sp-panel::after{content:'';position:absolute;right:-40px;bottom:-3px;width:44px;height:75px;pointer-events:none;background:linear-gradient(100deg,#5a7fb7,#8591c5);border-top:2px solid #ccd0f2;border-bottom:2px solid #11104e;z-index:-1}
+#sims-pomodoro-preview .sp-panel>.sp-buy{position:absolute;left:13px;top:-28px;width:54px;height:54px}
+#sims-pomodoro-preview .sp-console-mode{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-left:18px;margin:0 4px 8px}
+#sims-pomodoro-preview .sp-phase{width:auto;max-width:142px;padding:4px 7px;background:#092461;border:1px solid #4781b5;border-radius:8px;font-size:14px;font-weight:normal;color:#effaff}
+#sims-pomodoro-preview .sp-session{font-size:11px;color:#d0f3ee;white-space:nowrap}
+#sims-pomodoro-preview .sp-console-controls{display:grid;grid-template-columns:38px minmax(0,1fr) 38px;gap:8px;align-items:center}
+#sims-pomodoro-preview .sp-console-controls .sp-turn{width:38px;height:38px}
+#sims-pomodoro-preview .sp-clock-stack{min-width:0}
+#sims-pomodoro-preview .sp-clock{background:linear-gradient(#04071b,#06133c);color:#6eeaa2;text-shadow:0 0 2px #5cda8d60;border:2px inset #244b91;border-radius:50% 50% 22% 22%/70% 70% 30% 30%;font-size:27px;letter-spacing:1px;padding:2px 8px;line-height:1.25;box-shadow:0 -2px 0 #0d64b7}
+#sims-pomodoro-preview .sp-actions{display:flex;justify-content:center;align-items:center;gap:7px;margin-top:5px}
+#sims-pomodoro-preview .sp-actions .sp-transport{display:flex;align-items:center;justify-content:center;position:relative;width:35px;height:29px;min-height:29px;padding:3px;border:0;border-radius:3px;background:transparent;box-shadow:none}
+#sims-pomodoro-preview .sp-transport svg{display:block;width:23px;height:23px;fill:currentColor}
+#sims-pomodoro-preview .sp-play{color:#45e9f6}
+#sims-pomodoro-preview .sp-pause{color:#f14a60}
+#sims-pomodoro-preview .sp-reset{color:#d8e1f7}
+#sims-pomodoro-preview .sp-bottom-row{margin:8px 6px 0;gap:12px}
+#sims-pomodoro-preview .sp-disclosure{font-size:12px;color:#ecf8ff}
+#sims-pomodoro-preview .sp-settings{margin-top:10px;padding:10px 8px 6px;border-top:1px solid #82cfed80;border-radius:8px;background:#081a6638}
+#sims-pomodoro-preview .sp-mode-status{color:#a9dfd0}
+#sims-pomodoro-preview .sp-catalog{background:linear-gradient(100deg,#969dce,#717eb9);border-color:#535994;border-radius:16px 5px 5px 5px;color:#09174a}
+#sims-pomodoro-preview .sp-catalog-close{color:#09174a}
+#sims-pomodoro-preview .sp-count{color:#182459}
+@media(max-width:730px){#sims-pomodoro-preview .sp-layout{gap:16px}#sims-pomodoro-preview .sp-panel::after{display:none}}
+@media(max-width:370px){#sims-pomodoro-preview .sp-panel{padding-left:14px;padding-right:14px}#sims-pomodoro-preview .sp-console-mode{padding-left:8px}#sims-pomodoro-preview .sp-console-controls{gap:5px}#sims-pomodoro-preview .sp-clock{font-size:24px}#sims-pomodoro-preview .sp-session{font-size:10px}}
+
+#sims-pomodoro-preview .sp-bottom-row .sp-mode-status{min-height:0;margin:0;font-size:11px;white-space:nowrap}
+#sims-pomodoro-preview .sp-announcement{margin:14px auto 0}

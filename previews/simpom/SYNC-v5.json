@@ -1,0 +1,14 @@
+{
+  "version": "game-ui-v5",
+  "baseCommit": "748641390eb16d500764775613dd094dcf74dee8",
+  "objects": 95,
+  "newMedia": {
+    "assets/audio/640c7db34eae1741d3241729.mp3": {
+      "sha256": "640c7db34eae1741d32417290431e0b51cbfbdbee1ad585bd52501834edfda02",
+      "bytes": 10666
+    }
+  },
+  "descriptionsAndPrices": "Exact original source export text and numbers",
+  "itemRecipesAndSpriteAssetsUnchanged": true,
+  "storageKey": "sims-pomodoro-mockup:v3"
+}

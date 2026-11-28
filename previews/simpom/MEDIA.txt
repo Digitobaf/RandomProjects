@@ -1,1 +1,1 @@
-This small v4 follow-up requires the existing v3 SimPom media set. It includes only four new original drinking-gulp WAVs plus changed code/notes. Keep existing assets; no hash-named media is modified.
+v5 UI update requires the existing v4 SimPom media set. Only one new purchase MP3 is included. Images are reused, descriptions/prices are text from the original game export, and existing hash-named media stays unchanged.

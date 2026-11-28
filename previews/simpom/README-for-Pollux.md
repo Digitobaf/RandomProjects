@@ -1,10 +1,10 @@
-# SimPom — current follow-up v4
+# SimPom — game UI v5
 
-Standalone widget, 95 selected objects. Latest follow-up: gulp effects after both drink sequences; steamer closes before steam loops; original 2× cooking-book sprites. The 18 latest requests are recorded in `ANIMATION-FIXES.md`. This package merges the uploaded Pollux data with the previous working player/renderer rather than replacing Casey's Room or restoring the earlier broken overlays.
+Standalone widget, 95 selected objects. Current UI: curved blue timer console, green clock, image-only Buy Mode, original hover details and a purchase cue before item activation. See UI-NOTES.md. The earlier gulp/steam/book changes remain. The 18 latest requests are recorded in `ANIMATION-FIXES.md`. This package merges the uploaded Pollux data with the previous working player/renderer rather than replacing Casey's Room or restoring the earlier broken overlays.
 
 ## Install and files
 
-Apply `SimPom-Drink-Steam-Book-Update.zip` over the existing **v3 SimPom folder** containing `SimPom.html`; retain existing assets and replace included files. This small follow-up contains changed code/notes and four new original gulp clips only. A fresh installation needs the original all-100 `SimPom-Mockup.zip`, then `SimPom-Revisions-v3.zip`, then this update. Do not extract it into Casey's Room.
+Apply `SimPom-Game-UI-Update.zip` over the existing **v4 SimPom folder** containing `SimPom.html`. Replace included files and retain assets. This update includes changed code/notes and one new purchase MP3 only. A fresh installation needs the original all-100 package, v3 revisions, v4 drink/steam/book update and then this UI update. It remains separate from Casey's Room.
 
 ```text
 SimPom.html                Markup and script order; 95-pick catalog
@@ -13,7 +13,7 @@ player.js                  Timer, ordered activity/audio, editable durations, ca
 render-model.js            Shared original sprite/layer composition
 rendering.js               Compose a complete object first, scale it once for display
 motion-masks.js             Compiled movement, protection and fixed fit bounds
-objects.js                 Original sprite references, allowed views, sounds
+objects.js                 Original sprites, views, sounds, game descriptions/prices
 behaviors.js               Editable per-object activity recipes
 upscales.js                24 retained enhanced sets; removed items/original-only items omitted
 assets/manifest.json        Current referenced media checksums
@@ -68,3 +68,7 @@ Developer checks use Python Playwright/NumPy and Chromium, not runtime dependenc
 Checks cover 95 objects, configured pose/view renders with fixed scale, exact original-sprite idle comparisons across four views for tank/bath/fridge/steamer, protected Playhouse pixels with actual moving interior, doubled originals, removed-item absence, selected TV channel images, missing-audio honesty, real looping boil/steam audio, silent active fire, mud-source omission, timer expiry/persistence, 320/480/920px layouts and current media checksums. Representative final renders were visually inspected. Programme audio remains unimplemented until the missing tracks arrive.
 
 Current targeted browser check: `python tools/simpom/test-drink-steam-book.py <complete-SimPom-folder> --report-dir <output>`. It verifies complete real-time gulp playback after closing in Start and click, all six steamer door poses before looping steam, and the original cooking book at 2× in all four views. The broader `test-revisions.py` suite now expects the closed-door steam state and original cooking-book artwork.
+
+## Current game UI
+
+See UI-NOTES.md for the layout, hover panel and selection-audio sequencing. Run `tools/simpom/test-buy-mode.py` against a complete extracted app to check the new console, catalog, keyboard/touch behavior and real MP3 sequencing. Update the HTML, stylesheet and player together; preserve the original item recipes and immutable media.
