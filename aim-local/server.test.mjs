@@ -90,7 +90,7 @@ test('persistent failures report a specific safe cause after retries instead of 
 test('newer text models omit deprecated sampling settings while preserving Abby instructions and history',async()=>{
  for(const model of ['gemini-3.5-flash-lite','gemini-3.8-flash','gemini-4-hydrogen','gemini-3.1-flash-lite']){
   let request;const responder=createGeminiResponder({model,profile:'Keep replies brief.',client:{models:{generateContent:async args=>{request=args;return {text:'Abby: Hello. :)'};}}}});
-  assert.equal(await responder([{role:'user',text:'Hello.'}]),'Hello. :)');assert.equal(request.model,model);assert.equal(request.contents.at(-1).role,'user');assert(request.config.systemInstruction.includes('Keep replies brief.'));assert.equal(request.config.maxOutputTokens,1024);
+  assert.equal(await responder([{role:'user',text:'Hello.'}]),'Hello. :)');assert.equal(request.model,model);assert.equal(request.contents.at(-1).role,'user');assert(request.config.systemInstruction.includes('Keep replies brief.'));assert.equal(request.config.maxOutputTokens,2048);
   if(model==='gemini-3.1-flash-lite')assert.equal(request.config.temperature,.85);else assert(!('temperature'in request.config));
  }
 });

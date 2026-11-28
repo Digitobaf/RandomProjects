@@ -14,7 +14,7 @@ test('characters load independent permanent notes, current contexts and common c
   const abby=createGeminiResponder({client,profile:createProfileLoader(files[0])}),mercer=createGeminiResponder({client,profile:createProfileLoader(files[1]),character:MERCER_CHARACTER});
   await abby([{role:'user',text:'ABBY_CHAT_ONLY'}]);await mercer([{role:'user',text:'MERCER_CHAT_ONLY'}]);
   assert(seen[0].config.systemInstruction.startsWith('You are Abby'));assert(seen[1].config.systemInstruction.startsWith('You are Julian Mercer'));
-  for(const [index,own,other]of [[0,'ABBY','MERCER'],[1,'MERCER','ABBY']]){const prompt=seen[index].config.systemInstruction;assert(prompt.includes(own+'_PRIVATE_NOTE'));assert(!prompt.includes(other+'_PRIVATE_NOTE'));assert(!JSON.stringify(seen[index].contents).includes(other+'_CHAT_ONLY'));assert(prompt.includes('Previous chat sessions are not available'));assert(prompt.includes('1–3 sentences'));assert(prompt.includes('Never include modern emoji'));assert(seen[index].config.tools[0].functionDeclarations.some(t=>t.name==='quick_fact_lookup'));}
+  for(const [index,own,other]of [[0,'ABBY','MERCER'],[1,'MERCER','ABBY']]){const prompt=seen[index].config.systemInstruction;assert(prompt.includes(own+'_PRIVATE_NOTE'));assert(!prompt.includes(other+'_PRIVATE_NOTE'));assert(!JSON.stringify(seen[index].contents).includes(other+'_CHAT_ONLY'));assert(prompt.includes('Previous chat sessions are not available'));assert(prompt.includes('without imposing a sentence quota'));assert(prompt.includes('Never include modern emoji'));assert(seen[index].config.tools[0].functionDeclarations.some(t=>t.name==='quick_fact_lookup'));}
   assert(!seen[1].config.systemInstruction.includes('Abby'));assert(!seen[1].config.systemInstruction.includes('China'));
   await writeFile(files[1],'MERCER_UPDATED_NOTE');await mercer([{role:'user',text:'Next reply'}]);await abby([{role:'user',text:'Next reply'}]);
   assert(seen[2].config.systemInstruction.includes('MERCER_UPDATED_NOTE'));assert(!seen[2].config.systemInstruction.includes('MERCER_PRIVATE_NOTE'));assert(seen[3].config.systemInstruction.includes('ABBY_PRIVATE_NOTE'));
@@ -46,6 +46,38 @@ test('Mercer voice guidance overrides performance cues without replacing private
  let request;const notes='PRIVATE BIO: London. Favorite restaurant St. JOHN. Sarcasm: frequent. Always use Hello, kid. Usual online hours: late evenings.';
  const responder=createGeminiResponder({character:MERCER_CHARACTER,profile:notes,client:{models:{generateContent:async args=>{request=args;return{text:"Fair point. I'll tone it down."};}}}});
  await responder([{role:'user',text:'You sound like a cartoon. Please talk normally.'}]);const prompt=request.config.systemInstruction;
- assert(prompt.includes(notes));assert(prompt.indexOf("Mercer's delivery:")>prompt.indexOf(notes));assert(prompt.includes('plain, contemporary language'));assert(prompt.includes('Dry humor is occasional'));assert(prompt.includes('without another joke'));assert(prompt.includes('not a line to repeat'));assert(prompt.includes('Do not repeatedly use signature greetings'));assert(prompt.includes('Do not volunteer clock times'));
+ assert(prompt.includes(notes));assert(prompt.indexOf("Mercer's delivery:")>prompt.indexOf(notes));assert(prompt.includes('plain, contemporary language'));assert(prompt.includes('dry, understated and occasional'));assert(prompt.includes('without another joke'));assert(prompt.includes('not a line to repeat'));assert(prompt.includes('Do not repeatedly use signature greetings'));assert(prompt.includes('Do not volunteer clock times'));
  assert(!prompt.includes('Current UTC date and time:'));assert(!prompt.includes('use Europe/London local time'));assert(!prompt.includes('Established current context:'));assert(!prompt.includes('Chongqing'));
+});
+
+test('detailed complaints keep their context and can receive a fuller, character-specific answer',async()=>{
+ const complaint='I spent the whole evening explaining that I felt ignored, not that I wanted a solution. I had already told her about the missed appointment and why it mattered. She changed the subject to dinner. Now I feel more alone. Why does nobody actually read what I say?';
+ const history=[{role:'user',text:'The missed appointment was important to me.'},{role:'model',text:'Well, at least you have tomorrow.'},{role:'user',text:complaint}];
+ const reply='That sounds lonely, especially after you had already explained why the appointment mattered. You wanted her to stay with what you were saying.\n\nI would be upset about the change of subject too. It makes the effort of explaining feel wasted.';
+ const oldNotes='PRIVATE relationship details stay. Always answer in exactly one sentence. Favorite comfort food: pizza. Example: Well, at least you tried.';
+ const requests=[];
+ const client={models:{generateContent:async args=>{requests.push(args);return{text:reply};}}};
+ const abby=createGeminiResponder({client,profile:oldNotes});
+ const mercer=createGeminiResponder({client,profile:oldNotes,character:MERCER_CHARACTER});
+ assert.equal(await abby(history),reply);assert.equal(await mercer(history),reply);
+ for(const request of requests){
+  const prompt=request.config.systemInstruction;
+  assert.equal(request.contents.at(-1).parts[0].text,complaint);
+  assert(request.contents.some(m=>m.parts.some(p=>p.text===history[0].text)));
+  assert(prompt.includes(oldNotes));
+  assert(prompt.indexOf('Final attention and length rule:')>prompt.indexOf(oldNotes));
+  assert(prompt.indexOf('Final attention and length rule:')>prompt.indexOf('A quick_fact_lookup tool is available'));
+  assert(prompt.includes('There is no one-to-three-sentence cap'));
+  assert(prompt.includes('Do not use "at least" reassurance'));
+  assert(prompt.includes('Do not merely mirror'));
+  assert(prompt.includes('Favorites are preferences, not a daily menu'));
+  assert.equal(request.config.maxOutputTokens,2048);
+ }
+ const abbyPrompt=requests[0].config.systemInstruction,mercerPrompt=requests[1].config.systemInstruction;
+ assert(abbyPrompt.includes("Abby's voice:"));assert(!abbyPrompt.includes("Mercer's delivery:"));
+ assert(mercerPrompt.includes("Mercer's delivery:"));assert(!mercerPrompt.includes("Abby's voice:"));
+ assert(mercerPrompt.includes('Hello, kid.'));assert(mercerPrompt.includes('When the user opens a fresh conversation with a greeting'));
+ assert(mercerPrompt.includes('Do not become a bland agreeable helper'));
+ assert(abbyPrompt.includes('Chongqing, China'));assert(abbyPrompt.includes('share the same local time as the user'));
+ assert(abbyPrompt.includes('Do not substitute a repetitive local-food routine'));
 });

@@ -4,7 +4,7 @@ Use --base COMMIT to include changed media; --full is an optional new-install ZI
 from pathlib import Path
 import argparse,hashlib,json,subprocess,zipfile
 ROOT=Path(__file__).resolve().parents[1]
-RUNTIME=['package.json','package-lock.json','server.mjs','asset-server.mjs','launch.mjs','profile.mjs','smileys.mjs','gemini-connection.mjs','model.mjs','setup-key.mjs','chat-scroll.mjs','classic-text.mjs','quick-lookup.mjs','.gitignore','.env.example','abby-profile.example.txt','mercer-profile.example.txt']
+RUNTIME=['package.json','package-lock.json','server.mjs','asset-server.mjs','launch.mjs','profile.mjs','character-voice.mjs','smileys.mjs','gemini-connection.mjs','model.mjs','setup-key.mjs','chat-scroll.mjs','classic-text.mjs','quick-lookup.mjs','.gitignore','.env.example','abby-profile.example.txt','mercer-profile.example.txt']
 CODE=['Caseys-Room-with-Mood-Ring.html','Start AIM.cmd','Set Gemini Key.cmd','Edit Abby.cmd','Edit Mercer.cmd','AIM setup.txt','ASSET-WORKFLOW.md','assets/runtime/asset-loader.js','assets/apps/tamascape.html','assets/manifest.json']+['aim-local/'+n for n in RUNTIME]
 MIGRATION=['Split Media.cmd','tools/split-casey-assets.mjs','assets/runtime/asset-loader.js','aim-local/asset-server.mjs','ASSET-WORKFLOW.md']
 def digest(p):
