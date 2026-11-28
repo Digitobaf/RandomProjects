@@ -3,7 +3,7 @@
 'use strict';
 const R=window.SimPomRaster;
 function create({canvas,objects,behaviors,upscales,motion,onError=()=>{},onReady=()=>{}}){
- const ctx=canvas.getContext('2d'),images=new Map(),nativeCache=new Map(),enhancedCache=new Map(),masterCache=new Map(),paths=new Map();
+ const ctx=canvas.getContext('2d'),stage=R.canvas(1,1),stageCtx=stage.getContext('2d'),images=new Map(),nativeCache=new Map(),enhancedCache=new Map(),masterCache=new Map(),paths=new Map();
  let drawKey='',selectedId='',lastDrawnId='',epoch=0,ready=false,lastError='';
  function report(text){if(text!==lastError){lastError=text;onError(text);}}
  function image(src){
@@ -28,30 +28,37 @@ function create({canvas,objects,behaviors,upscales,motion,onError=()=>{},onReady
   enhancedCache.set(key,out);return out;
  }
  function path(o,v,name){const key=o.id+':'+v+':'+name;if(!paths.has(key))paths.set(key,R.runsPath(motion[o.id]?.[name]?.[v]));return paths.get(key);}
- function nativeUnderlay(o,s,v,current){if(!motion[o.id]?.nativeRegions?.[v]?.length)return;const c=o.canvas[v];ctx.save();ctx.clip(path(o,v,'nativeRegions'));ctx.clearRect(0,0,c.width,c.height);ctx.drawImage(current,0,0,c.width,c.height);ctx.restore();}
+ function nativeUnderlay(ctx,o,s,v,current){if(!motion[o.id]?.nativeRegions?.[v]?.length)return;const c=o.canvas[v];ctx.save();ctx.clip(path(o,v,'nativeRegions'));ctx.clearRect(0,0,c.width,c.height);ctx.drawImage(current,0,0,c.width,c.height);ctx.restore();}
  function paint(o,s,v,options){
-  const rule=behaviors[o.id],m=motion[o.id]||{},c=o.canvas[v],current=native(o,s,v);if(!current)return false;
+  // Assemble replacement regions on an integer pixel grid before display scaling.
+  // Clearing and re-drawing a clipped edge on the scaled display canvas creates
+  // double antialiasing coverage and visible dark seams, even on identical pixels.
+  const ctx=stageCtx,rule=behaviors[o.id],m=motion[o.id]||{},c=o.canvas[v],current=native(o,s,v);if(!current)return null;
+  const factor=rule.render?.stable&&options.enhanced&&upscales[o.id]?4:1;
+  if(stage.width!==c.width*factor||stage.height!==c.height*factor){stage.width=c.width*factor;stage.height=c.height*factor;}
+  ctx.setTransform(factor,0,0,factor,0,0);ctx.clearRect(0,0,c.width,c.height);ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';
   if(rule.render?.stable){
    const b=R.baseSpec(rule,s),base=native(o,b,v);if(!base)return false;
    const bodyKey=o.id+':'+v+':'+R.specKey(b)+':'+options.enhanced;let master=masterCache.get(bodyKey);
    if(!master){master=(options.enhanced?enhanced(o,b,v,base):null)||base;masterCache.set(bodyKey,master);}
-   ctx.drawImage(master,0,0,c.width,c.height);nativeUnderlay(o,s,v,current);
+   ctx.drawImage(master,0,0,c.width,c.height);nativeUnderlay(ctx,o,s,v,current);
    if(m.masks?.[v]?.length&&(!rule.render.transientOnly||options.activity==='click')){
     ctx.save();ctx.clip(path(o,v,'masks'));ctx.clearRect(0,0,c.width,c.height);ctx.drawImage(current,0,0,c.width,c.height);ctx.restore();
    }
    R.paintFill(ctx,o,s,v,rule,m,base);R.drawLight(ctx,o,s,v,rule,m,base);
-   if(m.foreground?.[v]?.length){ctx.save();ctx.clip(path(o,v,'foreground'));ctx.drawImage(base,0,0,c.width,c.height);ctx.restore();}
+   if(m.foreground?.[v]?.length){ctx.save();ctx.clip(path(o,v,'foreground'));ctx.clearRect(0,0,c.width,c.height);ctx.drawImage(base,0,0,c.width,c.height);ctx.restore();}
    canvas.dataset.enhanced=String(master!==base);canvas.dataset.bodyReference=String(b.state);canvas.dataset.stableBody='true';
   }else{
    ctx.drawImage(current,0,0,c.width,c.height);R.drawLight(ctx,o,s,v,rule,m,current);canvas.dataset.enhanced='false';canvas.dataset.stableBody='false';canvas.dataset.bodyReference=String(s.state);
   }
-  return true;
+  return stage;
  }
  function draw(o,s,v,options={}){
   const rect=canvas.getBoundingClientRect(),w=rect.width,h=rect.height,dpr=Math.min(2,devicePixelRatio||1);if(!w||!h)return;
-  const rule=behaviors[o.id],m=motion[o.id]||{},b=m.fitBounds?.[v]||o.bounds[v],allowed=R.objectViews(o),all=allowed.map(v=>m.fitBounds?.[v]||o.bounds[v]);
+  const rule=behaviors[o.id],m=motion[o.id]||{},c=o.canvas[v],b=m.fitBounds?.[v]||o.bounds[v],allowed=R.objectViews(o),all=allowed.map(v=>m.fitBounds?.[v]||o.bounds[v]);
   const maxW=Math.max(...all.map(b=>b.width)),maxH=Math.max(...all.map(b=>b.height)),pivot={x:b.x+b.width/2,y:b.y+b.height/2};
   let scale=Math.min((w-42)/maxW,(h-28)/maxH);
+  if(Number.isFinite(rule.render?.nativeScale))scale=Math.min(scale,rule.render.nativeScale);
   // Only explicitly declared oversized transient effects (the gnome explosion)
   // may temporarily change fit. Normal animation never recomputes object scale.
   if(options.fit==='transient'){
@@ -67,7 +74,7 @@ function create({canvas,objects,behaviors,upscales,motion,onError=()=>{},onReady
   const x=w/2-pivot.x*scale,y=h/2-pivot.y*scale;ctx.save();
   if(angle){const anchorY=(s.sway?.anchorY??.85),cy=y+(b.y+b.height*anchorY)*scale;ctx.translate(w/2,cy);ctx.rotate(angle*Math.PI/180);ctx.translate(-w/2,-cy);}
   ctx.translate(x,y);ctx.scale(scale,scale);
-  const painted=paint(o,{...s,waterValue:water},v,options);ctx.restore();if(!painted)return;
+  const painted=paint(o,{...s,waterValue:water},v,options);if(painted)ctx.drawImage(painted,0,0,c.width,c.height);ctx.restore();if(!painted)return;
   lastDrawnId=o.id;drawKey=key;canvas.dataset.pending='false';canvas.dataset.object=o.id;canvas.dataset.graphic=String(s.state);canvas.dataset.layers=(s.layers||[]).join(',');canvas.dataset.activity=options.activity||'idle';canvas.dataset.view=v;canvas.dataset.lit=String(!!s.light);canvas.dataset.scale=scale.toFixed(8);canvas.dataset.pivotX=(w/2).toFixed(3);canvas.dataset.pivotY=(h/2).toFixed(3);canvas.dataset.rotation=angle.toFixed(4);canvas.dataset.water=water.toFixed(4);canvas.dataset.appearance=a;canvas.setAttribute('aria-label',o.name+', '+v+(options.running?', active':', idle'));
  }
  async function prepare(o){

@@ -1,1 +1,1 @@
-Matching original media is in the all-100-picks SimPom-Mockup.zip. Apply SimPom-Animation-Fixes.zip over that installation for the current code and 42 additional media files. Retain all existing assets; hash-named files are immutable. SimPom is separate from Casey's Room.
+Apply SimPom-Revisions-v3.zip over an existing original/Pollux/v2 SimPom folder. It includes all additional currently referenced media since the original all-100 package; keep existing assets. Historical unreferenced files may remain. No hash-named file is changed.

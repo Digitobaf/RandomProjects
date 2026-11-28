@@ -1,12 +1,6 @@
-# Per-object animation and sound review
+# SimPom — current object notes
 
-All 100 picks remain. These are authored, editable prototype recipes, not recovered BHAV timings. Current fixes supersede the first mockup’s provisional combinations. See ANIMATION-FIXES.md for the request-by-request changes.
-
-## "Andersonville" Pedestal Sink
-
-Basin-only rising water; fill sound and motion once, then water stays filled. No opaque full-sink water/suds frame.
-
-Sounds: sink_washdishes, sink_washhands, tub1_sfaucetsqueak, sink_filling.
+95 objects remain. This file supersedes the earlier all-100 notes. Timings are authored and editable. See ANIMATION-FIXES.md for request outcomes and AUDIO-NEEDED.md for unresolved programme audio.
 
 ## Bachman Wood Beverage Bar
 
@@ -28,25 +22,25 @@ Sounds: coffee_expresso_steam, coffee_grind_loop.
 
 ## Moneywell Computer
 
-Fixed casing/stand/keyboard; original native screen frames clipped to the display only, including power-on. Back views stay still.
+Original complete game sprites at twice native size; no AI casing or screen-region patch edges.
 
 Sounds: computer_boot_cheap, computer_game, computer_turn_off, computer_type.
 
 ## Poseidon's Adventure Aquarium
 
-Only NE and NW rotations remain; NE is the starting view because SE was explicitly removed.
+Front (SE) and back (SW) views are omitted; they don't read clearly. Live fish only, NE and NW. Running sound loops.
 
 Sounds: aquarium_feed, aquarium_running.
 
 ## Positive Potential Microwave
 
-Window glass uses native geometry; warm light is clipped inside the window with no shadow/glow bleed.
+Pollux original door/cook sequence and window light, rendered at twice native size without AI art.
 
 Sounds: microwave_sbeep, microwave_sclose, microwave_scook, microwave_sdone, microwave_sopen.
 
 ## Sani-Queen Bathtub
 
-Only the water level/flow changes; one fill sequence with one fill clip, then a full still bath. No animated metal textures.
+One original seamless tub frame per fill stage, without a cut-out basin patch in the empty or filled tub. Fill once and hold.
 
 Sounds: tub1_sdrain, tub1_sfaucetsqueak, tub1_stubfill.
 
@@ -58,15 +52,15 @@ Sounds: shower1_sdoorslide, shower1_sfaucetsqueak, shower1_swateron.
 
 ## The Brahma 2000
 
-Fixed casing/stand/keyboard; original native screen frames clipped to the display only, including power-on. Back views stay still.
+Original complete game sprites at twice native size; no AI casing or screen-region patch edges.
 
 Sounds: computer_boot_mod, computer_game, computer_turn_off, computer_type.
 
 ## The Bostonian Fireplace
 
-Match and metallic ignition/grate event play once each. A longer supplied burning-fire excerpt loops afterward, with a crossfaded seam.
+Ignition effects play once. Active fire is silent pending the user-supplied fire sound; rejected burning-Sim track is not referenced.
 
-Sounds: fireplace_off, fireplace_on, match_strike, fire_burning.
+Sounds: fireplace_off, fireplace_on, match_strike.
 
 ## WhirlWizard Hot Tub
 
@@ -100,7 +94,7 @@ Sounds: counter_get_all, counter_put_all.
 
 ## Porcina Refrigerator Model P1g-S
 
-All six supplied door states checked. No stocked variant or food-content layer exists in this export; retain the available interior.
+Complete original closed/open fridge frames; no differential matte outside the silhouette. Supplied empty interior retained.
 
 Sounds: fridge_c_close, fridge_c_open, fridge_c_running.
 
@@ -180,11 +174,11 @@ Sounds: aquarium_running.
 
 Display corner graphic is a placement variant, not an animation. Shared plant/trash sounds omitted.
 
-Sounds: none supplied/selected.
+Sounds: none selected.
 
 ## Boggs Home Canning Center
 
-Chop, then simmer; canning layers swap among working jar frames.
+Chop once through working layers 0–3, then hold the sliced-apple/water-filled-pot appearance. Only boiling audio loops.
 
 Sounds: fruit_chop, stove_bubble.
 
@@ -192,7 +186,7 @@ Sounds: fruit_chop, stove_bubble.
 
 Static vendor/cart. No matching mechanical or ambience clip exported; unrelated/shared voices omitted.
 
-Sounds: none supplied/selected.
+Sounds: none selected.
 
 ## Confectionomicon
 
@@ -204,7 +198,7 @@ Sounds: counter_get_all, counter_put_all.
 
 Static vendor/cart. No matching mechanical or ambience clip exported; unrelated/shared voices omitted.
 
-Sounds: none supplied/selected.
+Sounds: none selected.
 
 ## Kastle O’ Toys by Magical Mystery
 
@@ -228,7 +222,7 @@ Sounds: bed_get_inout, bed_get_out, bed_make.
 
 Static vendor/cart. No matching mechanical or ambience clip exported; unrelated/shared voices omitted.
 
-Sounds: none supplied/selected.
+Sounds: none selected.
 
 ## TransLight Bar Station
 
@@ -256,7 +250,7 @@ Sounds: bed_get_inout, bed_make.
 
 ## Redwood Hot Tub
 
-Running water audio loops continuously, including clicks. No duplicated snow/decoration layer; original rim remains fixed.
+The snow-ring layer was a seasonal overlay that sat around the tub, not on the rim, so it is omitted. Bubbling frames loop with the pump sound.
 
 Sounds: hottub_running.
 
@@ -270,7 +264,7 @@ Sounds: arcade_mars_music, arcade_mars_slap, arcade_mars_start, arcade_mars_win.
 
 Static vendor/cart. No matching mechanical or ambience clip exported; unrelated/shared voices omitted.
 
-Sounds: none supplied/selected.
+Sounds: none selected.
 
 ## ST2 - Barky's Revenge
 
@@ -294,13 +288,13 @@ Sounds: waw_gameover, waw_hit_sfx, waw_music, waw_popdown, waw_popup.
 
 Static vendor/cart. No matching mechanical or ambience clip exported; unrelated/shared voices omitted.
 
-Sounds: none supplied/selected.
+Sounds: none selected.
 
 ## Ceti the Happy Whale
 
 Whale body and base are components, not consecutive animation frames; both are composited.
 
-Sounds: none supplied/selected.
+Sounds: none selected.
 
 ## Fancee Phone
 
@@ -324,13 +318,13 @@ Sounds: tub1_sdrain, tub1_sfaucetsqueak, tub1_stubfill.
 
 Static vendor/cart. No matching mechanical or ambience clip exported; unrelated/shared voices omitted.
 
-Sounds: none supplied/selected.
+Sounds: none selected.
 
 ## Vegano Market Cart
 
 Static vendor/cart. No matching mechanical or ambience clip exported; unrelated/shared voices omitted.
 
-Sounds: none supplied/selected.
+Sounds: none selected.
 
 ## Aqua-Rich-ium
 
@@ -340,7 +334,7 @@ Sounds: aquarium_running.
 
 ## Aquatic Playhouse
 
-Cabin and door stay fixed on state 0, with no duplicate default parts. Scuba machinery audio loops.
+Native subtle tank/fish motion restored. Airlock and pump stay fixed from the base frame; no duplicate door layers. Machinery audio loops.
 
 Sounds: scuba_loop.
 
@@ -354,7 +348,7 @@ Sounds: skydive_loop_end, skydive_loop_lp, skydive_loop_start.
 
 Smoothie machine graphic sequence, no matching machine sound in export.
 
-Sounds: none supplied/selected.
+Sounds: none selected.
 
 ## Jewel in the Crown Spa Tub
 
@@ -378,11 +372,11 @@ Sounds: counter_get_all, counter_put_all.
 
 Static vendor/cart. No matching mechanical or ambience clip exported; unrelated/shared voices omitted.
 
-Sounds: none supplied/selected.
+Sounds: none selected.
 
 ## WhisperSteam Personal Steamer
 
-Only native door geometry replaces the moving area; the body never morphs. Steam audio loops after the door sequence.
+Pollux door-open/hold/close sequence and looping steam sound, using the entire original sprite to keep its outline clean.
 
 Sounds: chair_recline, steamer_loop.
 
@@ -394,7 +388,7 @@ Sounds: oxybar_loop.
 
 ## Ponce de Leon Tub
 
-Mud layers 0–5 rise from low to high; brown fill stream only during startup. Mud is clipped to the inside opening and behind the native tap/towel. Mud sounds replace the milky-water clips.
+Accepted basin-only mud filling and loop preserved, with all brown pouring-stream layers 18–20 omitted.
 
 Sounds: mudbath_milsul_drain, mudbath_milsul_fill, mudbath_milsul_swish_a, mudbath_glubglop_a, mudbath_fill, mudbath_drain.
 
@@ -402,23 +396,23 @@ Sounds: mudbath_milsul_drain, mudbath_milsul_fill, mudbath_milsul_swish_a, mudba
 
 Five water-wall bubble frames; generic kinetic sculpture sound omitted.
 
-Sounds: none supplied/selected.
+Sounds: none selected.
 
 ## Wall-Mounted TV
 
-Fixed casing/stand/keyboard; original native screen frames clipped to the display only, including power-on. Back views stay still.
+Action channel only. Original exported channel images are present, but its programme audio event was unresolved by the export. Power/control sounds remain.
 
 Sounds: tv_exp_switch, tv_exp_turnoff, tv_exp_turnon.
 
 ## Trottco 27" Color Television B94U
 
-Fixed casing/stand/keyboard; original native screen frames clipped to the display only, including power-on. Back views stay still.
+Cartoons channel only. Original exported channel images are present, but its programme audio event was unresolved by the export. Power/control sounds remain.
 
 Sounds: tv_c_switch, tv_c_turnoff, tv_c_turnon.
 
 ## Soma Plasma TV
 
-Fixed casing/stand/keyboard; original native screen frames clipped to the display only, including power-on. Back views stay still.
+Romance channel only. Original exported channel images are present, but its programme audio event was unresolved by the export. Power/control sounds remain.
 
 Sounds: tv_exp_switch, tv_exp_turnoff, tv_exp_turnon.
 
@@ -438,37 +432,31 @@ Sounds: cyclops_coin, cyclops_end, cyclops_hit, cyclops_loop.
 
 Solid cylinder/dome layers 1 and 2 removed. Thin floss layers spin, fitted and clipped inside the bowl behind the support post.
 
-Sounds: none supplied/selected.
+Sounds: none selected.
 
 ## EverAfter Crafter
 
 Fixed machine/table and constant scene scale. Only the small blue rotor component cycles; no full-frame zoom from changing overlay bounds.
 
-Sounds: none supplied/selected.
+Sounds: none selected.
 
 ## Faerie Mara's Odds and Ends
 
 Static vendor/cart. No matching mechanical or ambience clip exported; unrelated/shared voices omitted.
 
-Sounds: none supplied/selected.
-
-## Eyrie Dragon Egg
-
-A single baked egg and cradle sway gently as one rigid bitmap. No duplicate shell, headphones or broken-shell overlay.
-
-Sounds: asp_egg_loop, dragon_nest_hatch.
+Sounds: none selected.
 
 ## Ghoulish Graveyard Gumbo
 
 Serving pot overlay frames; no matching cooking clip exported.
 
-Sounds: none supplied/selected.
+Sounds: none selected.
 
 ## Madame Magyar's Gulyás Goulash
 
 Serving pot overlay frames; no matching cooking clip exported.
 
-Sounds: none supplied/selected.
+Sounds: none selected.
 
 ## Midnight Mystery Canopy Bed
 
@@ -498,37 +486,37 @@ Sounds: stove_bubble, stove_expensive_gason, stove_sstir.
 
 Static vendor/cart. No matching mechanical or ambience clip exported; unrelated/shared voices omitted.
 
-Sounds: none supplied/selected.
+Sounds: none selected.
 
 ## A Sim's Guide to Cooking
 
 Book opens in thirds, holds open. No page-turn sound was exported; counter events omitted.
 
-Sounds: none supplied/selected.
+Sounds: none selected.
 
 ## All Things Draconic
 
 Static vendor/cart. No matching mechanical or ambience clip exported; unrelated/shared voices omitted.
 
-Sounds: none supplied/selected.
+Sounds: none selected.
 
 ## Awfully Fun House Coaster
 
 Coaster base stays fixed; moving car/effect layers cycle. Generic sculpture and clown-fire events are unrelated and omitted.
 
-Sounds: none supplied/selected.
+Sounds: none selected.
 
 ## Clowning Around Mayhem Coaster
 
 Coaster base stays fixed; moving car/effect layers cycle. Generic sculpture and clown-fire events are unrelated and omitted.
 
-Sounds: none supplied/selected.
+Sounds: none selected.
 
 ## The Mind of a Cereal Killer Coaster
 
 Coaster base stays fixed; moving car/effect layers cycle. Generic sculpture and clown-fire events are unrelated and omitted.
 
-Sounds: none supplied/selected.
+Sounds: none selected.
 
 ## Private Villa Fountain
 
@@ -560,24 +548,6 @@ Gnome rests normally during the timer. Click triggers explosion frames and sound
 
 Sounds: gnome_explosion.
 
-## Meal
-
-Food remains a held meal, not a loop through portions/dirt levels. Eating sound on click only.
-
-Sounds: meal_utinsels.
-
-## Hamburger
-
-Food remains a held meal, not a loop through portions/dirt levels. Eating sound on click only.
-
-Sounds: food_snack_eat.
-
-## Pizza Box
-
-Closed, half open, open. Pizza portions never autoplay in a loop. Opening sound is a provisional association.
-
-Sounds: pizza_gooey.
-
 ## Dolce Tutti Frutti Sofa
 
 Static sofa; a single appropriate upholstery creak only.
@@ -594,7 +564,7 @@ Sounds: pool_dvboard_bounce, pool_dvboard_splash.
 
 Dollhouse has one static graphic. Repo/cop effects belong to shared NPC code and are omitted.
 
-Sounds: none supplied/selected.
+Sounds: none selected.
 
 ## Tyke Nyte Bed
 

@@ -1,85 +1,62 @@
-# SimPom — all 100 picks, animation update v2
+# SimPom — reconciled Pollux review v3
 
-This is a separate standalone widget mockup. Casey's Room, Start AIM, the Object Viewer, private profiles and browser game saves are not modified. The previous combined chat/laptop installer is a separate deliverable; it must still be run locally to apply those fixes.
+Standalone widget, 95 selected objects. The 18 latest requests are recorded in `ANIMATION-FIXES.md`. This package merges the uploaded Pollux data with the previous working player/renderer rather than replacing Casey's Room or restoring the earlier broken overlays.
 
-Source: `sims1-viewer-picks/2`, ZIP SHA-256 `7d1b9cccf75650cdd96a61f30db1f6792faecf642b1cddf1cf2f72bb7fdb741a`.
+## Install and files
 
-## Install and update
-
-Extract `SimPom-Animation-Fixes.zip` into the **existing SimPom folder**, replacing included code and retaining existing assets. Reopen `SimPom.html` in Firefox. Fresh installations need the original all-100-picks `SimPom-Mockup.zip` first, then this update. The update contains only changed code/documentation and 42 new immutable media files, not the original 92 MiB download.
-
-Do not overwrite these files with another assistant's older copy. Coordinate changes to the small code/data files. Never overwrite a hash-named image or audio file: add a new hash, change its reference and update the manifest. Keep unrelated local files and media.
-
-## Layout
+Apply `SimPom-Revisions-v3.zip` to the existing folder containing `SimPom.html`; retain existing assets and replace included files. It works over the original all-100-picks package, the supplied Pollux revision, or the previous Codex animation update. It includes all required support code and media added since the common original package, so the previous animation update is optional. A new installation still needs the original `SimPom-Mockup.zip` media first.
 
 ```text
-SimPom.html                 Markup and script loading order
-style.css                   Blue/white Comic Sans widget and Buy Mode catalog
-player.js                   Timer, state, selection and ordered audio/animation playback
-render-model.js             Shared native sprite composition and geometry helpers
-rendering.js                Fixed-body renderer, local moving regions and fixed scene fit
-objects.js                  Exported frames/layers, original canvases, allowed views and sounds
-behaviors.js                Editable per-GUID activity recipes and rendering rules
-motion-masks.js             Compiled native motion, occlusion and fit geometry
-upscales.js                 Existing enhanced atlases and registration metadata
-ANIMATION-FIXES.md           Every requested correction and source limitations
-OBJECT-NOTES.md              Current authored choices for all 100 objects
-VERIFICATION.json           Checks performed for this update
-assets/manifest.json         Media checksums and byte sizes
-assets/images/<hash>.*       Original native sprites/layers + existing enhanced atlases
-assets/audio/<hash>.wav      Game effects + new steady fire excerpt
+SimPom.html                Markup and script order; 95-pick catalog
+style.css                  Unchanged uploaded blue/white Comic Sans widget styles
+player.js                  Timer, ordered activity/audio, editable durations, catalog
+render-model.js            Shared original sprite/layer composition
+rendering.js               Compose a complete object first, scale it once for display
+motion-masks.js             Compiled movement, protection and fixed fit bounds
+objects.js                 Original sprite references, allowed views, sounds
+behaviors.js               Editable per-object activity recipes
+upscales.js                25 retained enhanced sets; removed items/original-only items omitted
+assets/manifest.json        Current referenced media checksums
+assets/images/<hash>.*      Original sprites/layers and retained enhanced atlases
+assets/audio/<hash>.wav     Existing selected game sound clips
+ANIMATION-FIXES.md          Current 18-item request outcomes
+AUDIO-NEEDED.md             Exact TV programme events and pending fire clip
+OBJECT-NOTES.md             Current authored behavior of each of 95 objects
+VERIFICATION.json          Current browser/media/renderer check results
 ```
 
-Classic script data assignments and relative resource URLs permit offline local-file use. No fetch, external fonts, model calls or network service is used. Runtime geometry is compiled ahead of time; rendering never reads image pixels back from canvas, avoiding local-file canvas security restrictions.
+The app remains offline-capable using local relative images/audio and classic JS data assignments. No network/API/model service is called. No runtime pixel readback or fetch is required. This cloud browser blocks file navigation, so browser tests use equivalent local HTTP. There is no dependency on Start AIM and no Casey's Room integration or icon yet.
 
-## Recipes and editable timing
+## Reconciliation choices
 
-`window.SIMS_BEHAVIORS = { "<guid>": { ... } };` uses JSON-compatible data. The generic player contains no object-ID-specific rules. Each recipe has `idle`, `active`, and optional `start`, `click`, `stop`, `endAppearance` and `render`.
+Pollux's Poseidon, microwave and Redwood recipes are used directly for the requested original-frame appearances. Moneywell/Brahma/microwave use original whole sprites capped at exactly 2 CSS pixels per native pixel; narrow viewports may fit them smaller to avoid clipping. The supplied steamer opening/hold-open/closing timing and audio remain. Pollux's independent Aqua-Rich-ium correction is also retained. The other accepted fixes, timer pause/resume and continuous hot-tub audio remain.
 
-```js
-{
-  "idle": {"state": 0, "layers": []},
-  "start": {"steps": [
-    {"state": 0, "durationMs": 1050,
-     "sound": {"event": "match_strike", "loop": false}},
-    {"state": 1, "durationMs": 1400,
-     "sound": {"event": "fireplace_on", "loop": false}}
-  ]},
-  "active": {
-    "steps": [{"state": 1, "durationMs": 180},
-              {"state": 2, "durationMs": 180},
-              {"state": 3, "durationMs": 180}],
-    "loop": true,
-    "sound": {"event": "fire_burning", "loop": true, "gain": 0.75}
-  },
-  "render": {"stable": true, "base": {"state": 0, "layers": []}}
-}
-```
+No existing hash-named media is altered. The supplied Pollux references all resolved to already available original assets. Newly needed TV romance frames and final Boggs layer were imported from the original full export. Existing lossless WebP versions are reused; newly compacted images were checked for exact visible RGB and alpha equality. No new AI artwork or artistic upscale was generated.
 
-`durationMs` is positive milliseconds. **Edit durations without rebuilding media/masks.** Focus/break lengths remain editable in the widget's Durations controls and use minutes. A start sequence enters active; a non-looping active holds its final pose. Click returns to active while the timer runs, otherwise its `returnAppearance` or the earlier paused/held appearance. Stop runs on timer expiry, never on Pause/Reset. `endAppearance` retains filled basins when there is no closing/draining sequence.
+The bath, fridge and steamer render complete original frames instead of mixing an enhanced body with a hard-edged native patch. That removes the stray contour/seam lines while preserving their game animation. Original-only entries have `render.native:true` and omit `render.stable`; doubled entries also declare `render.nativeScale:2`.
 
-Frames support `state`, `layers`, `extraStates`, `layerOffsets`, `eraseLayers`, `restoreLayers`, `appearance`, `light`, `water`, `rotation` and `sway`. `water: {from:0,to:1}` interpolates over the step duration; numeric water holds a level. `sway` defines amplitude/period/pivot for the entire single egg/cradle bitmap. Per-view `allowedViews` limits rotations; selections default SE, or the first allowed view when SE was removed (Poseidon defaults NE).
+The Playhouse has native interior animation in its DGRP states. `render.protectLayers:[0,4,8]` compiles the already-baked door and pump silhouettes into fixed foreground masks. These layers are protection geometry, not additional sprites to draw over the object. Only the interior animates; the door never cycles. Its unchanged idle pixels match a direct original-sprite rendering exactly in all four views.
 
-Sound specs are `{event, loop?, channel?, gain?}`. Sequence sounds start once; step sounds fire on step entry. Audio and graphic loops are independent. `preserveAmbient:true` keeps a running loop through a click instead of restarting it. Pause/Reset and object changes stop current audio. Volume changes retain per-event gain. Hidden tabs suspend audio; the timer uses a wall-clock deadline. The fireplace's new 11.5-second `fire_burning` WAV uses a steady excerpt of the supplied `clown_fire_burn_sfx.wav`, with a 500ms wrap crossfade. The original metallic `fireplace_on` clip remains a one-shot ignition only.
+Renderer replacements are assembled at integer native pixels (or integer 4× pixels for retained enhanced bodies), then the completed sprite is drawn once at display scale. Clearing/drawing clipped edges on a fractionally scaled display canvas caused the earlier dark seams. Protected foreground is replaced rather than repeatedly alpha-composited over itself. Normal activity uses a fixed scene fit and never recomputes scale per animation frame.
 
-## Fixed bodies and native moving parts
+## Authoring data
 
-Independent AI-generated animation poses caused texture shifts. The renderer now uses one fixed enhanced reference (when available), registered to the original silhouette. Only reviewed **original native pixels** replace the moving regions. Display/window polygons, basin clips, foreground masks and per-layer destinations prevent overlays spilling through casings, rims, taps and cart posts. Native originals remain available through the Enhanced small sprites switch.
+`window.SIMS_BEHAVIORS = {guid: recipe, ...}` remains JSON-compatible data. Every recipe has `idle` and `active`; optional `start`, `click`, `stop`, `endAppearance`, `render`, `light` and `channel` add behavior. `durationMs` is positive milliseconds. User focus/break lengths are editable minutes in the widget. Timing-only changes need no media/mask rebuild.
 
-Some dynamic layers are already baked into full exported DGRPs. Never blindly add default layers. Bubble blower states 1–10 are partial/alternate presentations, not a safe animation run; only bubble layers 4–9 animate over the whole g0 machine. Bull g3 is an empty mount. The two beds and phone booth are intentionally visually fixed, with sounds retained.
+A start sequence enters active; a non-looping active sequence holds its final pose. Click returns to active while the timer runs, otherwise its `returnAppearance` or prior held/paused appearance. Stop runs on timer expiry, not Pause/Reset. `endAppearance` can retain a filled tub. Per-view `allowedViews` limits rotation; new selections default SE when available, otherwise the first allowed view (Poseidon NE).
 
-`motion-masks.js` includes per-view native differences, protected foreground pixels, source/body bounds and a fixed union of normal animation extents. Normal animation never changes object scale per frame. Oversized gnome explosions are explicitly transient. All 36 existing enhanced sets are retained; no new per-frame AI redraws were introduced.
+Frames use `state`, explicit `layers`, optional `extraStates`, `layerOffsets`, `eraseLayers`, `restoreLayers`, `appearance`, `light` and other existing renderer fields. Dynamic layers are often already baked into the full DGRP: never blindly add default layers. The generic player contains no GUID-specific hardcoding. Frame timing and ordering are authored interpretations, not recovered BHAV script behavior.
 
-If adding/changing frame numbers, layers, clipping geometry or body references, regenerate masks using repository tool `tools/simpom/build-motion.py <complete-SimPom-folder>` (developer Python/Playwright only, not a runtime dependency). The complete assets must be available. Merely changing step durations, sound choices or user timer preferences does not require regeneration. The same compositor is used by the builder and runtime.
+Sound specs are `{event, loop?, channel?, gain?}`. Sequence and graphic loops are independent. `preserveAmbient:true` lets a hot-tub click keep its existing continuous sound node. Pause/Reset/object changes stop current audio. Volume retains per-event gain. The timer uses a wall-clock deadline; animation uses monotonic time. Hidden tabs suspend audio. The storage key stays `sims-pomodoro-mockup:v3`; reload restores paused. Removing an object does not clear existing saved durations/preferences.
 
-## Interpretation and validation limits
+TV programme audio is genuinely missing from the source export; only controls are available. `channel.audioStatus:'awaiting-export'` and `missingSoundEvent` document this, and `active.sound` remains absent. Do not substitute unrelated effects. The wrong fire loop is unreachable; user will provide the replacement. See `AUDIO-NEEDED.md` for the next small audio-only update.
 
-Timings and click ordering are authored, not extracted BHAV script behavior. No dead/dirty aquarium states are selected. Porcina has only six supplied door states and no stocked-content layer, so its available empty interior is retained. Microwave lighting is a precisely clipped runtime effect because the exported On state aliases Closed. TVs have no supplied programme audio.
+## Shared asset workflow and checks
 
-The standalone storage key remains `sims-pomodoro-mockup:v3`; there is no Casey storage access. Reload restores a paused timer. The view-default migration preserves saved durations/preferences while switching the old default once; new rotations can then be saved normally.
+Keep media external under `assets/` with immutable hash names. New content means a new filename/reference/checksum. The manifest lists media referenced by the current code; old unreferenced files may remain on disk. Never delete the user's whole assets folder or touch their other programs, private profiles, ROMs or browser saves. Future updates contain changed code and new media only. Coordinate newer local edits before replacing files.
 
-Browser checks run through an equivalent local HTTP server because direct file navigation is blocked in this cloud Chromium. Runtime has no HTTP dependency. Verification covers 100 objects and 3,008 configured pose/view renders; fixed scale; pixel invariance outside moving regions for screens, bath, hula, phone and beds; sink fill/pause/resume; fireplace sound order and loop; requested real audio loops; hot-tub click continuity; custom timer expiry/persistence; 320/480/920px layouts; and all 1,964 media checksums/references. Final rendered contact sheets were visually inspected for the reported problem objects. These checks verify this update, not exact historical game scripting.
+Source ZIP schema: `sims1-viewer-picks/2`; SHA-256 `7d1b9cccf75650cdd96a61f30db1f6792faecf642b1cddf1cf2f72bb7fdb741a`.
 
-## Developer checks
+Developer checks use Python Playwright/NumPy and Chromium, not runtime dependencies. Run `python tools/simpom/test-revisions.py <complete-SimPom-folder> --report-dir <output>`. It serves a temporary loopback-only test origin, never the user's Firefox profile. `build-motion.py` regenerates masks after changing graphic/layer selections or protection geometry; timing-only changes do not need it. Older v2 tests describe the earlier 100-object build and its now-removed fire/sink assumptions; the revision suite is the current entry point.
 
-With Python `playwright` and `numpy` plus Chromium available, run the repository's `tools/simpom/test-playback.py`, `test-regions.py` and `test-audio.py`, passing a complete extracted SimPom folder. Each starts its own loopback-only HTTP server. `--report-dir` selects an output folder; `--chromium` can select the browser executable. Tests do not touch the actual Firefox profile or Casey's Room saves. `build-motion.py` uses the same arguments and regenerates only `motion-masks.js` in that app folder.
+Checks cover 95 objects, 2,892 pose/view renders with fixed scale, exact original-sprite idle comparisons across four views for tank/bath/fridge/steamer, protected Playhouse pixels with actual moving interior, doubled originals, removed-item absence, selected TV channel images, missing-audio honesty, real looping boil/steam audio, silent active fire, mud-source omission, timer expiry/persistence, 320/480/920px layouts and current media checksums. Representative final renders were visually inspected. Programme audio remains unimplemented until the missing tracks arrive.

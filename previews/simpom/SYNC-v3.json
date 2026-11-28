@@ -1,0 +1,23 @@
+{
+  "inputPolluxSHA256": {
+    "player.js": "a66c64ac8b1c7e3569653ba774d239a82280a71cffd651f1e1cdc122332cd60c",
+    "style.css": "483b60aa4f621973164dd777e8ec1488531aa80c0b4dc2edd93f985965273e3e",
+    "OPEN ME.txt": "6619ba5f3f9cefd7df674a6055f7a5a4a2d197661572cbf91dd68ebe95054974",
+    "OBJECT-NOTES.md": "016eb6544fb066f6009a86c1e279fa82251d3de89ff07ec9652be285eeaeaa42",
+    "SimPom.html": "439bbc2b96220d3eb7cab10c361921ee30577c3abe156ae97f7a4a079b9d19c0",
+    "objects.js": "b671e919bfce740da537c12da6f7df382ff71700e024ab8c7fb26c444051ef2e",
+    "behaviors.js": "c232b89d8a80f606a9453019b1942fe22d9abc5c85084cf48bd0e3f5575bb0f9",
+    "upscales.js": "504e8e95905c472a4c642bfcc691f73b28fcf84aaf43c2e78e3d1a26580d36c7",
+    "README-for-Pollux.md": "e6c2479a0c3a5e6b0fcaf317bd85f7615126b221067839d614d15e1b49ee56c9"
+  },
+  "baseOriginalCommit": "cf6ed93e5703d2b4e61453053e74e71505199b5d",
+  "previousCodexCommit": "0d1a1193b433db7e39d38c936a89b10f9cc6b31a",
+  "currentVersion": "pollux-review-v3",
+  "objects": 95,
+  "pendingAudio": [
+    "user-supplied fireplace loop",
+    "TV Action programme",
+    "TV Cartoons programme",
+    "TV Romance programme"
+  ]
+}

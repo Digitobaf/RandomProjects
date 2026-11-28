@@ -25,6 +25,8 @@ with sync_playwright()as p:
    const c=o.canvas[v],w=c.width,h=c.height,N=w*h;let foreground=new Uint8Array(N);
    const base=R.baseSpec(rule,rule.idle),baseRaster=R.compose(o,base,v,rule,loader,{});const basePixels=baseRaster.getContext('2d').getImageData(0,0,w,h).data;
    for(let i=0;i<N;i++){const r=basePixels[i*4],g=basePixels[i*4+1],b=basePixels[i*4+2],a=basePixels[i*4+3],flags=rule.render?.protect||[];if(a>80&&((flags.includes('gold')&&r>g*1.10&&g>b*1.24&&r>45)||(flags.includes('blue')&&b>r+20&&b>g+12)))foreground[i]=1;}
+   // Protect already-baked door/pump regions while the tank interior animates.
+   for(const index of rule.render?.protectLayers||[]){const src=o.layers[index]?.views[v],im=loader(src);if(!im)throw Error(o.name+' missing protected layer '+index);const lc=R.canvas(w,h),lx=lc.getContext('2d');lx.drawImage(im,0,0);const pixels=lx.getImageData(0,0,w,h).data;for(let i=0;i<N;i++)if(pixels[i*4+3]>0)foreground[i]=1;}
    data.foreground[v]=R.runs(foreground,w,h);
    let mask=new Uint8Array(N),fitAlpha=new Uint8Array(N),baselineCache=new Map();data.baseBounds[v]={};data.frameBounds[v]={};
    const render=s=>R.compose(o,s,v,rule,loader,data);

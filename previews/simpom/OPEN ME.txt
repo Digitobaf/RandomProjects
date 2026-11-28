@@ -1,31 +1,31 @@
-SIMPOM — ANIMATION AND SOUND FIXES (v2)
+SIMPOM — POLLUX REVISIONS + CURRENT FIXES (v3)
 
-UPDATE YOUR EXISTING SIMPOM FOLDER:
 1. Close the SimPom tab.
-2. Extract this update into the same folder that contains SimPom.html.
-3. Replace the included files, keeping your existing assets folder.
-4. Open SimPom.html again in Firefox.
+2. Extract this update into your EXISTING SimPom folder (the folder
+   containing SimPom.html). Replace the included files.
+3. Keep the existing assets folder and open SimPom.html in Firefox.
 
-This is a small update, not a complete new installation. It needs the
-assets from the original all-100-picks SimPom-Mockup.zip. New installations:
-extract that original ZIP first, then apply this update into that folder.
+This update works over the original all-100-picks mockup, Pollux's supplied
+revisions, or the previous Codex animation update. It includes the small
+supporting JS files and any additional required media, so installing the
+previous animation update first is not necessary.
 
-Do not extract into Casey's Room. No Start AIM launcher is needed.
-Timer preferences keep the same storage key. Use the same folder/browser.
-Nothing in Casey's Room, AIM, its private profiles or saves is changed.
+This remains separate from Casey's Room. No Start AIM launcher is needed.
+No Casey files, private profiles, origin, launcher or game saves change.
+Keep the same SimPom folder/browser to retain your timer preferences.
 
-All 100 picks remain. Start activates an object and its configured sounds;
-click for its interaction. Buy Mode search and paging choose the object.
-Objects start SE when selected. Poseidon's aquarium is NE/NW only.
-Durations still lets you choose your own focus and break lengths.
-Pause stops motion/audio; Resume continues the paused animation phase.
-Reset returns to the starting appearance. Reload restores the clock paused.
+The catalog now contains 95 picks. Removed: Andersonville sink, Eyrie
+Dragon Egg, Meal, Hamburger and Pizza Box. Durations stay editable.
+Moneywell, Brahma and the microwave use original sprites at twice native
+size. Poseidon and Redwood use Pollux's original-frame approach.
+Boggs chops once, holds the sliced-apple/water-filled-pot appearance and
+keeps boiling. Playhouse interior animation is restored; its door is fixed.
 
-Fireplace ignition now plays once, followed by a steady burning loop.
-Water fills stay inside basins. Moving parts use original game sprites
-against a fixed body, so enhanced textures no longer morph each frame.
-The two requested beds and phone booth stay visually fixed with sounds.
-Aquariums remain alive. The Porcina export has no stocked interior variant.
+The incorrect fire loop is removed. The flame is silent after ignition
+until you provide the replacement fire sound.
+TV images are Action / Cartoons / Romance as requested. Their power/control
+sounds remain, but the actual programme tracks were missing from the export.
+Those three tracks must be supplied separately; no unrelated audio is used.
 
-See ANIMATION-FIXES.md for all requested changes and README-for-Pollux.md
-for the editable data format and shared update rules.
+See ANIMATION-FIXES.md for all 18 requests, AUDIO-NEEDED.md for the missing
+tracks, and README-for-Pollux.md for the reconciled code/data workflow.

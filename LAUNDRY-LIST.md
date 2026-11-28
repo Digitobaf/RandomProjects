@@ -12,6 +12,13 @@ No outstanding items from the current Abby/Mercer and laptop-sticker list. Imple
 
 The combined installer patches the installed HTML/helper selectively and creates backups. Private profiles, key/model configuration, launcher, browser origin, chats/history and saves are retained. SimPom remains a separate standalone mockup.
 
-## SimPom animation and sound review
+## SimPom — current status
 
-Implemented the 28-item review plus the fireplace follow-up in the separate `SimPom-Animation-Fixes.zip` update. All 100 picks remain. Bodies stay fixed, reviewed native moving parts animate, requested audio loops are enabled, and ignition plays once before a steady fire loop. The source contains no stocked Porcina interior, so that conditional request retains the supplied interior. Poseidon is NE/NW only, overriding the otherwise-SE selection default. See `previews/simpom/ANIMATION-FIXES.md`. No Casey integration or desktop icon yet; the user will supply the icon later.
+Applied the latest 18-item review and reconciled Pollux’s supplied files in `SimPom-Revisions-v3.zip`. There are 95 objects after the requested five removals. Original 2× sprites replace Moneywell/Brahma/microwave AI art; copied Pollux originals, seamless contours, canning hold/boil, protected Playhouse interior animation, mud-stream omission and specified TV channel images are implemented. See `previews/simpom/ANIMATION-FIXES.md`.
+
+Pending media:
+
+- User will supply the fireplace loop. The rejected burning-Sim clip is no longer reachable or played; active flame is silent after ignition.
+- TV programme tracks were absent from the original export: `tv_action_exp`, `tv_cartoon_cheap`, `tv_romance_exp`. Images and power/control effects work; actual programme audio awaits those tracks. See `previews/simpom/AUDIO-NEEDED.md`.
+
+SimPom remains standalone; no Casey integration or desktop icon yet. The user will supply the icon later.

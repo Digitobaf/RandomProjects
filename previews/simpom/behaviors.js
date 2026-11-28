@@ -1,387 +1,5 @@
-/* Authored, editable object sequences; durations are milliseconds. */
+/* SimPom editable data. */
 window.SIMS_BEHAVIORS = {
-  "34fe4e17": {
-    "idle": {
-      "state": 0,
-      "durationMs": 250,
-      "layers": [],
-      "water": 0
-    },
-    "active": {
-      "steps": [
-        {
-          "state": 0,
-          "durationMs": 1000,
-          "layers": [],
-          "water": 1
-        }
-      ]
-    },
-    "note": "Basin-only rising water; fill sound and motion once, then water stays filled. No opaque full-sink water/suds frame.",
-    "hint": "Click to fill the basin once.",
-    "start": {
-      "steps": [
-        {
-          "state": 0,
-          "durationMs": 180,
-          "layers": [],
-          "sound": {
-            "event": "tub1_sfaucetsqueak",
-            "loop": false
-          }
-        },
-        {
-          "state": 0,
-          "durationMs": 3500,
-          "layers": [],
-          "water": {
-            "from": 0,
-            "to": 1
-          },
-          "sound": {
-            "event": "sink_filling",
-            "loop": false
-          }
-        }
-      ]
-    },
-    "click": {
-      "steps": [
-        {
-          "state": 0,
-          "durationMs": 180,
-          "layers": [],
-          "sound": {
-            "event": "tub1_sfaucetsqueak",
-            "loop": false
-          }
-        },
-        {
-          "state": 0,
-          "durationMs": 3500,
-          "layers": [],
-          "water": {
-            "from": 0,
-            "to": 1
-          },
-          "sound": {
-            "event": "sink_filling",
-            "loop": false
-          }
-        }
-      ],
-      "returnAppearance": {
-        "state": 0,
-        "durationMs": 250,
-        "layers": [],
-        "water": 1
-      }
-    },
-    "render": {
-      "stable": true,
-      "base": {
-        "state": 0,
-        "layers": []
-      },
-      "fill": {
-        "regions": {
-          "NE": [
-            [
-              22,
-              15
-            ],
-            [
-              37,
-              10
-            ],
-            [
-              54,
-              15
-            ],
-            [
-              57,
-              20
-            ],
-            [
-              45,
-              27
-            ],
-            [
-              33,
-              28
-            ],
-            [
-              23,
-              23
-            ]
-          ],
-          "SE": [
-            [
-              21,
-              18
-            ],
-            [
-              29,
-              13
-            ],
-            [
-              43,
-              12
-            ],
-            [
-              54,
-              15
-            ],
-            [
-              54,
-              20
-            ],
-            [
-              45,
-              26
-            ],
-            [
-              33,
-              28
-            ],
-            [
-              24,
-              25
-            ],
-            [
-              20,
-              22
-            ]
-          ],
-          "SW": [
-            [
-              15,
-              16
-            ],
-            [
-              27,
-              12
-            ],
-            [
-              39,
-              15
-            ],
-            [
-              49,
-              20
-            ],
-            [
-              49,
-              24
-            ],
-            [
-              42,
-              28
-            ],
-            [
-              32,
-              29
-            ],
-            [
-              22,
-              26
-            ],
-            [
-              15,
-              21
-            ]
-          ],
-          "NW": [
-            [
-              14,
-              15
-            ],
-            [
-              25,
-              12
-            ],
-            [
-              35,
-              14
-            ],
-            [
-              45,
-              19
-            ],
-            [
-              46,
-              23
-            ],
-            [
-              38,
-              28
-            ],
-            [
-              25,
-              26
-            ],
-            [
-              16,
-              21
-            ]
-          ]
-        },
-        "color": "#9ac7d8",
-        "opacity": 0.64
-      },
-      "protect": [
-        "gold"
-      ],
-      "nativeRegions": {
-        "NE": [
-          [
-            22,
-            15
-          ],
-          [
-            37,
-            10
-          ],
-          [
-            54,
-            15
-          ],
-          [
-            57,
-            20
-          ],
-          [
-            45,
-            27
-          ],
-          [
-            33,
-            28
-          ],
-          [
-            23,
-            23
-          ]
-        ],
-        "SE": [
-          [
-            21,
-            18
-          ],
-          [
-            29,
-            13
-          ],
-          [
-            43,
-            12
-          ],
-          [
-            54,
-            15
-          ],
-          [
-            54,
-            20
-          ],
-          [
-            45,
-            26
-          ],
-          [
-            33,
-            28
-          ],
-          [
-            24,
-            25
-          ],
-          [
-            20,
-            22
-          ]
-        ],
-        "SW": [
-          [
-            15,
-            16
-          ],
-          [
-            27,
-            12
-          ],
-          [
-            39,
-            15
-          ],
-          [
-            49,
-            20
-          ],
-          [
-            49,
-            24
-          ],
-          [
-            42,
-            28
-          ],
-          [
-            32,
-            29
-          ],
-          [
-            22,
-            26
-          ],
-          [
-            15,
-            21
-          ]
-        ],
-        "NW": [
-          [
-            14,
-            15
-          ],
-          [
-            25,
-            12
-          ],
-          [
-            35,
-            14
-          ],
-          [
-            45,
-            19
-          ],
-          [
-            46,
-            23
-          ],
-          [
-            38,
-            28
-          ],
-          [
-            25,
-            26
-          ],
-          [
-            16,
-            21
-          ]
-        ]
-      }
-    },
-    "endAppearance": {
-      "state": 0,
-      "durationMs": 250,
-      "layers": [],
-      "water": 1
-    }
-  },
   "c2a91fd0": {
     "idle": {
       "state": 0,
@@ -719,7 +337,7 @@ window.SIMS_BEHAVIORS = {
         "event": "computer_type"
       }
     },
-    "note": "Fixed casing/stand/keyboard; original native screen frames clipped to the display only, including power-on. Back views stay still.",
+    "note": "Original complete game sprites at twice native size; no AI casing or screen-region patch edges.",
     "hint": "Click for game audio.",
     "start": {
       "steps": [
@@ -761,187 +379,8 @@ window.SIMS_BEHAVIORS = {
       }
     },
     "render": {
-      "stable": true,
-      "base": {
-        "state": 0,
-        "layers": []
-      },
-      "regions": {
-        "NE": [],
-        "SE": [
-          [
-            45,
-            18
-          ],
-          [
-            67,
-            7
-          ],
-          [
-            69,
-            7
-          ],
-          [
-            70,
-            17
-          ],
-          [
-            70,
-            28
-          ],
-          [
-            69,
-            30
-          ],
-          [
-            49,
-            40
-          ],
-          [
-            46,
-            40
-          ],
-          [
-            45,
-            28
-          ]
-        ],
-        "SW": [
-          [
-            39,
-            38
-          ],
-          [
-            40,
-            23
-          ],
-          [
-            41,
-            21
-          ],
-          [
-            50,
-            25
-          ],
-          [
-            63,
-            32
-          ],
-          [
-            64,
-            33
-          ],
-          [
-            64,
-            48
-          ],
-          [
-            63,
-            55
-          ],
-          [
-            61,
-            55
-          ],
-          [
-            41,
-            45
-          ],
-          [
-            39,
-            43
-          ]
-        ],
-        "NW": []
-      },
-      "nativeRegions": {
-        "NE": [],
-        "SE": [
-          [
-            45,
-            18
-          ],
-          [
-            67,
-            7
-          ],
-          [
-            69,
-            7
-          ],
-          [
-            70,
-            17
-          ],
-          [
-            70,
-            28
-          ],
-          [
-            69,
-            30
-          ],
-          [
-            49,
-            40
-          ],
-          [
-            46,
-            40
-          ],
-          [
-            45,
-            28
-          ]
-        ],
-        "SW": [
-          [
-            39,
-            38
-          ],
-          [
-            40,
-            23
-          ],
-          [
-            41,
-            21
-          ],
-          [
-            50,
-            25
-          ],
-          [
-            63,
-            32
-          ],
-          [
-            64,
-            33
-          ],
-          [
-            64,
-            48
-          ],
-          [
-            63,
-            55
-          ],
-          [
-            61,
-            55
-          ],
-          [
-            41,
-            45
-          ],
-          [
-            39,
-            43
-          ]
-        ],
-        "NW": []
-      }
+      "native": true,
+      "nativeScale": 2
     }
   },
   "98e0f8bd": {
@@ -980,11 +419,12 @@ window.SIMS_BEHAVIORS = {
       ],
       "loop": true,
       "sound": {
-        "event": "aquarium_running"
+        "event": "aquarium_running",
+        "loop": true
       }
     },
-    "note": "Only NE and NW rotations remain; NE is the starting view because SE was explicitly removed.",
-    "hint": "Click to feed the fish.",
+    "note": "Front (SE) and back (SW) views are omitted; they don't read clearly. Live fish only, NE and NW. Running sound loops.",
+    "hint": "This aquarium is shown from the side views only. Click to feed.",
     "click": {
       "steps": [
         {
@@ -1013,12 +453,12 @@ window.SIMS_BEHAVIORS = {
         "loop": false
       }
     },
+    "views": [
+      "NE",
+      "NW"
+    ],
     "render": {
-      "stable": true,
-      "base": {
-        "state": 1,
-        "layers": []
-      }
+      "native": true
     }
   },
   "bb626ef3": {
@@ -1041,7 +481,7 @@ window.SIMS_BEHAVIORS = {
         "event": "microwave_scook"
       }
     },
-    "note": "Window glass uses native geometry; warm light is clipped inside the window with no shadow/glow bleed.",
+    "note": "Pollux original door/cook sequence and window light, rendered at twice native size without AI art.",
     "hint": "Click to open and close the door.",
     "start": {
       "steps": [
@@ -1122,96 +562,49 @@ window.SIMS_BEHAVIORS = {
       }
     },
     "light": {
-      "color": "#ffcb71",
-      "opacity": 0.5,
+      "color": "#ffd27a",
       "polygons": {
-        "NE": [],
         "SE": [
           [
-            33,
-            39
+            32,
+            38
           ],
           [
-            50,
-            30
+            51,
+            29
           ],
           [
-            50,
-            45
+            51,
+            44
           ],
           [
-            33,
-            53
+            32,
+            54
           ]
         ],
         "SW": [
           [
-            18,
-            27
+            16,
+            29
           ],
           [
             34,
-            35
+            38
           ],
           [
             34,
-            47
+            52
           ],
           [
-            18,
-            39
+            16,
+            44
           ]
-        ],
-        "NW": []
-      },
-      "blur": 0
+        ]
+      }
     },
     "render": {
-      "stable": true,
-      "base": {
-        "state": 0,
-        "layers": []
-      },
-      "nativeRegions": {
-        "NE": [],
-        "SE": [
-          [
-            33,
-            39
-          ],
-          [
-            50,
-            30
-          ],
-          [
-            50,
-            45
-          ],
-          [
-            33,
-            53
-          ]
-        ],
-        "SW": [
-          [
-            18,
-            27
-          ],
-          [
-            34,
-            35
-          ],
-          [
-            34,
-            47
-          ],
-          [
-            18,
-            39
-          ]
-        ],
-        "NW": []
-      }
+      "native": true,
+      "nativeScale": 2
     }
   },
   "dbeb6614": {
@@ -1229,7 +622,7 @@ window.SIMS_BEHAVIORS = {
         }
       ]
     },
-    "note": "Only the water level/flow changes; one fill sequence with one fill clip, then a full still bath. No animated metal textures.",
+    "note": "One original seamless tub frame per fill stage, without a cut-out basin patch in the empty or filled tub. Fill once and hold.",
     "hint": "Click to refill the tub.",
     "start": {
       "steps": [
@@ -1363,245 +756,7 @@ window.SIMS_BEHAVIORS = {
       }
     },
     "render": {
-      "stable": true,
-      "base": {
-        "state": 0,
-        "layers": []
-      },
-      "regions": {
-        "NE": [
-          [
-            10,
-            46
-          ],
-          [
-            30,
-            37
-          ],
-          [
-            60,
-            20
-          ],
-          [
-            80,
-            15
-          ],
-          [
-            97,
-            20
-          ],
-          [
-            114,
-            28
-          ],
-          [
-            127,
-            38
-          ],
-          [
-            120,
-            47
-          ],
-          [
-            100,
-            60
-          ],
-          [
-            70,
-            70
-          ],
-          [
-            47,
-            72
-          ],
-          [
-            27,
-            66
-          ],
-          [
-            12,
-            58
-          ]
-        ],
-        "SE": [
-          [
-            13,
-            15
-          ],
-          [
-            25,
-            8
-          ],
-          [
-            43,
-            12
-          ],
-          [
-            64,
-            24
-          ],
-          [
-            85,
-            35
-          ],
-          [
-            110,
-            44
-          ],
-          [
-            125,
-            48
-          ],
-          [
-            123,
-            54
-          ],
-          [
-            111,
-            60
-          ],
-          [
-            91,
-            63
-          ],
-          [
-            72,
-            59
-          ],
-          [
-            52,
-            52
-          ],
-          [
-            31,
-            41
-          ],
-          [
-            17,
-            28
-          ]
-        ],
-        "SW": [
-          [
-            14,
-            43
-          ],
-          [
-            30,
-            39
-          ],
-          [
-            53,
-            27
-          ],
-          [
-            77,
-            12
-          ],
-          [
-            94,
-            6
-          ],
-          [
-            113,
-            6
-          ],
-          [
-            126,
-            14
-          ],
-          [
-            128,
-            26
-          ],
-          [
-            123,
-            36
-          ],
-          [
-            111,
-            48
-          ],
-          [
-            91,
-            57
-          ],
-          [
-            71,
-            62
-          ],
-          [
-            52,
-            64
-          ],
-          [
-            31,
-            59
-          ],
-          [
-            17,
-            51
-          ]
-        ],
-        "NW": [
-          [
-            15,
-            28
-          ],
-          [
-            30,
-            18
-          ],
-          [
-            45,
-            16
-          ],
-          [
-            65,
-            26
-          ],
-          [
-            86,
-            39
-          ],
-          [
-            108,
-            48
-          ],
-          [
-            127,
-            53
-          ],
-          [
-            130,
-            60
-          ],
-          [
-            120,
-            66
-          ],
-          [
-            100,
-            72
-          ],
-          [
-            80,
-            70
-          ],
-          [
-            60,
-            62
-          ],
-          [
-            38,
-            51
-          ],
-          [
-            20,
-            40
-          ]
-        ]
-      }
+      "native": true
     },
     "endAppearance": {
       "state": 3,
@@ -1736,7 +891,7 @@ window.SIMS_BEHAVIORS = {
         "event": "computer_type"
       }
     },
-    "note": "Fixed casing/stand/keyboard; original native screen frames clipped to the display only, including power-on. Back views stay still.",
+    "note": "Original complete game sprites at twice native size; no AI casing or screen-region patch edges.",
     "hint": "Click for game audio.",
     "start": {
       "steps": [
@@ -1778,147 +933,8 @@ window.SIMS_BEHAVIORS = {
       }
     },
     "render": {
-      "stable": true,
-      "base": {
-        "state": 0,
-        "layers": []
-      },
-      "regions": {
-        "NE": [],
-        "SE": [
-          [
-            51,
-            27
-          ],
-          [
-            81,
-            12
-          ],
-          [
-            81,
-            38
-          ],
-          [
-            80,
-            39
-          ],
-          [
-            69,
-            45
-          ],
-          [
-            61,
-            49
-          ],
-          [
-            52,
-            53
-          ],
-          [
-            51,
-            53
-          ]
-        ],
-        "SW": [
-          [
-            37,
-            39
-          ],
-          [
-            38,
-            39
-          ],
-          [
-            66,
-            53
-          ],
-          [
-            67,
-            54
-          ],
-          [
-            67,
-            80
-          ],
-          [
-            52,
-            73
-          ],
-          [
-            37,
-            65
-          ]
-        ],
-        "NW": []
-      },
-      "nativeRegions": {
-        "NE": [],
-        "SE": [
-          [
-            51,
-            27
-          ],
-          [
-            81,
-            12
-          ],
-          [
-            81,
-            38
-          ],
-          [
-            80,
-            39
-          ],
-          [
-            69,
-            45
-          ],
-          [
-            61,
-            49
-          ],
-          [
-            52,
-            53
-          ],
-          [
-            51,
-            53
-          ]
-        ],
-        "SW": [
-          [
-            37,
-            39
-          ],
-          [
-            38,
-            39
-          ],
-          [
-            66,
-            53
-          ],
-          [
-            67,
-            54
-          ],
-          [
-            67,
-            80
-          ],
-          [
-            52,
-            73
-          ],
-          [
-            37,
-            65
-          ]
-        ],
-        "NW": []
-      }
+      "native": true,
+      "nativeScale": 2
     }
   },
   "8eaa68ad": {
@@ -1945,14 +961,9 @@ window.SIMS_BEHAVIORS = {
           "layers": []
         }
       ],
-      "loop": true,
-      "sound": {
-        "event": "fire_burning",
-        "loop": true,
-        "gain": 0.75
-      }
+      "loop": true
     },
-    "note": "Match and metallic ignition/grate event play once each. A longer supplied burning-fire excerpt loops afterward, with a crossfaded seam.",
+    "note": "Ignition effects play once. Active fire is silent pending the user-supplied fire sound; rejected burning-Sim track is not referenced.",
     "hint": "Match and ignition once, then a steady fire.",
     "start": {
       "steps": [
@@ -2434,7 +1445,7 @@ window.SIMS_BEHAVIORS = {
         "loop": false
       }
     },
-    "note": "All six supplied door states checked. No stocked variant or food-content layer exists in this export; retain the available interior.",
+    "note": "Complete original closed/open fridge frames; no differential matte outside the silhouette. Supplied empty interior retained.",
     "hint": "Click to open the fridge.",
     "click": {
       "steps": [
@@ -2499,11 +1510,7 @@ window.SIMS_BEHAVIORS = {
       ]
     },
     "render": {
-      "stable": true,
-      "base": {
-        "state": 0,
-        "layers": []
-      }
+      "native": true
     }
   },
   "82e0f146": {
@@ -3474,40 +2481,48 @@ window.SIMS_BEHAVIORS = {
       "steps": [
         {
           "state": 0,
-          "durationMs": 350,
           "layers": [
-            0
-          ]
-        },
-        {
-          "state": 0,
-          "durationMs": 350,
-          "layers": [
-            1
-          ]
-        },
-        {
-          "state": 0,
-          "durationMs": 350,
-          "layers": [
-            2
-          ]
+            3
+          ],
+          "durationMs": 1000
         }
       ],
-      "loop": true,
       "sound": {
         "event": "stove_bubble",
-        "loop": false
+        "loop": true
       }
     },
-    "note": "Chop, then simmer; canning layers swap among working jar frames.",
-    "hint": "Click the object to interact.",
+    "note": "Chop once through working layers 0\u20133, then hold the sliced-apple/water-filled-pot appearance. Only boiling audio loops.",
+    "hint": "Chop once, then leave it simmering.",
     "start": {
       "steps": [
         {
           "state": 0,
-          "durationMs": 1800,
-          "layers": []
+          "layers": [
+            0
+          ],
+          "durationMs": 250
+        },
+        {
+          "state": 0,
+          "layers": [
+            1
+          ],
+          "durationMs": 550
+        },
+        {
+          "state": 0,
+          "layers": [
+            2
+          ],
+          "durationMs": 550
+        },
+        {
+          "state": 0,
+          "layers": [
+            3
+          ],
+          "durationMs": 450
         }
       ],
       "sound": {
@@ -3519,14 +2534,49 @@ window.SIMS_BEHAVIORS = {
       "steps": [
         {
           "state": 0,
-          "durationMs": 1800,
-          "layers": []
+          "layers": [
+            0
+          ],
+          "durationMs": 250
+        },
+        {
+          "state": 0,
+          "layers": [
+            1
+          ],
+          "durationMs": 550
+        },
+        {
+          "state": 0,
+          "layers": [
+            2
+          ],
+          "durationMs": 550
+        },
+        {
+          "state": 0,
+          "layers": [
+            3
+          ],
+          "durationMs": 450
         }
       ],
       "sound": {
         "event": "fruit_chop",
         "loop": false
+      },
+      "returnAppearance": {
+        "state": 0,
+        "layers": [
+          3
+        ]
       }
+    },
+    "endAppearance": {
+      "state": 0,
+      "layers": [
+        3
+      ]
     }
   },
   "dfbb8259": {
@@ -4148,22 +3198,22 @@ window.SIMS_BEHAVIORS = {
         "loop": true
       }
     },
-    "note": "Running water audio loops continuously, including clicks. No duplicated snow/decoration layer; original rim remains fixed.",
-    "hint": "Click the object to interact.",
+    "note": "The snow-ring layer was a seasonal overlay that sat around the tub, not on the rim, so it is omitted. Bubbling frames loop with the pump sound.",
+    "hint": "The snow ring is gone; the pump sound loops.",
     "click": {
       "steps": [
         {
-          "state": 5,
+          "state": 1,
           "durationMs": 260,
           "layers": []
         },
         {
-          "state": 6,
+          "state": 2,
           "durationMs": 260,
           "layers": []
         },
         {
-          "state": 7,
+          "state": 3,
           "durationMs": 260,
           "layers": []
         }
@@ -4171,11 +3221,7 @@ window.SIMS_BEHAVIORS = {
       "preserveAmbient": true
     },
     "render": {
-      "stable": true,
-      "base": {
-        "state": 0,
-        "layers": []
-      }
+      "native": true
     }
   },
   "54c7f70d": {
@@ -5102,7 +4148,7 @@ window.SIMS_BEHAVIORS = {
       "loop": true,
       "sound": {
         "event": "aquarium_running",
-        "loop": false
+        "loop": true
       }
     },
     "note": "Six marine-aquarium frames. Running clip uses exported non-loop flag.",
@@ -5111,30 +4157,70 @@ window.SIMS_BEHAVIORS = {
   "645542df": {
     "idle": {
       "state": 0,
-      "durationMs": 250,
       "layers": []
     },
     "active": {
       "steps": [
         {
           "state": 0,
-          "durationMs": 1000,
-          "layers": []
+          "layers": [],
+          "durationMs": 220
+        },
+        {
+          "state": 1,
+          "layers": [],
+          "durationMs": 220
+        },
+        {
+          "state": 2,
+          "layers": [],
+          "durationMs": 220
+        },
+        {
+          "state": 3,
+          "layers": [],
+          "durationMs": 220
+        },
+        {
+          "state": 4,
+          "layers": [],
+          "durationMs": 220
+        },
+        {
+          "state": 5,
+          "layers": [],
+          "durationMs": 220
+        },
+        {
+          "state": 6,
+          "layers": [],
+          "durationMs": 220
+        },
+        {
+          "state": 7,
+          "layers": [],
+          "durationMs": 220
         }
       ],
+      "loop": true,
       "sound": {
         "event": "scuba_loop",
         "loop": true
       }
     },
-    "note": "Cabin and door stay fixed on state 0, with no duplicate default parts. Scuba machinery audio loops.",
-    "hint": "The cabin stays closed while its machinery runs.",
+    "note": "Native subtle tank/fish motion restored. Airlock and pump stay fixed from the base frame; no duplicate door layers. Machinery audio loops.",
+    "hint": "The tank stays lively while the machinery hums.",
     "render": {
       "stable": true,
       "base": {
         "state": 0,
         "layers": []
-      }
+      },
+      "protectLayers": [
+        0,
+        4,
+        8
+      ]
     }
   },
   "e89c0e48": {
@@ -5450,7 +4536,7 @@ window.SIMS_BEHAVIORS = {
     "active": {
       "steps": [
         {
-          "state": 0,
+          "state": 3,
           "durationMs": 1000,
           "layers": []
         }
@@ -5460,98 +4546,79 @@ window.SIMS_BEHAVIORS = {
         "loop": true
       }
     },
-    "note": "Only native door geometry replaces the moving area; the body never morphs. Steam audio loops after the door sequence.",
-    "hint": "Click to open and close the steamer.",
+    "note": "Pollux door-open/hold/close sequence and looping steam sound, using the entire original sprite to keep its outline clean.",
+    "hint": "The doors open and stay open; steam loops until the timer ends.",
     "start": {
       "steps": [
         {
           "state": 1,
-          "durationMs": 180,
-          "layers": [],
-          "sound": {
-            "event": "chair_recline",
-            "loop": false
-          }
+          "durationMs": 220,
+          "layers": []
         },
         {
           "state": 2,
-          "durationMs": 180,
+          "durationMs": 220,
           "layers": []
         },
         {
           "state": 3,
-          "durationMs": 650,
-          "layers": []
-        },
-        {
-          "state": 2,
-          "durationMs": 180,
-          "layers": [],
-          "sound": {
-            "event": "chair_recline",
-            "loop": false
-          }
-        },
-        {
-          "state": 1,
-          "durationMs": 180,
-          "layers": []
-        },
-        {
-          "state": 0,
-          "durationMs": 180,
+          "durationMs": 280,
           "layers": []
         }
-      ]
+      ],
+      "sound": {
+        "event": "chair_recline",
+        "loop": false
+      }
     },
     "click": {
       "steps": [
         {
           "state": 1,
-          "durationMs": 180,
-          "layers": [],
-          "sound": {
-            "event": "chair_recline",
-            "loop": false
-          }
+          "durationMs": 220,
+          "layers": []
         },
         {
           "state": 2,
-          "durationMs": 180,
+          "durationMs": 220,
           "layers": []
         },
         {
           "state": 3,
-          "durationMs": 650,
+          "durationMs": 280,
+          "layers": []
+        }
+      ],
+      "sound": {
+        "event": "chair_recline",
+        "loop": false
+      }
+    },
+    "stop": {
+      "steps": [
+        {
+          "state": 2,
+          "durationMs": 220,
           "layers": []
         },
         {
-          "state": 2,
-          "durationMs": 180,
-          "layers": [],
-          "sound": {
-            "event": "chair_recline",
-            "loop": false
-          }
-        },
-        {
           "state": 1,
-          "durationMs": 180,
+          "durationMs": 220,
           "layers": []
         },
         {
           "state": 0,
-          "durationMs": 180,
+          "durationMs": 280,
           "layers": []
         }
-      ]
+      ],
+      "sound": {
+        "event": "chair_recline",
+        "loop": false
+      }
     },
     "render": {
-      "stable": true,
-      "base": {
-        "state": 0,
-        "layers": []
-      }
+      "native": true
     }
   },
   "a5004e8c": {
@@ -5651,7 +4718,7 @@ window.SIMS_BEHAVIORS = {
         "gain": 0.4
       }
     },
-    "note": "Mud layers 0\u20135 rise from low to high; brown fill stream only during startup. Mud is clipped to the inside opening and behind the native tap/towel. Mud sounds replace the milky-water clips.",
+    "note": "Accepted basin-only mud filling and loop preserved, with all brown pouring-stream layers 18\u201320 omitted.",
     "hint": "Click to fill the tub with mud.",
     "start": {
       "steps": [
@@ -5664,8 +4731,7 @@ window.SIMS_BEHAVIORS = {
           "state": 0,
           "durationMs": 1480,
           "layers": [
-            0,
-            18
+            0
           ],
           "sound": {
             "event": "mudbath_fill",
@@ -5677,40 +4743,35 @@ window.SIMS_BEHAVIORS = {
           "state": 0,
           "durationMs": 1480,
           "layers": [
-            1,
-            19
+            1
           ]
         },
         {
           "state": 0,
           "durationMs": 1480,
           "layers": [
-            2,
-            20
+            2
           ]
         },
         {
           "state": 0,
           "durationMs": 1480,
           "layers": [
-            3,
-            18
+            3
           ]
         },
         {
           "state": 0,
           "durationMs": 1480,
           "layers": [
-            4,
-            19
+            4
           ]
         },
         {
           "state": 0,
           "durationMs": 1480,
           "layers": [
-            5,
-            20
+            5
           ]
         }
       ]
@@ -5863,8 +4924,7 @@ window.SIMS_BEHAVIORS = {
           "state": 0,
           "durationMs": 1480,
           "layers": [
-            0,
-            18
+            0
           ],
           "sound": {
             "event": "mudbath_fill",
@@ -5876,40 +4936,35 @@ window.SIMS_BEHAVIORS = {
           "state": 0,
           "durationMs": 1480,
           "layers": [
-            1,
-            19
+            1
           ]
         },
         {
           "state": 0,
           "durationMs": 1480,
           "layers": [
-            2,
-            20
+            2
           ]
         },
         {
           "state": 0,
           "durationMs": 1480,
           "layers": [
-            3,
-            18
+            3
           ]
         },
         {
           "state": 0,
           "durationMs": 1480,
           "layers": [
-            4,
-            19
+            4
           ]
         },
         {
           "state": 0,
           "durationMs": 1480,
           "layers": [
-            5,
-            20
+            5
           ]
         }
       ],
@@ -5970,24 +5025,24 @@ window.SIMS_BEHAVIORS = {
       "steps": [
         {
           "state": 1,
-          "durationMs": 350,
-          "layers": []
+          "layers": [],
+          "durationMs": 700
         },
         {
           "state": 2,
-          "durationMs": 350,
-          "layers": []
+          "layers": [],
+          "durationMs": 700
         },
         {
           "state": 3,
-          "durationMs": 350,
-          "layers": []
+          "layers": [],
+          "durationMs": 700
         }
       ],
       "loop": true
     },
-    "note": "Fixed casing/stand/keyboard; original native screen frames clipped to the display only, including power-on. Back views stay still.",
-    "hint": "Click to change channel.",
+    "note": "Action channel only. Original exported channel images are present, but its programme audio event was unresolved by the export. Power/control sounds remain.",
+    "hint": "Action channel.",
     "start": {
       "steps": [
         {
@@ -6004,34 +5059,19 @@ window.SIMS_BEHAVIORS = {
     "click": {
       "steps": [
         {
-          "state": 10,
-          "durationMs": 350,
-          "layers": []
+          "state": 1,
+          "layers": [],
+          "durationMs": 700
         },
         {
-          "state": 11,
-          "durationMs": 350,
-          "layers": []
+          "state": 2,
+          "layers": [],
+          "durationMs": 700
         },
         {
-          "state": 12,
-          "durationMs": 350,
-          "layers": []
-        },
-        {
-          "state": 10,
-          "durationMs": 350,
-          "layers": []
-        },
-        {
-          "state": 11,
-          "durationMs": 350,
-          "layers": []
-        },
-        {
-          "state": 12,
-          "durationMs": 350,
-          "layers": []
+          "state": 3,
+          "layers": [],
+          "durationMs": 700
         }
       ],
       "sound": {
@@ -6218,6 +5258,11 @@ window.SIMS_BEHAVIORS = {
         ],
         "NW": []
       }
+    },
+    "channel": {
+      "name": "Action",
+      "missingSoundEvent": "tv_action_exp",
+      "audioStatus": "awaiting-export"
     }
   },
   "5fa381c1": {
@@ -6229,25 +5274,25 @@ window.SIMS_BEHAVIORS = {
     "active": {
       "steps": [
         {
-          "state": 1,
-          "durationMs": 350,
-          "layers": []
+          "state": 10,
+          "layers": [],
+          "durationMs": 700
         },
         {
-          "state": 2,
-          "durationMs": 350,
-          "layers": []
+          "state": 11,
+          "layers": [],
+          "durationMs": 700
         },
         {
-          "state": 3,
-          "durationMs": 350,
-          "layers": []
+          "state": 12,
+          "layers": [],
+          "durationMs": 700
         }
       ],
       "loop": true
     },
-    "note": "Fixed casing/stand/keyboard; original native screen frames clipped to the display only, including power-on. Back views stay still.",
-    "hint": "Click to change channel.",
+    "note": "Cartoons channel only. Original exported channel images are present, but its programme audio event was unresolved by the export. Power/control sounds remain.",
+    "hint": "Cartoons channel.",
     "start": {
       "steps": [
         {
@@ -6265,33 +5310,18 @@ window.SIMS_BEHAVIORS = {
       "steps": [
         {
           "state": 10,
-          "durationMs": 350,
-          "layers": []
+          "layers": [],
+          "durationMs": 700
         },
         {
           "state": 11,
-          "durationMs": 350,
-          "layers": []
+          "layers": [],
+          "durationMs": 700
         },
         {
           "state": 12,
-          "durationMs": 350,
-          "layers": []
-        },
-        {
-          "state": 10,
-          "durationMs": 350,
-          "layers": []
-        },
-        {
-          "state": 11,
-          "durationMs": 350,
-          "layers": []
-        },
-        {
-          "state": 12,
-          "durationMs": 350,
-          "layers": []
+          "layers": [],
+          "durationMs": 700
         }
       ],
       "sound": {
@@ -6558,6 +5588,11 @@ window.SIMS_BEHAVIORS = {
         ],
         "NW": []
       }
+    },
+    "channel": {
+      "name": "Cartoons",
+      "missingSoundEvent": "tv_cartoon_cheap",
+      "audioStatus": "awaiting-export"
     }
   },
   "fc8d548b": {
@@ -6569,25 +5604,25 @@ window.SIMS_BEHAVIORS = {
     "active": {
       "steps": [
         {
-          "state": 1,
-          "durationMs": 350,
-          "layers": []
+          "state": 7,
+          "layers": [],
+          "durationMs": 700
         },
         {
-          "state": 2,
-          "durationMs": 350,
-          "layers": []
+          "state": 8,
+          "layers": [],
+          "durationMs": 700
         },
         {
-          "state": 3,
-          "durationMs": 350,
-          "layers": []
+          "state": 9,
+          "layers": [],
+          "durationMs": 700
         }
       ],
       "loop": true
     },
-    "note": "Fixed casing/stand/keyboard; original native screen frames clipped to the display only, including power-on. Back views stay still.",
-    "hint": "Click to change channel.",
+    "note": "Romance channel only. Original exported channel images are present, but its programme audio event was unresolved by the export. Power/control sounds remain.",
+    "hint": "Romance channel.",
     "start": {
       "steps": [
         {
@@ -6604,34 +5639,19 @@ window.SIMS_BEHAVIORS = {
     "click": {
       "steps": [
         {
-          "state": 10,
-          "durationMs": 350,
-          "layers": []
+          "state": 7,
+          "layers": [],
+          "durationMs": 700
         },
         {
-          "state": 11,
-          "durationMs": 350,
-          "layers": []
+          "state": 8,
+          "layers": [],
+          "durationMs": 700
         },
         {
-          "state": 12,
-          "durationMs": 350,
-          "layers": []
-        },
-        {
-          "state": 10,
-          "durationMs": 350,
-          "layers": []
-        },
-        {
-          "state": 11,
-          "durationMs": 350,
-          "layers": []
-        },
-        {
-          "state": 12,
-          "durationMs": 350,
-          "layers": []
+          "state": 9,
+          "layers": [],
+          "durationMs": 700
         }
       ],
       "sound": {
@@ -6850,6 +5870,11 @@ window.SIMS_BEHAVIORS = {
         ],
         "NW": []
       }
+    },
+    "channel": {
+      "name": "Romance",
+      "missingSoundEvent": "tv_romance_exp",
+      "audioStatus": "awaiting-export"
     }
   },
   "880bb75e": {
@@ -7257,81 +6282,6 @@ window.SIMS_BEHAVIORS = {
     },
     "note": "Static vendor/cart. No matching mechanical or ambience clip exported; unrelated/shared voices omitted.",
     "hint": "Rotate to see the other sides."
-  },
-  "17fee456": {
-    "idle": {
-      "state": 0,
-      "durationMs": 250,
-      "layers": []
-    },
-    "active": {
-      "steps": [
-        {
-          "state": 0,
-          "durationMs": 2400,
-          "layers": [],
-          "sway": {
-            "amplitudeDeg": 1.3,
-            "periodMs": 2400,
-            "anchorY": 0.85
-          }
-        }
-      ],
-      "loop": true,
-      "sound": {
-        "event": "asp_egg_loop",
-        "loop": false
-      }
-    },
-    "note": "A single baked egg and cradle sway gently as one rigid bitmap. No duplicate shell, headphones or broken-shell overlay.",
-    "hint": "Click to stir the egg.",
-    "click": {
-      "steps": [
-        {
-          "state": 0,
-          "durationMs": 180,
-          "layers": [],
-          "rotation": -1.8,
-          "sound": {
-            "event": "dragon_nest_hatch",
-            "loop": false,
-            "gain": 0.65
-          }
-        },
-        {
-          "state": 0,
-          "durationMs": 180,
-          "layers": [],
-          "rotation": 1.8
-        },
-        {
-          "state": 0,
-          "durationMs": 180,
-          "layers": [],
-          "rotation": -1
-        },
-        {
-          "state": 0,
-          "durationMs": 180,
-          "layers": [],
-          "rotation": 1
-        },
-        {
-          "state": 0,
-          "durationMs": 180,
-          "layers": [],
-          "rotation": 0
-        }
-      ],
-      "preserveAmbient": true
-    },
-    "render": {
-      "stable": true,
-      "base": {
-        "state": 0,
-        "layers": []
-      }
-    }
   },
   "e69e35c0": {
     "idle": {
@@ -8626,161 +7576,6 @@ window.SIMS_BEHAVIORS = {
         "layers": []
       },
       "transientOnly": true
-    }
-  },
-  "33a951ec": {
-    "idle": {
-      "state": 12,
-      "durationMs": 250,
-      "layers": []
-    },
-    "active": {
-      "steps": [
-        {
-          "state": 12,
-          "durationMs": 1000,
-          "layers": []
-        }
-      ]
-    },
-    "note": "Food remains a held meal, not a loop through portions/dirt levels. Eating sound on click only.",
-    "hint": "Click the object to interact.",
-    "click": {
-      "steps": [
-        {
-          "state": 12,
-          "durationMs": 1200,
-          "layers": []
-        }
-      ],
-      "sound": {
-        "event": "meal_utinsels",
-        "loop": false
-      }
-    },
-    "render": {
-      "stable": true,
-      "base": {
-        "state": 12,
-        "durationMs": 250,
-        "layers": []
-      }
-    }
-  },
-  "331f2000": {
-    "idle": {
-      "state": 19,
-      "durationMs": 250,
-      "layers": []
-    },
-    "active": {
-      "steps": [
-        {
-          "state": 19,
-          "durationMs": 1000,
-          "layers": []
-        }
-      ]
-    },
-    "note": "Food remains a held meal, not a loop through portions/dirt levels. Eating sound on click only.",
-    "hint": "Click the object to interact.",
-    "click": {
-      "steps": [
-        {
-          "state": 19,
-          "durationMs": 1200,
-          "layers": []
-        }
-      ],
-      "sound": {
-        "event": "food_snack_eat",
-        "loop": false
-      }
-    },
-    "render": {
-      "stable": true,
-      "base": {
-        "state": 19,
-        "durationMs": 250,
-        "layers": []
-      }
-    }
-  },
-  "3c6b497b": {
-    "idle": {
-      "state": 33,
-      "durationMs": 250,
-      "layers": []
-    },
-    "active": {
-      "steps": [
-        {
-          "state": 35,
-          "durationMs": 1000,
-          "layers": []
-        }
-      ]
-    },
-    "note": "Closed, half open, open. Pizza portions never autoplay in a loop. Opening sound is a provisional association.",
-    "hint": "Click the object to interact.",
-    "start": {
-      "steps": [
-        {
-          "state": 33,
-          "durationMs": 220,
-          "layers": []
-        },
-        {
-          "state": 34,
-          "durationMs": 220,
-          "layers": []
-        },
-        {
-          "state": 35,
-          "durationMs": 220,
-          "layers": []
-        }
-      ],
-      "sound": {
-        "event": "pizza_gooey",
-        "loop": false
-      }
-    },
-    "click": {
-      "steps": [
-        {
-          "state": 34,
-          "durationMs": 200,
-          "layers": []
-        },
-        {
-          "state": 33,
-          "durationMs": 200,
-          "layers": []
-        },
-        {
-          "state": 34,
-          "durationMs": 200,
-          "layers": []
-        },
-        {
-          "state": 35,
-          "durationMs": 200,
-          "layers": []
-        }
-      ],
-      "sound": {
-        "event": "pizza_gooey",
-        "loop": false
-      }
-    },
-    "render": {
-      "stable": true,
-      "base": {
-        "state": 33,
-        "durationMs": 250,
-        "layers": []
-      }
     }
   },
   "87d00adc": {

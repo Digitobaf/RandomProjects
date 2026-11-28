@@ -1,1077 +1,200 @@
 {
-  "version": "animation-fixes-v2",
-  "sourceSHA256": "7d1b9cccf75650cdd96a61f30db1f6792faecf642b1cddf1cf2f72bb7fdb741a",
-  "media": {
-    "assets": 1964,
-    "newFiles": 42,
-    "newMediaBytes": 1967054,
-    "unchangedOldMedia": 1922,
-    "checksumsVerified": 1964,
-    "referencesValid": true
-  },
-  "rendering": {
-    "objects": 100,
-    "poseViewDraws": 3008,
-    "scaleViolations": 0,
-    "pixelRegionChecks": 40,
-    "changedPixelsOutsideAllowedMotion": 0,
-    "perObject": [
-      {
-        "id": "34fe4e17",
-        "name": "\"Andersonville\" Pedestal Sink",
-        "draws": 32,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "c2a91fd0",
-        "name": "Bachman Wood Beverage Bar",
-        "draws": 64,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "a82ca08e",
-        "name": "\"Fountain of Tranquility\"",
-        "draws": 24,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "bf137195",
-        "name": "Gagmia Simore Espresso Machine",
-        "draws": 56,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "d191aff7",
-        "name": "Moneywell Computer",
-        "draws": 32,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "98e0f8bd",
-        "name": "Poseidon's Adventure Aquarium",
-        "draws": 20,
-        "scaleViolations": 0,
-        "defaultView": "NE"
-      },
-      {
-        "id": "bb626ef3",
-        "name": "Positive Potential Microwave",
-        "draws": 48,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "dbeb6614",
-        "name": "Sani-Queen Bathtub",
-        "draws": 96,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "85e02a40",
-        "name": "SpaceMiser Shower",
-        "draws": 40,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "d191ff6a",
-        "name": "The Brahma 2000",
-        "draws": 32,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "8eaa68ad",
-        "name": "The Bostonian Fireplace",
-        "draws": 28,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "8fed54c2",
-        "name": "WhirlWizard Hot Tub",
-        "draws": 28,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "253c1a5e",
-        "name": "Wild Bill THX-451 Barbecue",
-        "draws": 40,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "4ef4ea16",
-        "name": "Contempto Loveseat",
-        "draws": 16,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "85e00942",
-        "name": "Justa Bathtub",
-        "draws": 104,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "5a5cda09",
-        "name": "NuMica Folding Card Table",
-        "draws": 16,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "42c078b3",
-        "name": "Porcina Refrigerator Model P1g-S",
-        "draws": 48,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "82e0f146",
-        "name": "Sioux Sity Wicker Chair",
-        "draws": 16,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "996de865",
-        "name": "Egg Chair",
-        "draws": 16,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "663eaffc",
-        "name": "The Vibromatic Heart Bed",
-        "draws": 16,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "0924bc1f",
-        "name": "\"Aquaqu\" Inflatable Fun Chair",
-        "draws": 16,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "24dad5c4",
-        "name": "\"Biome\" Inflatable Fun Chair",
-        "draws": 16,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "0f8beda7",
-        "name": "\"Magenti\" Inflatable Fun Chair",
-        "draws": 16,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "f718d902",
-        "name": "Super Schlooper Bubble Blower",
-        "draws": 52,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "8e3520bd",
-        "name": "The Elegant Chef Buffet Table",
-        "draws": 28,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "5e8b157a",
-        "name": "ToroTec Mechanical Bull",
-        "draws": 36,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "da2b8f79",
-        "name": "Whether Vain Drink Dispenser",
-        "draws": 64,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "4126d70f",
-        "name": "Vintage \"Hula Girl\" Dancing Lamp",
-        "draws": 44,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "c7a7215c",
-        "name": "\"Manila 1000\" Marine Aquarium",
-        "draws": 28,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "47a99575",
-        "name": "\"Toy With Me\" Toy Display",
-        "draws": 8,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "ad0b9dd6",
-        "name": "Boggs Home Canning Center",
-        "draws": 24,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "dfbb8259",
-        "name": "Cheap Eats Counter",
-        "draws": 8,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "26e91ef5",
-        "name": "Confectionomicon",
-        "draws": 16,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "f219d380",
-        "name": "Hot Dogz 2Go",
-        "draws": 8,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "26ad0662",
-        "name": "Kastle O\u2019 Toys by Magical Mystery",
-        "draws": 16,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "58dde126",
-        "name": "Niagara Love Tub",
-        "draws": 28,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "d4bf28f3",
-        "name": "Reproduction Antique Bed",
-        "draws": 20,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "4699596d",
-        "name": "Slush Queen Ice Cream Counter",
-        "draws": 8,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "2d0a3de1",
-        "name": "TransLight Bar Station",
-        "draws": 16,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "2c7dff0e",
-        "name": "AquaFluvium Shower-Tub",
-        "draws": 104,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "ebbd5efc",
-        "name": "Chow Sum Phat Buffet",
-        "draws": 28,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "60d99178",
-        "name": "Intui-Inuit Igloo Site",
-        "draws": 16,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "5bfb6140",
-        "name": "Redwood Hot Tub",
-        "draws": 28,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "54c7f70d",
-        "name": "Sim Mars",
-        "draws": 28,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "45caf478",
-        "name": "Snack Stand",
-        "draws": 8,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "dd4e8362",
-        "name": "ST2 - Barky's Revenge",
-        "draws": 28,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "77d26881",
-        "name": "The Wet and Twisted",
-        "draws": 16,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "bfc58dd0",
-        "name": "Whack-A-Will!",
-        "draws": 52,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "2644d3c7",
-        "name": "\"Pasticcetera\" Pastry Cart",
-        "draws": 8,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "f126ef7c",
-        "name": "Ceti the Happy Whale",
-        "draws": 8,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "8613a26a",
-        "name": "Fancee Phone",
-        "draws": 44,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "4c103662",
-        "name": "Fontleroy Shower Tub",
-        "draws": 104,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "2ecdb068",
-        "name": "Squeak-EE-Clean Pet Tub",
-        "draws": 104,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "fefda8d6",
-        "name": "Travelin' Joe's Espresso Bar",
-        "draws": 8,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "9f733d4f",
-        "name": "Vegano Market Cart",
-        "draws": 8,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "acee4ba5",
-        "name": "Aqua-Rich-ium",
-        "draws": 28,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "645542df",
-        "name": "Aquatic Playhouse",
-        "draws": 8,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "e89c0e48",
-        "name": "Galileo's Free-for-All",
-        "draws": 28,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "cbef938d",
-        "name": "Fruitally Perfect Smoothie Stand",
-        "draws": 28,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "1772dd4f",
-        "name": "Jewel in the Crown Spa Tub",
-        "draws": 28,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "bb0846ea",
-        "name": "Petra Pietra Memorial Fountain",
-        "draws": 24,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "74d93e95",
-        "name": "Semi-Seedy Lounge Table",
-        "draws": 16,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "cbeff420",
-        "name": "Sushi Yatai",
-        "draws": 8,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "eea95801",
-        "name": "WhisperSteam Personal Steamer",
-        "draws": 56,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "a5004e8c",
-        "name": "Energize! Oxygen Bar",
-        "draws": 20,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "52ae7a4e",
-        "name": "Ponce de Leon Tub",
-        "draws": 84,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "384c487b",
-        "name": "Strangled Ebullience Wall",
-        "draws": 24,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "1b833d24",
-        "name": "Wall-Mounted TV",
-        "draws": 48,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "5fa381c1",
-        "name": "Trottco 27\" Color Television B94U",
-        "draws": 48,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "fc8d548b",
-        "name": "Soma Plasma TV",
-        "draws": 48,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "880bb75e",
-        "name": "A Pressing Feeling",
-        "draws": 24,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "8e8d9ca9",
-        "name": "Blind the Cyclops",
-        "draws": 32,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "aed36fcb",
-        "name": "Deluxe \"Air-Puft\" Candy Floss Cart",
-        "draws": 20,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "e9a90c22",
-        "name": "EverAfter Crafter",
-        "draws": 20,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "6691c3d8",
-        "name": "Faerie Mara's Odds and Ends",
-        "draws": 8,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "17fee456",
-        "name": "Eyrie Dragon Egg",
-        "draws": 28,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "e69e35c0",
-        "name": "Ghoulish Graveyard Gumbo",
-        "draws": 32,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "b1230866",
-        "name": "Madame Magyar's Guly\u00e1s Goulash",
-        "draws": 32,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "f784f104",
-        "name": "Midnight Mystery Canopy Bed",
-        "draws": 20,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "765bcec0",
-        "name": "Old-Fashioned Butter Churn",
-        "draws": 20,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "7387f3a2",
-        "name": "Pops O' Corn Deluxe Stand",
-        "draws": 24,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "f2010049",
-        "name": "Thermacotta Dual-Fuel Range",
-        "draws": 16,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "2077e7de",
-        "name": "Wagon O' Wares",
-        "draws": 8,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "2a3d8714",
-        "name": "A Sim's Guide to Cooking",
-        "draws": 48,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "578f5050",
-        "name": "All Things Draconic",
-        "draws": 8,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "2b956ab9",
-        "name": "Awfully Fun House Coaster",
-        "draws": 28,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "4be4809a",
-        "name": "Clowning Around Mayhem Coaster",
-        "draws": 16,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "41e1f6f3",
-        "name": "The Mind of a Cereal Killer Coaster",
-        "draws": 12,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "ebdc8225",
-        "name": "Private Villa Fountain",
-        "draws": 24,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "6e0ec37e",
-        "name": "Thermae Caldarium",
-        "draws": 104,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "dcb5a769",
-        "name": "Miss Memo Sleeper",
-        "draws": 20,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "abfc34d3",
-        "name": "The \"Bunda\"",
-        "draws": 16,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "c14849ac",
-        "name": "Garden Gnome",
-        "draws": 8,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "33a951ec",
-        "name": "Meal",
-        "draws": 12,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "331f2000",
-        "name": "Hamburger",
-        "draws": 12,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "3c6b497b",
-        "name": "Pizza Box",
-        "draws": 36,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "87d00adc",
-        "name": "Dolce Tutti Frutti Sofa",
-        "draws": 16,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "31a0e42c",
-        "name": "Diving Board",
-        "draws": 24,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "70f69082",
-        "name": "Doll House",
-        "draws": 8,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      },
-      {
-        "id": "81179ab3",
-        "name": "Tyke Nyte Bed",
-        "draws": 20,
-        "scaleViolations": 0,
-        "defaultView": "SE"
-      }
-    ],
-    "pixelChecks": [
-      {
-        "id": "d191aff7",
-        "view": "NE",
-        "changes": 0,
-        "outside": 0
-      },
-      {
-        "id": "d191aff7",
-        "view": "SE",
-        "changes": 35816,
-        "outside": 0
-      },
-      {
-        "id": "d191aff7",
-        "view": "SW",
-        "changes": 36167,
-        "outside": 0
-      },
-      {
-        "id": "d191aff7",
-        "view": "NW",
-        "changes": 0,
-        "outside": 0
-      },
-      {
-        "id": "d191ff6a",
-        "view": "NE",
-        "changes": 0,
-        "outside": 0
-      },
-      {
-        "id": "d191ff6a",
-        "view": "SE",
-        "changes": 51178,
-        "outside": 0
-      },
-      {
-        "id": "d191ff6a",
-        "view": "SW",
-        "changes": 51594,
-        "outside": 0
-      },
-      {
-        "id": "d191ff6a",
-        "view": "NW",
-        "changes": 0,
-        "outside": 0
-      },
-      {
-        "id": "1b833d24",
-        "view": "NE",
-        "changes": 0,
-        "outside": 0
-      },
-      {
-        "id": "1b833d24",
-        "view": "SE",
-        "changes": 123224,
-        "outside": 0
-      },
-      {
-        "id": "1b833d24",
-        "view": "SW",
-        "changes": 123805,
-        "outside": 0
-      },
-      {
-        "id": "1b833d24",
-        "view": "NW",
-        "changes": 0,
-        "outside": 0
-      },
-      {
-        "id": "5fa381c1",
-        "view": "NE",
-        "changes": 0,
-        "outside": 0
-      },
-      {
-        "id": "5fa381c1",
-        "view": "SE",
-        "changes": 46714,
-        "outside": 0
-      },
-      {
-        "id": "5fa381c1",
-        "view": "SW",
-        "changes": 47510,
-        "outside": 0
-      },
-      {
-        "id": "5fa381c1",
-        "view": "NW",
-        "changes": 0,
-        "outside": 0
-      },
-      {
-        "id": "fc8d548b",
-        "view": "NE",
-        "changes": 0,
-        "outside": 0
-      },
-      {
-        "id": "fc8d548b",
-        "view": "SE",
-        "changes": 96103,
-        "outside": 0
-      },
-      {
-        "id": "fc8d548b",
-        "view": "SW",
-        "changes": 96434,
-        "outside": 0
-      },
-      {
-        "id": "fc8d548b",
-        "view": "NW",
-        "changes": 0,
-        "outside": 0
-      },
-      {
-        "id": "dbeb6614",
-        "view": "NE",
-        "changes": 0,
-        "outside": 0
-      },
-      {
-        "id": "dbeb6614",
-        "view": "SE",
-        "changes": 0,
-        "outside": 0
-      },
-      {
-        "id": "dbeb6614",
-        "view": "SW",
-        "changes": 0,
-        "outside": 0
-      },
-      {
-        "id": "dbeb6614",
-        "view": "NW",
-        "changes": 0,
-        "outside": 0
-      },
-      {
-        "id": "4126d70f",
-        "view": "NE",
-        "changes": 54890,
-        "outside": 0
-      },
-      {
-        "id": "4126d70f",
-        "view": "SE",
-        "changes": 53454,
-        "outside": 0
-      },
-      {
-        "id": "4126d70f",
-        "view": "SW",
-        "changes": 49268,
-        "outside": 0
-      },
-      {
-        "id": "4126d70f",
-        "view": "NW",
-        "changes": 53667,
-        "outside": 0
-      },
-      {
-        "id": "8613a26a",
-        "view": "NE",
-        "changes": 0,
-        "outside": 0
-      },
-      {
-        "id": "8613a26a",
-        "view": "SE",
-        "changes": 0,
-        "outside": 0
-      },
-      {
-        "id": "8613a26a",
-        "view": "SW",
-        "changes": 0,
-        "outside": 0
-      },
-      {
-        "id": "8613a26a",
-        "view": "NW",
-        "changes": 0,
-        "outside": 0
-      },
-      {
-        "id": "663eaffc",
-        "view": "NE",
-        "changes": 0,
-        "outside": 0
-      },
-      {
-        "id": "663eaffc",
-        "view": "SE",
-        "changes": 0,
-        "outside": 0
-      },
-      {
-        "id": "663eaffc",
-        "view": "SW",
-        "changes": 0,
-        "outside": 0
-      },
-      {
-        "id": "663eaffc",
-        "view": "NW",
-        "changes": 0,
-        "outside": 0
-      },
-      {
-        "id": "f784f104",
-        "view": "NE",
-        "changes": 0,
-        "outside": 0
-      },
-      {
-        "id": "f784f104",
-        "view": "SE",
-        "changes": 0,
-        "outside": 0
-      },
-      {
-        "id": "f784f104",
-        "view": "SW",
-        "changes": 0,
-        "outside": 0
-      },
-      {
-        "id": "f784f104",
-        "view": "NW",
-        "changes": 0,
-        "outside": 0
-      }
-    ],
-    "visualContactSheetsReviewed": [
-      "sink",
-      "fountain",
-      "Moneywell",
-      "Brahma",
-      "Sani-Queen",
-      "microwave",
-      "bubble blower",
-      "bull",
-      "hula lamp",
-      "phone",
-      "steamer",
-      "mud tub",
-      "cotton candy",
-      "crafter",
-      "egg",
-      "churn",
-      "popcorn",
-      "Petra night fountain",
-      "fireplace"
-    ]
-  },
-  "audio": {
-    "fireOrder": [
-      "match_strike once",
-      "fireplace_on once",
-      "fire_burning loop"
-    ],
-    "fireSteadyClip": {
-      "file": "assets/audio/817b2c6f567a92f9c3f4809e.wav",
-      "seconds": 11.5,
-      "peak": 0.556304931640625,
-      "rms": 0.08500002570993963,
-      "boundaryJump": 0.001007080078125
+  "version": "pollux-review-v3",
+  "objects": 95,
+  "removedObjectsAbsent": true,
+  "catalogCount": 95,
+  "doubledOriginals": [
+    "d191aff7",
+    "d191ff6a",
+    "bb626ef3"
+  ],
+  "channelImages": {
+    "1b833d24": {
+      "name": "Action",
+      "missingSoundEvent": "tv_action_exp",
+      "audioStatus": "awaiting-export",
+      "frames": [
+        1,
+        2,
+        3
+      ]
     },
-    "realLoopPlayback": [
-      {
-        "id": "c7a7215c",
-        "event": "aquarium_running",
-        "loop": true,
-        "time": 0.028808,
-        "error": null,
-        "paused": false
-      },
-      {
-        "id": "8fed54c2",
-        "event": "hottub_running",
-        "loop": true,
-        "time": 0.067404,
-        "error": null,
-        "paused": false
-      },
-      {
-        "id": "58dde126",
-        "event": "hottub_running",
-        "loop": true,
-        "time": 0.070697,
-        "error": null,
-        "paused": false
-      },
-      {
-        "id": "5bfb6140",
-        "event": "hottub_running",
-        "loop": true,
-        "time": 0.069709,
-        "error": null,
-        "paused": false
-      },
-      {
-        "id": "1772dd4f",
-        "event": "hottub_running",
-        "loop": true,
-        "time": 0.07775,
-        "error": null,
-        "paused": false
-      },
-      {
-        "id": "645542df",
-        "event": "scuba_loop",
-        "loop": true,
-        "time": 0.055643,
-        "error": null,
-        "paused": false
-      },
-      {
-        "id": "eea95801",
-        "event": "steamer_loop",
-        "loop": true,
-        "time": 0.035243,
-        "error": null,
-        "paused": false
-      }
-    ],
-    "hotTubClickPreservesAudioElementAndPlaybackPosition": true,
-    "pauseStopsAudio": true,
-    "hulaActivationNotRepeatedAcrossActiveLoopsAndPauseResume": true
+    "5fa381c1": {
+      "name": "Cartoons",
+      "missingSoundEvent": "tv_cartoon_cheap",
+      "audioStatus": "awaiting-export",
+      "frames": [
+        10,
+        11,
+        12
+      ]
+    },
+    "fc8d548b": {
+      "name": "Romance",
+      "missingSoundEvent": "tv_romance_exp",
+      "audioStatus": "awaiting-export",
+      "frames": [
+        7,
+        8,
+        9
+      ]
+    }
   },
-  "timer": {
-    "fillPauseResumeChecked": true,
-    "customDurations": "3-second focus completed to 22-minute break; custom durations retained after reload",
-    "storageKey": "sims-pomodoro-mockup:v3",
-    "narrowWidths": [
-      320,
-      480,
-      920
-    ]
-  },
-  "sourceLimits": [
-    "Porcina contains six door states, no stocked interior/content layer.",
-    "Poseidon SE/SW removed; starts NE rather than global SE default.",
-    "Author-timed sequences, not recovered BHAV scripts.",
-    "Cloud browser disallows file navigation; HTTP-equivalent browser tests, relative resources and no runtime pixel readback/fetch."
+  "pendingAudio": [
+    "user-supplied fireplace loop",
+    "TV Action programme",
+    "TV Cartoons programme",
+    "TV Romance programme"
+  ],
+  "rejectedFireAudioUnreachable": true,
+  "mudPourStreamOmitted": true,
+  "boggsHoldsChoppedApplesAndFilledPot": true,
+  "boggsBoilingAudioPlaysAndLoops": true,
+  "steamerHoldsOpenAndLoopsAudio": true,
+  "playhouseInterior": [
+    {
+      "view": "NE",
+      "changes": 83020,
+      "protectedChanges": 0
+    },
+    {
+      "view": "SE",
+      "changes": 53420,
+      "protectedChanges": 0
+    },
+    {
+      "view": "SW",
+      "changes": 72105,
+      "protectedChanges": 0
+    },
+    {
+      "view": "NW",
+      "changes": 63131,
+      "protectedChanges": 0
+    }
+  ],
+  "poseViewDraws": 2892,
+  "scaleChanges": 0,
+  "mediaChecksums": 1899,
+  "allReferencedMediaPresent": true,
+  "customDurationsPersistAfterTimerExpiry": true,
+  "responsiveWidths": [
+    320,
+    480,
+    920
+  ],
+  "seamChecks": [
+    {
+      "id": "645542df",
+      "view": "NE",
+      "changedChannels": 0,
+      "maxDifference": 0
+    },
+    {
+      "id": "645542df",
+      "view": "SE",
+      "changedChannels": 0,
+      "maxDifference": 0
+    },
+    {
+      "id": "645542df",
+      "view": "SW",
+      "changedChannels": 0,
+      "maxDifference": 0
+    },
+    {
+      "id": "645542df",
+      "view": "NW",
+      "changedChannels": 0,
+      "maxDifference": 0
+    },
+    {
+      "id": "dbeb6614",
+      "view": "NE",
+      "changedChannels": 0,
+      "maxDifference": 0
+    },
+    {
+      "id": "dbeb6614",
+      "view": "SE",
+      "changedChannels": 0,
+      "maxDifference": 0
+    },
+    {
+      "id": "dbeb6614",
+      "view": "SW",
+      "changedChannels": 0,
+      "maxDifference": 0
+    },
+    {
+      "id": "dbeb6614",
+      "view": "NW",
+      "changedChannels": 0,
+      "maxDifference": 0
+    },
+    {
+      "id": "42c078b3",
+      "view": "NE",
+      "changedChannels": 0,
+      "maxDifference": 0
+    },
+    {
+      "id": "42c078b3",
+      "view": "SE",
+      "changedChannels": 0,
+      "maxDifference": 0
+    },
+    {
+      "id": "42c078b3",
+      "view": "SW",
+      "changedChannels": 0,
+      "maxDifference": 0
+    },
+    {
+      "id": "42c078b3",
+      "view": "NW",
+      "changedChannels": 0,
+      "maxDifference": 0
+    },
+    {
+      "id": "eea95801",
+      "view": "NE",
+      "changedChannels": 0,
+      "maxDifference": 0
+    },
+    {
+      "id": "eea95801",
+      "view": "SE",
+      "changedChannels": 0,
+      "maxDifference": 0
+    },
+    {
+      "id": "eea95801",
+      "view": "SW",
+      "changedChannels": 0,
+      "maxDifference": 0
+    },
+    {
+      "id": "eea95801",
+      "view": "NW",
+      "changedChannels": 0,
+      "maxDifference": 0
+    }
   ],
   "pageErrors": [],
-  "caseysRoomFilesChanged": false
+  "losslessMediaConversionsVerified": 44,
+  "visualRendersReviewed": [
+    "Moneywell",
+    "Brahma",
+    "microwave",
+    "Poseidon",
+    "Sani-Queen",
+    "Porcina",
+    "Boggs",
+    "Redwood",
+    "Playhouse",
+    "steamer",
+    "all three TVs"
+  ],
+  "caseysRoomModified": false
 }
