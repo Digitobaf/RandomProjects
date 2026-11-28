@@ -1,1 +1,1 @@
-Editable SimPom code/configuration. Matching hash-named assets are included in SimPom-Mockup.zip. Extract the ZIP to run the prototype. Future code updates can replace these small files without downloading media again.
+Matching original media is in the all-100-picks SimPom-Mockup.zip. Apply SimPom-Animation-Fixes.zip over that installation for the current code and 42 additional media files. Retain all existing assets; hash-named files are immutable. SimPom is separate from Casey's Room.

@@ -1,32 +1,31 @@
-SIMPOM — ALL 100 PICKS
+SIMPOM — ANIMATION AND SOUND FIXES (v2)
 
-1. Extract this entire ZIP to a NEW, separate folder.
-2. Open SimPom.html in Firefox.
+UPDATE YOUR EXISTING SIMPOM FOLDER:
+1. Close the SimPom tab.
+2. Extract this update into the same folder that contains SimPom.html.
+3. Replace the included files, keeping your existing assets folder.
+4. Open SimPom.html again in Firefox.
 
-Keep all JS/CSS files and the assets folder beside the HTML.
-This is a separate mockup. Do not extract it into Casey's Room.
-No Start AIM launcher is needed.
+This is a small update, not a complete new installation. It needs the
+assets from the original all-100-picks SimPom-Mockup.zip. New installations:
+extract that original ZIP first, then apply this update into that folder.
 
-Buy Mode contains all 100 picks. Use search or the page arrows.
-Start activates the selected object's activity and matching sounds.
-Click the object for its configured interaction. The hint below the
-timer explains it where needed. Rotate using the round arrows.
-Pause and Reset stop all activity and sound immediately.
+Do not extract into Casey's Room. No Start AIM launcher is needed.
+Timer preferences keep the same storage key. Use the same folder/browser.
+Nothing in Casey's Room, AIM, its private profiles or saves is changed.
 
-Durations lets you set Focus, Break, Long break, sessions before a
-long break, volume, enhanced small sprites and pixel rendering.
-The next timer phase waits for you to press Start. Reload restores
-the saved timer paused, without autoplaying sounds.
+All 100 picks remain. Start activates an object and its configured sounds;
+click for its interaction. Buy Mode search and paging choose the object.
+Objects start SE when selected. Poseidon's aquarium is NE/NW only.
+Durations still lets you choose your own focus and break lengths.
+Pause stops motion/audio; Resume continues the paused animation phase.
+Reset returns to the starting appearance. Reload restores the clock paused.
 
-36 small-object sets have AI-enhanced art. Their original silhouettes
-and positions are preserved. Toggle Enhanced small sprites to compare.
-All picks use a similar display footprint, preserving their proportions.
-Aquariums only show live-fish and feeding frames, never dead fish.
+Fireplace ignition now plays once, followed by a steady burning loop.
+Water fills stay inside basins. Moving parts use original game sprites
+against a fixed body, so enhanced textures no longer morph each frame.
+The two requested beds and phone booth stay visually fixed with sounds.
+Aquariums remain alive. The Porcina export has no stocked interior variant.
 
-Some objects are static or have no appropriate sound in the export.
-They remain available as skins. The mockup does not invent unrelated
-animations or play random sounds from a shared game file.
-
-Timings and interactions are provisional, editable in behaviors.js.
-See OBJECT-NOTES.md for every object's choices and README-for-Pollux.md
-for the data format and folder workflow.
+See ANIMATION-FIXES.md for all requested changes and README-for-Pollux.md
+for the editable data format and shared update rules.

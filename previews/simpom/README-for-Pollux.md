@@ -1,69 +1,85 @@
-# SimPom — all 100 picks
+# SimPom — all 100 picks, animation update v2
 
-This prototype uses the user's full `sims1-viewer-picks/2` export, rejoined from ten volumes. The source ZIP SHA-256 was verified as `7d1b9cccf75650cdd96a61f30db1f6792faecf642b1cddf1cf2f72bb7fdb741a`.
+This is a separate standalone widget mockup. Casey's Room, Start AIM, the Object Viewer, private profiles and browser game saves are not modified. The previous combined chat/laptop installer is a separate deliverable; it must still be run locally to apply those fixes.
 
-It is **not integrated into Casey's Room**. No launcher, localhost origin, profile, storage key, game save, or Object Viewer file has been changed. The Abby/Mercer requests remain queued in the repository laundry list.
+Source: `sims1-viewer-picks/2`, ZIP SHA-256 `7d1b9cccf75650cdd96a61f30db1f6792faecf642b1cddf1cf2f72bb7fdb741a`.
+
+## Install and update
+
+Extract `SimPom-Animation-Fixes.zip` into the **existing SimPom folder**, replacing included code and retaining existing assets. Reopen `SimPom.html` in Firefox. Fresh installations need the original all-100-picks `SimPom-Mockup.zip` first, then this update. The update contains only changed code/documentation and 42 new immutable media files, not the original 92 MiB download.
+
+Do not overwrite these files with another assistant's older copy. Coordinate changes to the small code/data files. Never overwrite a hash-named image or audio file: add a new hash, change its reference and update the manifest. Keep unrelated local files and media.
 
 ## Layout
 
 ```text
-SimPom.html   UI markup, opened directly in Firefox
-style.css                 Sims blue/white UI and fallback font
-player.js                 Generic renderer, timer and audio sequencer
-objects.js                Used exported states/layers, views, bounds and curated sounds
-behaviors.js              Per-GUID object recipes; edit timing/ordering here
-upscales.js               Enhanced atlas cells and registration metadata
-OBJECT-NOTES.md           Specific review of every pick
-assets/manifest.json      SHA-256 and byte counts for shipped media
-assets/images/<hash>.*    Original sprites/layers and enhanced sprite atlases
-assets/audio/<hash>.wav   Selected original sound clips
+SimPom.html                 Markup and script loading order
+style.css                   Blue/white Comic Sans widget and Buy Mode catalog
+player.js                   Timer, state, selection and ordered audio/animation playback
+render-model.js             Shared native sprite composition and geometry helpers
+rendering.js                Fixed-body renderer, local moving regions and fixed scene fit
+objects.js                  Exported frames/layers, original canvases, allowed views and sounds
+behaviors.js                Editable per-GUID activity recipes and rendering rules
+motion-masks.js             Compiled native motion, occlusion and fit geometry
+upscales.js                 Existing enhanced atlases and registration metadata
+ANIMATION-FIXES.md           Every requested correction and source limitations
+OBJECT-NOTES.md              Current authored choices for all 100 objects
+VERIFICATION.json           Checks performed for this update
+assets/manifest.json         Media checksums and byte sizes
+assets/images/<hash>.*       Original native sprites/layers + existing enhanced atlases
+assets/audio/<hash>.wav      Game effects + new steady fire excerpt
 ```
 
-Media remains external and hash-named. Never edit a hash-named file in place. New media needs a new hash, updated references and checksum. Future updates should ship only changed code and new media. The original source export stays with the user; no private installed paths or files are needed by this player. Only states/layers used by the configured recipes are shipped: unused dirt, death, broken/catalog appearances and unrelated components are omitted. To author a new step that needs an unshipped state, import that state from the original export as new hash-named media first.
+Classic script data assignments and relative resource URLs permit offline local-file use. No fetch, external fonts, model calls or network service is used. Runtime geometry is compiled ahead of time; rendering never reads image pixels back from canvas, avoiding local-file canvas security restrictions.
 
-Classic JS data assignments, rather than fetched JSON, allow direct local HTML use without a server. JSON syntax can be used inside each assignment, retaining `window.SIMS_BEHAVIORS = ...;`.
+## Recipes and editable timing
 
-## Recipe schema
-
-Each GUID has an `idle` frame and an `active` sequence. Optional `start`, `click`, and `stop` sequences provide ordered actions.
+`window.SIMS_BEHAVIORS = { "<guid>": { ... } };` uses JSON-compatible data. The generic player contains no object-ID-specific rules. Each recipe has `idle`, `active`, and optional `start`, `click`, `stop`, `endAppearance` and `render`.
 
 ```js
 {
-  "idle": { "state": 0, "layers": [] },
-  "start": {
-    "steps": [
-      { "state": 0, "durationMs": 200,
-        "sound": { "event": "microwave_sbeep", "loop": false } }
-    ]
-  },
+  "idle": {"state": 0, "layers": []},
+  "start": {"steps": [
+    {"state": 0, "durationMs": 1050,
+     "sound": {"event": "match_strike", "loop": false}},
+    {"state": 1, "durationMs": 1400,
+     "sound": {"event": "fireplace_on", "loop": false}}
+  ]},
   "active": {
-    "steps": [ { "state": 5, "durationMs": 1000, "light": true } ],
+    "steps": [{"state": 1, "durationMs": 180},
+              {"state": 2, "durationMs": 180},
+              {"state": 3, "durationMs": 180}],
     "loop": true,
-    "sound": { "event": "microwave_scook" }
-  }
+    "sound": {"event": "fire_burning", "loop": true, "gain": 0.75}
+  },
+  "render": {"stable": true, "base": {"state": 0, "layers": []}}
 }
 ```
 
-`durationMs` must be positive milliseconds. Sequence `loop` repeats graphics, independently of audio. A non-looping active sequence holds its last frame. A start sequence enters active when finished. A click sequence returns to active if the timer is running, otherwise idle. A stop sequence runs only when the timer expires. Pause/Reset cancels everything immediately, without a closing/draining tail.
+`durationMs` is positive milliseconds. **Edit durations without rebuilding media/masks.** Focus/break lengths remain editable in the widget's Durations controls and use minutes. A start sequence enters active; a non-looping active holds its final pose. Click returns to active while the timer runs, otherwise its `returnAppearance` or the earlier paused/held appearance. Stop runs on timer expiry, never on Pause/Reset. `endAppearance` retains filled basins when there is no closing/draining sequence.
 
-Frame fields are `state`, `layers` (an explicit array of exported dynamic-layer indices), optional `extraStates`, `layerOffsets` keyed by layer index, optional `light`, and optional `sound`. Layers share the original per-view canvas and retain their offsets. `extraStates` handles component graphics such as the whale body/base. Layer offsets are used for the butter-churn dasher, keeping the barrel stationary.
+Frames support `state`, `layers`, `extraStates`, `layerOffsets`, `eraseLayers`, `restoreLayers`, `appearance`, `light`, `water`, `rotation` and `sway`. `water: {from:0,to:1}` interpolates over the step duration; numeric water holds a level. `sway` defines amplitude/period/pivot for the entire single egg/cradle bitmap. Per-view `allowedViews` limits rotations; selections default SE, or the first allowed view when SE was removed (Poseidon defaults NE).
 
-A sound reference is `{event, loop?, channel?, gain?}`. Events resolve only within that object's curated `sounds` in objects.js. Without an override, the exported loop flag is honored; unknown loop flags do not force looping. Overrides are explicit in the recipe, e.g. a one-shot match strike and limited filling/draining water. Sound variants are randomly selected. Channels prevent duplicates: entering a new sequence cancels the preceding sequence's sounds. Timeline step sounds fire on step entry, in order. Background sounds are suspended when the browser tab is hidden.
+Sound specs are `{event, loop?, channel?, gain?}`. Sequence sounds start once; step sounds fire on step entry. Audio and graphic loops are independent. `preserveAmbient:true` keeps a running loop through a click instead of restarting it. Pause/Reset and object changes stop current audio. Volume changes retain per-event gain. Hidden tabs suspend audio; the timer uses a wall-clock deadline. The fireplace's new 11.5-second `fire_burning` WAV uses a steady excerpt of the supplied `clown_fire_burn_sfx.wav`, with a 500ms wrap crossfade. The original metallic `fireplace_on` clip remains a one-shot ignition only.
 
-## Interpretation limits
+## Fixed bodies and native moving parts
 
-These are authored prototype recipes, not recovered BHAV script timing. Graphic numbers alone do not establish animation: portions, dirt, broken states, catalogs and placement variants are not autoplayed as animation frames. No dead or dirty aquarium frames are used. Repair/failure effects and unrelated voices from shared IFF files are filtered out. Objects with no suitable exported sound remain silent.
+Independent AI-generated animation poses caused texture shifts. The renderer now uses one fixed enhanced reference (when available), registered to the original silhouette. Only reviewed **original native pixels** replace the moving regions. Display/window polygons, basin clips, foreground masks and per-layer destinations prevent overlays spilling through casings, rims, taps and cart posts. Native originals remain available through the Enhanced small sprites switch.
 
-`OBJECT-NOTES.md` records each pick's choice, including provisional layer combinations that need visual review against the game. The microwave's On graphic aliases Closed; its front-facing SE/SW window uses a provisional runtime light. No matching programme audio was included for TVs. Static pieces remain static unless a separate moving layer is available.
+Some dynamic layers are already baked into full exported DGRPs. Never blindly add default layers. Bubble blower states 1–10 are partial/alternate presentations, not a safe animation run; only bubble layers 4–9 animate over the whole g0 machine. Bull g3 is an empty mount. The two beds and phone booth are intentionally visually fixed, with sounds retained.
 
-## Size and enhanced art
+`motion-masks.js` includes per-view native differences, protected foreground pixels, source/body bounds and a fixed union of normal animation extents. Normal animation never changes object scale per frame. Oversized gnome explosions are explicitly transient. All 36 existing enhanced sets are retained; no new per-frame AI redraws were introduced.
 
-All objects fit a similar approximately 300-pixel display footprint while preserving aspect ratio. Source anchors are retained as metadata, but rotation uses fixed per-view visual pivots instead of orbiting around tile-zero anchors. Oversized temporary effects fit within the object area.
+If adding/changing frame numbers, layers, clipping geometry or body references, regenerate masks using repository tool `tools/simpom/build-motion.py <complete-SimPom-folder>` (developer Python/Playwright only, not a runtime dependency). The complete assets must be available. Merely changing step durations, sound choices or user timer preferences does not require regeneration. The same compositor is used by the builder and runtime.
 
-36 small-object sets were AI enhanced as matched sheets containing their used views and activity frames. The renderer registers the enhanced detail to the unchanged native bounds and alpha silhouette. This prevents new edge speckles or altered dimensions from moving the object. Original art is always available via the Enhanced small sprites switch; newly authored frames without an enhanced cell use the original automatically. Some transient gnome explosion frames intentionally retain original art. Lossless WebP conversion is packaging only, not another artistic edit.
+## Interpretation and validation limits
 
-## Persistence and validation
+Timings and click ordering are authored, not extracted BHAV script behavior. No dead/dirty aquarium states are selected. Porcina has only six supplied door states and no stocked-content layer, so its available empty interior is retained. Microwave lighting is a precisely clipped runtime effect because the exported On state aliases Closed. TVs have no supplied programme audio.
 
-This mockup alone uses localStorage key `sims-pomodoro-mockup:v3`. It does not access Casey's Room storage. Reload restores paused. The running timer uses a wall-clock deadline; animation uses monotonic time. Image caches keep only the selected object's rendered frames.
+The standalone storage key remains `sims-pomodoro-mockup:v3`; there is no Casey storage access. Reload restores a paused timer. The view-default migration preserves saved durations/preferences while switching the old default once; new rotations can then be saved normally.
 
-Checks cover all 100 picks' views, Start/Pause/Reset and configured clicks, sound-event selection, all 36 enhanced sets, real audio playback, mute/unmute, timer expiry, editable saved durations and narrow layouts. A source/asset checksum audit accompanies delivery. Direct file navigation is restricted in this cloud browser; browser interaction was tested through an equivalent local HTTP server, and the package uses local relative resources without fetch or external dependencies.
+Browser checks run through an equivalent local HTTP server because direct file navigation is blocked in this cloud Chromium. Runtime has no HTTP dependency. Verification covers 100 objects and 3,008 configured pose/view renders; fixed scale; pixel invariance outside moving regions for screens, bath, hula, phone and beds; sink fill/pause/resume; fireplace sound order and loop; requested real audio loops; hot-tub click continuity; custom timer expiry/persistence; 320/480/920px layouts; and all 1,964 media checksums/references. Final rendered contact sheets were visually inspected for the reported problem objects. These checks verify this update, not exact historical game scripting.
+
+## Developer checks
+
+With Python `playwright` and `numpy` plus Chromium available, run the repository's `tools/simpom/test-playback.py`, `test-regions.py` and `test-audio.py`, passing a complete extracted SimPom folder. Each starts its own loopback-only HTTP server. `--report-dir` selects an output folder; `--chromium` can select the browser executable. Tests do not touch the actual Firefox profile or Casey's Room saves. `build-motion.py` uses the same arguments and regenerates only `motion-masks.js` in that app folder.

@@ -11,3 +11,7 @@ No outstanding items from the current Abby/Mercer and laptop-sticker list. Imple
 - The Nickelodeon sticker stays in monitor mode and is hidden in laptop mode. The installer also accepts an already-installed sticker fix.
 
 The combined installer patches the installed HTML/helper selectively and creates backups. Private profiles, key/model configuration, launcher, browser origin, chats/history and saves are retained. SimPom remains a separate standalone mockup.
+
+## SimPom animation and sound review
+
+Implemented the 28-item review plus the fireplace follow-up in the separate `SimPom-Animation-Fixes.zip` update. All 100 picks remain. Bodies stay fixed, reviewed native moving parts animate, requested audio loops are enabled, and ignition plays once before a steady fire loop. The source contains no stocked Porcina interior, so that conditional request retains the supplied interior. Poseidon is NE/NW only, overriding the otherwise-SE selection default. See `previews/simpom/ANIMATION-FIXES.md`. No Casey integration or desktop icon yet; the user will supply the icon later.
