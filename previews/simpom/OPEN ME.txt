@@ -1,0 +1,32 @@
+SIMPOM — ALL 100 PICKS
+
+1. Extract this entire ZIP to a NEW, separate folder.
+2. Open SimPom.html in Firefox.
+
+Keep all JS/CSS files and the assets folder beside the HTML.
+This is a separate mockup. Do not extract it into Casey's Room.
+No Start AIM launcher is needed.
+
+Buy Mode contains all 100 picks. Use search or the page arrows.
+Start activates the selected object's activity and matching sounds.
+Click the object for its configured interaction. The hint below the
+timer explains it where needed. Rotate using the round arrows.
+Pause and Reset stop all activity and sound immediately.
+
+Durations lets you set Focus, Break, Long break, sessions before a
+long break, volume, enhanced small sprites and pixel rendering.
+The next timer phase waits for you to press Start. Reload restores
+the saved timer paused, without autoplaying sounds.
+
+36 small-object sets have AI-enhanced art. Their original silhouettes
+and positions are preserved. Toggle Enhanced small sprites to compare.
+All picks use a similar display footprint, preserving their proportions.
+Aquariums only show live-fish and feeding frames, never dead fish.
+
+Some objects are static or have no appropriate sound in the export.
+They remain available as skins. The mockup does not invent unrelated
+animations or play random sounds from a shared game file.
+
+Timings and interactions are provisional, editable in behaviors.js.
+See OBJECT-NOTES.md for every object's choices and README-for-Pollux.md
+for the data format and folder workflow.

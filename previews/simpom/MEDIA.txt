@@ -1,0 +1,1 @@
+Editable SimPom code/configuration. Matching hash-named assets are included in SimPom-Mockup.zip. Extract the ZIP to run the prototype. Future code updates can replace these small files without downloading media again.

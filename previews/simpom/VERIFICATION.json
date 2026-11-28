@@ -1,0 +1,1325 @@
+{
+  "media": {
+    "sourceZIPVerified": true,
+    "objects": 100,
+    "AIEnhancedObjects": 36,
+    "assetCount": 1922,
+    "mediaBytes": 102169468,
+    "checksumsAndReferencesValid": true,
+    "imagesAndWavClipsDecode": true,
+    "losslessConversionsVerified": 301
+  },
+  "playback": {
+    "objects": [
+      {
+        "id": "34fe4e17",
+        "name": "\"Andersonville\" Pedestal Sink",
+        "frames": [
+          "1"
+        ],
+        "audioEvents": [
+          "tub1_sfaucetsqueak",
+          "sink_washhands",
+          "sink_washdishes"
+        ],
+        "pass": true
+      },
+      {
+        "id": "c2a91fd0",
+        "name": "Bachman Wood Beverage Bar",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [
+          "bar_open",
+          "bar_pourdrink",
+          "bar_glassclink",
+          "bar_close",
+          "bar_open",
+          "bar_pourdrink",
+          "bar_glassclink",
+          "bar_close"
+        ],
+        "pass": true
+      },
+      {
+        "id": "a82ca08e",
+        "name": "\"Fountain of Tranquility\"",
+        "frames": [
+          "1",
+          "3",
+          "4"
+        ],
+        "audioEvents": [
+          "fountain_tinkle",
+          "fountain_splash"
+        ],
+        "pass": true
+      },
+      {
+        "id": "bf137195",
+        "name": "Gagmia Simore Espresso Machine",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [
+          "coffee_grind_loop",
+          "coffee_expresso_steam",
+          "coffee_grind_loop",
+          "coffee_expresso_steam"
+        ],
+        "pass": true
+      },
+      {
+        "id": "d191aff7",
+        "name": "Moneywell Computer",
+        "frames": [
+          "2",
+          "3",
+          "4"
+        ],
+        "audioEvents": [
+          "computer_boot_cheap",
+          "computer_type",
+          "computer_game"
+        ],
+        "pass": true
+      },
+      {
+        "id": "98e0f8bd",
+        "name": "Poseidon's Adventure Aquarium",
+        "frames": [
+          "1",
+          "2",
+          "4"
+        ],
+        "audioEvents": [
+          "aquarium_running",
+          "aquarium_feed"
+        ],
+        "pass": true
+      },
+      {
+        "id": "bb626ef3",
+        "name": "Positive Potential Microwave",
+        "frames": [
+          "5"
+        ],
+        "audioEvents": [
+          "microwave_sbeep",
+          "microwave_scook",
+          "microwave_sopen",
+          "microwave_sclose"
+        ],
+        "pass": true
+      },
+      {
+        "id": "dbeb6614",
+        "name": "Sani-Queen Bathtub",
+        "frames": [
+          "3"
+        ],
+        "audioEvents": [
+          "tub1_sfaucetsqueak",
+          "tub1_stubfill",
+          "tub1_sfaucetsqueak",
+          "tub1_stubfill"
+        ],
+        "pass": true
+      },
+      {
+        "id": "85e02a40",
+        "name": "SpaceMiser Shower",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [
+          "shower1_sdoorslide",
+          "shower1_sdoorslide",
+          "shower1_sfaucetsqueak",
+          "shower1_swateron",
+          "shower1_sdoorslide",
+          "shower1_sdoorslide",
+          "shower1_sfaucetsqueak"
+        ],
+        "pass": true
+      },
+      {
+        "id": "d191ff6a",
+        "name": "The Brahma 2000",
+        "frames": [
+          "2",
+          "3",
+          "4"
+        ],
+        "audioEvents": [
+          "computer_boot_mod",
+          "computer_type",
+          "computer_game"
+        ],
+        "pass": true
+      },
+      {
+        "id": "8eaa68ad",
+        "name": "The Bostonian Fireplace",
+        "frames": [
+          "1",
+          "2",
+          "1"
+        ],
+        "audioEvents": [
+          "match_strike",
+          "fireplace_on"
+        ],
+        "pass": true
+      },
+      {
+        "id": "8fed54c2",
+        "name": "WhirlWizard Hot Tub",
+        "frames": [
+          "1",
+          "2",
+          "1"
+        ],
+        "audioEvents": [
+          "hottub_running",
+          "hottub_running"
+        ],
+        "pass": true
+      },
+      {
+        "id": "253c1a5e",
+        "name": "Wild Bill THX-451 Barbecue",
+        "frames": [
+          "4"
+        ],
+        "audioEvents": [
+          "barbecue_open",
+          "barbecue_beinglit",
+          "barbecue_sizzleloop",
+          "barbecue_sizzlehot"
+        ],
+        "pass": true
+      },
+      {
+        "id": "4ef4ea16",
+        "name": "Contempto Loveseat",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [
+          "sofa1_ssqueak",
+          "sofa1_ssqueak"
+        ],
+        "pass": true
+      },
+      {
+        "id": "85e00942",
+        "name": "Justa Bathtub",
+        "frames": [
+          "3"
+        ],
+        "audioEvents": [
+          "tub1_sfaucetsqueak",
+          "tub1_stubfill",
+          "tub1_sfaucetsqueak",
+          "tub1_stubfill"
+        ],
+        "pass": true
+      },
+      {
+        "id": "5a5cda09",
+        "name": "NuMica Folding Card Table",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [
+          "counter_put_all",
+          "counter_get_all"
+        ],
+        "pass": true
+      },
+      {
+        "id": "42c078b3",
+        "name": "Porcina Refrigerator Model P1g-S",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [
+          "fridge_c_running",
+          "fridge_c_open",
+          "fridge_c_close"
+        ],
+        "pass": true
+      },
+      {
+        "id": "82e0f146",
+        "name": "Sioux Sity Wicker Chair",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [
+          "chair_sit_unmovable",
+          "chair_sit_unmovable"
+        ],
+        "pass": true
+      },
+      {
+        "id": "996de865",
+        "name": "Egg Chair",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [
+          "chair_sit_unmovable",
+          "chair_sit_unmovable"
+        ],
+        "pass": true
+      },
+      {
+        "id": "663eaffc",
+        "name": "The Vibromatic Heart Bed",
+        "frames": [
+          "5",
+          "6",
+          "8"
+        ],
+        "audioEvents": [
+          "bed_coindrop",
+          "bed_vibrate",
+          "bed_make"
+        ],
+        "pass": true
+      },
+      {
+        "id": "0924bc1f",
+        "name": "\"Aquaqu\" Inflatable Fun Chair",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [
+          "chair_sit_unmovable",
+          "chair_sit_unmovable"
+        ],
+        "pass": true
+      },
+      {
+        "id": "24dad5c4",
+        "name": "\"Biome\" Inflatable Fun Chair",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [
+          "chair_sit_unmovable",
+          "chair_sit_unmovable"
+        ],
+        "pass": true
+      },
+      {
+        "id": "0f8beda7",
+        "name": "\"Magenti\" Inflatable Fun Chair",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [
+          "chair_sit_unmovable",
+          "chair_sit_unmovable"
+        ],
+        "pass": true
+      },
+      {
+        "id": "f718d902",
+        "name": "Super Schlooper Bubble Blower",
+        "frames": [
+          "0",
+          "1",
+          "2"
+        ],
+        "audioEvents": [
+          "bubblemaker_bubble",
+          "bubblemaker_bubble"
+        ],
+        "pass": true
+      },
+      {
+        "id": "8e3520bd",
+        "name": "The Elegant Chef Buffet Table",
+        "frames": [
+          "1"
+        ],
+        "audioEvents": [
+          "caterer_restock_pro",
+          "caterer_restock_pro"
+        ],
+        "pass": true
+      },
+      {
+        "id": "5e8b157a",
+        "name": "ToroTec Mechanical Bull",
+        "frames": [
+          "0",
+          "1",
+          "3"
+        ],
+        "audioEvents": [
+          "bull_loop",
+          "bull_loop"
+        ],
+        "pass": true
+      },
+      {
+        "id": "da2b8f79",
+        "name": "Whether Vain Drink Dispenser",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [
+          "bar_open",
+          "bar_pourdrink",
+          "bar_glassclink",
+          "bar_close",
+          "bar_open",
+          "bar_pourdrink",
+          "bar_glassclink",
+          "bar_close"
+        ],
+        "pass": true
+      },
+      {
+        "id": "4126d70f",
+        "name": "Vintage \"Hula Girl\" Dancing Lamp",
+        "frames": [
+          "1",
+          "2",
+          "4"
+        ],
+        "audioEvents": [
+          "lamp_turnon_click"
+        ],
+        "pass": true
+      },
+      {
+        "id": "c7a7215c",
+        "name": "\"Manila 1000\" Marine Aquarium",
+        "frames": [
+          "0",
+          "1",
+          "2"
+        ],
+        "audioEvents": [
+          "aquarium_running"
+        ],
+        "pass": true
+      },
+      {
+        "id": "47a99575",
+        "name": "\"Toy With Me\" Toy Display",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [],
+        "pass": true
+      },
+      {
+        "id": "ad0b9dd6",
+        "name": "Boggs Home Canning Center",
+        "frames": [
+          "0",
+          "0",
+          "0"
+        ],
+        "audioEvents": [
+          "fruit_chop",
+          "stove_bubble",
+          "fruit_chop"
+        ],
+        "pass": true
+      },
+      {
+        "id": "dfbb8259",
+        "name": "Cheap Eats Counter",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [],
+        "pass": true
+      },
+      {
+        "id": "26e91ef5",
+        "name": "Confectionomicon",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [
+          "counter_put_all",
+          "counter_get_all"
+        ],
+        "pass": true
+      },
+      {
+        "id": "f219d380",
+        "name": "Hot Dogz 2Go",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [],
+        "pass": true
+      },
+      {
+        "id": "26ad0662",
+        "name": "Kastle O\u2019 Toys by Magical Mystery",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [
+          "counter_put_all",
+          "counter_get_all"
+        ],
+        "pass": true
+      },
+      {
+        "id": "58dde126",
+        "name": "Niagara Love Tub",
+        "frames": [
+          "1",
+          "2",
+          "1"
+        ],
+        "audioEvents": [
+          "hottub_running",
+          "hottub_running"
+        ],
+        "pass": true
+      },
+      {
+        "id": "d4bf28f3",
+        "name": "Reproduction Antique Bed",
+        "frames": [
+          "1"
+        ],
+        "audioEvents": [
+          "bed_get_inout",
+          "bed_make"
+        ],
+        "pass": true
+      },
+      {
+        "id": "4699596d",
+        "name": "Slush Queen Ice Cream Counter",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [],
+        "pass": true
+      },
+      {
+        "id": "2d0a3de1",
+        "name": "TransLight Bar Station",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [
+          "counter_put_all",
+          "counter_get_all"
+        ],
+        "pass": true
+      },
+      {
+        "id": "2c7dff0e",
+        "name": "AquaFluvium Shower-Tub",
+        "frames": [
+          "3"
+        ],
+        "audioEvents": [
+          "tub1_sfaucetsqueak",
+          "tub1_stubfill",
+          "tub1_sfaucetsqueak",
+          "tub1_stubfill"
+        ],
+        "pass": true
+      },
+      {
+        "id": "ebbd5efc",
+        "name": "Chow Sum Phat Buffet",
+        "frames": [
+          "1"
+        ],
+        "audioEvents": [
+          "caterer_restock_pro",
+          "caterer_restock_pro"
+        ],
+        "pass": true
+      },
+      {
+        "id": "60d99178",
+        "name": "Intui-Inuit Igloo Site",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [
+          "bed_get_inout",
+          "bed_make"
+        ],
+        "pass": true
+      },
+      {
+        "id": "5bfb6140",
+        "name": "Redwood Hot Tub",
+        "frames": [
+          "1",
+          "2",
+          "1"
+        ],
+        "audioEvents": [
+          "hottub_running",
+          "hottub_running"
+        ],
+        "pass": true
+      },
+      {
+        "id": "54c7f70d",
+        "name": "Sim Mars",
+        "frames": [
+          "1",
+          "2",
+          "3"
+        ],
+        "audioEvents": [
+          "arcade_mars_start",
+          "arcade_mars_music",
+          "arcade_mars_slap"
+        ],
+        "pass": true
+      },
+      {
+        "id": "45caf478",
+        "name": "Snack Stand",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [],
+        "pass": true
+      },
+      {
+        "id": "dd4e8362",
+        "name": "ST2 - Barky's Revenge",
+        "frames": [
+          "1",
+          "2",
+          "3"
+        ],
+        "audioEvents": [
+          "arcade_seal_start",
+          "arcade_seal_music",
+          "arcade_seal_slap"
+        ],
+        "pass": true
+      },
+      {
+        "id": "77d26881",
+        "name": "The Wet and Twisted",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [
+          "pool_dvboard_bounce",
+          "pool_dvboard_splash",
+          "pool_dvboard_bounce",
+          "pool_dvboard_splash"
+        ],
+        "pass": true
+      },
+      {
+        "id": "bfc58dd0",
+        "name": "Whack-A-Will!",
+        "frames": [
+          "1",
+          "1",
+          "1"
+        ],
+        "audioEvents": [
+          "waw_music",
+          "waw_popup",
+          "waw_hit_sfx",
+          "waw_popdown"
+        ],
+        "pass": true
+      },
+      {
+        "id": "2644d3c7",
+        "name": "\"Pasticcetera\" Pastry Cart",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [],
+        "pass": true
+      },
+      {
+        "id": "f126ef7c",
+        "name": "Ceti the Happy Whale",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [],
+        "pass": true
+      },
+      {
+        "id": "8613a26a",
+        "name": "Fancee Phone",
+        "frames": [
+          "1",
+          "3",
+          "4"
+        ],
+        "audioEvents": [
+          "phone_ring_pay",
+          "phone1_spickup",
+          "phone_dial",
+          "phone_ring_receiver",
+          "phone_hangup"
+        ],
+        "pass": true
+      },
+      {
+        "id": "4c103662",
+        "name": "Fontleroy Shower Tub",
+        "frames": [
+          "3"
+        ],
+        "audioEvents": [
+          "tub1_sfaucetsqueak",
+          "tub1_stubfill",
+          "tub1_sfaucetsqueak",
+          "tub1_stubfill"
+        ],
+        "pass": true
+      },
+      {
+        "id": "2ecdb068",
+        "name": "Squeak-EE-Clean Pet Tub",
+        "frames": [
+          "3"
+        ],
+        "audioEvents": [
+          "tub1_sfaucetsqueak",
+          "tub1_stubfill",
+          "tub1_sfaucetsqueak",
+          "tub1_stubfill"
+        ],
+        "pass": true
+      },
+      {
+        "id": "fefda8d6",
+        "name": "Travelin' Joe's Espresso Bar",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [],
+        "pass": true
+      },
+      {
+        "id": "9f733d4f",
+        "name": "Vegano Market Cart",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [],
+        "pass": true
+      },
+      {
+        "id": "acee4ba5",
+        "name": "Aqua-Rich-ium",
+        "frames": [
+          "0",
+          "1",
+          "3"
+        ],
+        "audioEvents": [
+          "aquarium_running"
+        ],
+        "pass": true
+      },
+      {
+        "id": "645542df",
+        "name": "Aquatic Playhouse",
+        "frames": [
+          "0",
+          "1",
+          "3"
+        ],
+        "audioEvents": [
+          "scuba_loop"
+        ],
+        "pass": true
+      },
+      {
+        "id": "e89c0e48",
+        "name": "Galileo's Free-for-All",
+        "frames": [
+          "0",
+          "0",
+          "0"
+        ],
+        "audioEvents": [
+          "skydive_loop_start",
+          "skydive_loop_lp"
+        ],
+        "pass": true
+      },
+      {
+        "id": "cbef938d",
+        "name": "Fruitally Perfect Smoothie Stand",
+        "frames": [
+          "0",
+          "1",
+          "2"
+        ],
+        "audioEvents": [],
+        "pass": true
+      },
+      {
+        "id": "1772dd4f",
+        "name": "Jewel in the Crown Spa Tub",
+        "frames": [
+          "1",
+          "3",
+          "1"
+        ],
+        "audioEvents": [
+          "hottub_running",
+          "hottub_running"
+        ],
+        "pass": true
+      },
+      {
+        "id": "bb0846ea",
+        "name": "Petra Pietra Memorial Fountain",
+        "frames": [
+          "0",
+          "2",
+          "3"
+        ],
+        "audioEvents": [
+          "fountainhd_loop",
+          "fountainhd_coin"
+        ],
+        "pass": true
+      },
+      {
+        "id": "74d93e95",
+        "name": "Semi-Seedy Lounge Table",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [
+          "counter_put_all",
+          "counter_get_all"
+        ],
+        "pass": true
+      },
+      {
+        "id": "cbeff420",
+        "name": "Sushi Yatai",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [],
+        "pass": true
+      },
+      {
+        "id": "eea95801",
+        "name": "WhisperSteam Personal Steamer",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [
+          "chair_recline",
+          "steamer_loop",
+          "chair_recline"
+        ],
+        "pass": true
+      },
+      {
+        "id": "a5004e8c",
+        "name": "Energize! Oxygen Bar",
+        "frames": [
+          "0",
+          "0",
+          "0"
+        ],
+        "audioEvents": [
+          "oxybar_loop"
+        ],
+        "pass": true
+      },
+      {
+        "id": "52ae7a4e",
+        "name": "Ponce de Leon Tub",
+        "frames": [
+          "0",
+          "0",
+          "0"
+        ],
+        "audioEvents": [
+          "mudbath_milsul_fill",
+          "mudbath_milsul_swish_a"
+        ],
+        "pass": true
+      },
+      {
+        "id": "384c487b",
+        "name": "Strangled Ebullience Wall",
+        "frames": [
+          "0",
+          "2",
+          "3"
+        ],
+        "audioEvents": [],
+        "pass": true
+      },
+      {
+        "id": "1b833d24",
+        "name": "Wall-Mounted TV",
+        "frames": [
+          "1",
+          "2",
+          "3"
+        ],
+        "audioEvents": [
+          "tv_exp_turnon",
+          "tv_exp_switch"
+        ],
+        "pass": true
+      },
+      {
+        "id": "5fa381c1",
+        "name": "Trottco 27\" Color Television B94U",
+        "frames": [
+          "1",
+          "2",
+          "3"
+        ],
+        "audioEvents": [
+          "tv_c_turnon",
+          "tv_c_switch"
+        ],
+        "pass": true
+      },
+      {
+        "id": "fc8d548b",
+        "name": "Soma Plasma TV",
+        "frames": [
+          "1",
+          "2",
+          "3"
+        ],
+        "audioEvents": [
+          "tv_exp_turnon",
+          "tv_exp_switch"
+        ],
+        "pass": true
+      },
+      {
+        "id": "880bb75e",
+        "name": "A Pressing Feeling",
+        "frames": [
+          "1",
+          "1",
+          "1"
+        ],
+        "audioEvents": [
+          "ch_shedskin_suc"
+        ],
+        "pass": true
+      },
+      {
+        "id": "8e8d9ca9",
+        "name": "Blind the Cyclops",
+        "frames": [
+          "1",
+          "2",
+          "3"
+        ],
+        "audioEvents": [
+          "cyclops_coin",
+          "cyclops_loop",
+          "cyclops_hit"
+        ],
+        "pass": true
+      },
+      {
+        "id": "aed36fcb",
+        "name": "Deluxe \"Air-Puft\" Candy Floss Cart",
+        "frames": [
+          "0",
+          "0",
+          "0"
+        ],
+        "audioEvents": [],
+        "pass": true
+      },
+      {
+        "id": "e9a90c22",
+        "name": "EverAfter Crafter",
+        "frames": [
+          "0",
+          "0",
+          "0"
+        ],
+        "audioEvents": [],
+        "pass": true
+      },
+      {
+        "id": "6691c3d8",
+        "name": "Faerie Mara's Odds and Ends",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [],
+        "pass": true
+      },
+      {
+        "id": "17fee456",
+        "name": "Eyrie Dragon Egg",
+        "frames": [
+          "0",
+          "0",
+          "0"
+        ],
+        "audioEvents": [
+          "asp_egg_loop",
+          "dragon_nest_hatch"
+        ],
+        "pass": true
+      },
+      {
+        "id": "e69e35c0",
+        "name": "Ghoulish Graveyard Gumbo",
+        "frames": [
+          "0",
+          "0",
+          "0"
+        ],
+        "audioEvents": [],
+        "pass": true
+      },
+      {
+        "id": "b1230866",
+        "name": "Madame Magyar's Guly\u00e1s Goulash",
+        "frames": [
+          "0",
+          "0",
+          "0"
+        ],
+        "audioEvents": [],
+        "pass": true
+      },
+      {
+        "id": "f784f104",
+        "name": "Midnight Mystery Canopy Bed",
+        "frames": [
+          "1"
+        ],
+        "audioEvents": [
+          "bed_get_inout",
+          "bed_make"
+        ],
+        "pass": true
+      },
+      {
+        "id": "765bcec0",
+        "name": "Old-Fashioned Butter Churn",
+        "frames": [
+          "0",
+          "0"
+        ],
+        "audioEvents": [
+          "ex_machine_bar_down",
+          "ex_machine_bar_up",
+          "ex_machine_bar_down",
+          "ex_machine_bar_up"
+        ],
+        "pass": true
+      },
+      {
+        "id": "7387f3a2",
+        "name": "Pops O' Corn Deluxe Stand",
+        "frames": [
+          "0",
+          "0",
+          "0"
+        ],
+        "audioEvents": [
+          "popcorn_make",
+          "fridge_get_snack"
+        ],
+        "pass": true
+      },
+      {
+        "id": "f2010049",
+        "name": "Thermacotta Dual-Fuel Range",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [
+          "stove_expensive_gason",
+          "stove_bubble",
+          "stove_sstir"
+        ],
+        "pass": true
+      },
+      {
+        "id": "2077e7de",
+        "name": "Wagon O' Wares",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [],
+        "pass": true
+      },
+      {
+        "id": "2a3d8714",
+        "name": "A Sim's Guide to Cooking",
+        "frames": [
+          "3"
+        ],
+        "audioEvents": [],
+        "pass": true
+      },
+      {
+        "id": "578f5050",
+        "name": "All Things Draconic",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [],
+        "pass": true
+      },
+      {
+        "id": "2b956ab9",
+        "name": "Awfully Fun House Coaster",
+        "frames": [
+          "0",
+          "0",
+          "0"
+        ],
+        "audioEvents": [],
+        "pass": true
+      },
+      {
+        "id": "4be4809a",
+        "name": "Clowning Around Mayhem Coaster",
+        "frames": [
+          "0",
+          "0",
+          "0"
+        ],
+        "audioEvents": [],
+        "pass": true
+      },
+      {
+        "id": "41e1f6f3",
+        "name": "The Mind of a Cereal Killer Coaster",
+        "frames": [
+          "0",
+          "0"
+        ],
+        "audioEvents": [],
+        "pass": true
+      },
+      {
+        "id": "ebdc8225",
+        "name": "Private Villa Fountain",
+        "frames": [
+          "0",
+          "1",
+          "3"
+        ],
+        "audioEvents": [
+          "fountain_tinkle"
+        ],
+        "pass": true
+      },
+      {
+        "id": "6e0ec37e",
+        "name": "Thermae Caldarium",
+        "frames": [
+          "3"
+        ],
+        "audioEvents": [
+          "tub1_sfaucetsqueak",
+          "tub1_stubfill",
+          "tub1_sfaucetsqueak",
+          "tub1_stubfill"
+        ],
+        "pass": true
+      },
+      {
+        "id": "dcb5a769",
+        "name": "Miss Memo Sleeper",
+        "frames": [
+          "1"
+        ],
+        "audioEvents": [
+          "bed_get_inout",
+          "bed_make"
+        ],
+        "pass": true
+      },
+      {
+        "id": "abfc34d3",
+        "name": "The \"Bunda\"",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [
+          "chair_sit_unmovable",
+          "chair_sit_unmovable"
+        ],
+        "pass": true
+      },
+      {
+        "id": "c14849ac",
+        "name": "Garden Gnome",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [
+          "gnome_explosion"
+        ],
+        "pass": true
+      },
+      {
+        "id": "33a951ec",
+        "name": "Meal",
+        "frames": [
+          "12"
+        ],
+        "audioEvents": [
+          "meal_utinsels"
+        ],
+        "pass": true
+      },
+      {
+        "id": "331f2000",
+        "name": "Hamburger",
+        "frames": [
+          "19"
+        ],
+        "audioEvents": [
+          "food_snack_eat"
+        ],
+        "pass": true
+      },
+      {
+        "id": "3c6b497b",
+        "name": "Pizza Box",
+        "frames": [
+          "35"
+        ],
+        "audioEvents": [
+          "pizza_gooey",
+          "pizza_gooey"
+        ],
+        "pass": true
+      },
+      {
+        "id": "87d00adc",
+        "name": "Dolce Tutti Frutti Sofa",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [
+          "sofa1_ssqueak",
+          "sofa1_ssqueak"
+        ],
+        "pass": true
+      },
+      {
+        "id": "31a0e42c",
+        "name": "Diving Board",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [
+          "pool_dvboard_bounce",
+          "pool_dvboard_splash",
+          "pool_dvboard_bounce",
+          "pool_dvboard_splash"
+        ],
+        "pass": true
+      },
+      {
+        "id": "70f69082",
+        "name": "Doll House",
+        "frames": [
+          "0"
+        ],
+        "audioEvents": [],
+        "pass": true
+      },
+      {
+        "id": "81179ab3",
+        "name": "Tyke Nyte Bed",
+        "frames": [
+          "1"
+        ],
+        "audioEvents": [
+          "bed_get_inout",
+          "bed_make"
+        ],
+        "pass": true
+      }
+    ],
+    "pageErrors": []
+  },
+  "enhanced": {
+    "enhancedObjects": [
+      "\"Andersonville\" Pedestal Sink",
+      "Bachman Wood Beverage Bar",
+      "\"Fountain of Tranquility\"",
+      "Gagmia Simore Espresso Machine",
+      "Moneywell Computer",
+      "Poseidon's Adventure Aquarium",
+      "Positive Potential Microwave",
+      "Sani-Queen Bathtub",
+      "The Brahma 2000",
+      "The Bostonian Fireplace",
+      "Contempto Loveseat",
+      "Sioux Sity Wicker Chair",
+      "Egg Chair",
+      "\"Aquaqu\" Inflatable Fun Chair",
+      "\"Biome\" Inflatable Fun Chair",
+      "\"Magenti\" Inflatable Fun Chair",
+      "Whether Vain Drink Dispenser",
+      "Vintage \"Hula Girl\" Dancing Lamp",
+      "\"Toy With Me\" Toy Display",
+      "Ceti the Happy Whale",
+      "Semi-Seedy Lounge Table",
+      "WhisperSteam Personal Steamer",
+      "Wall-Mounted TV",
+      "Trottco 27\" Color Television B94U",
+      "Soma Plasma TV",
+      "A Pressing Feeling",
+      "Eyrie Dragon Egg",
+      "Old-Fashioned Butter Churn",
+      "A Sim's Guide to Cooking",
+      "The \"Bunda\"",
+      "Garden Gnome",
+      "Meal",
+      "Hamburger",
+      "Pizza Box",
+      "Diving Board",
+      "Doll House"
+    ],
+    "realAudioMuteTimerPersistenceAndResponsiveChecks": true,
+    "pageErrors": []
+  },
+  "laptopSticker": {
+    "monitorVisible": true,
+    "desktopAndLaptopHidden": true,
+    "installedCodePreserved": true,
+    "backupAndRepeatSafe": true
+  },
+  "standaloneCaseysRoomIntegration": false
+}

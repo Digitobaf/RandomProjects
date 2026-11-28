@@ -7,3 +7,4 @@ These are queued for the next Casey's Room changes; they are not implemented by 
 - Abby and Mercer: restore distinct personalities instead of a shared generic, agreeable voice. Abby should retain her warmth, excitement, intelligence and occasional snobbery; Mercer should retain his recognizable character without the forced cleverness/caricature.
 - Mercer: restore the occasional natural greeting "Hello, kid." Do not force it into every reply.
 - Both: stop habitual "at least you..." / "well, at least..." reassurance and appeasing responses. Let their own reactions and opinions come through naturally.
+- Both: replies have become clipped and inattentive. Respond to the specific details of explanations and complaints; allow a fuller reply when warranted, rather than generic reassurance or a rigid short-response cap.
