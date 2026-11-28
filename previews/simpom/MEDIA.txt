@@ -1,1 +1,1 @@
-Apply SimPom-Revisions-v3.zip over an existing original/Pollux/v2 SimPom folder. It includes all additional currently referenced media since the original all-100 package; keep existing assets. Historical unreferenced files may remain. No hash-named file is changed.
+This small v4 follow-up requires the existing v3 SimPom media set. It includes only four new original drinking-gulp WAVs plus changed code/notes. Keep existing assets; no hash-named media is modified.

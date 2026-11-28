@@ -1,5 +1,5 @@
 {
-  "schema": "simpom-picks/5",
+  "schema": "simpom-picks/6",
   "sourceSha256": "7d1b9cccf75650cdd96a61f30db1f6792faecf642b1cddf1cf2f72bb7fdb741a",
   "assets": {
     "assets/audio/6043f423163ebb3a8f9f7366.wav": {
@@ -6159,11 +6159,6 @@
       "bytes": 847158,
       "kind": "AI sprite atlas"
     },
-    "assets/images/0e4a640bd5f3346b5f1138fb.webp": {
-      "sha256": "0e4a640bd5f3346b5f1138fb597179f18a7d7ec355ddd6c732f6f741fbe3f381",
-      "bytes": 1108556,
-      "kind": "AI sprite atlas"
-    },
     "assets/images/ab8a09fc822ba79a4ae5d80e.webp": {
       "sha256": "ab8a09fc822ba79a4ae5d80e4c89b7379ede8df55f4cd0cd28cb39b02a5a2be5",
       "bytes": 1295224,
@@ -7689,11 +7684,6 @@
       "bytes": 20972,
       "losslessSource": "73549010cb14f61507a346637da7cea4e3e209a6b17a11aec71e94eccea72dd1"
     },
-    "assets/images/bb4f75bc5f71dfaee893756f.webp": {
-      "sha256": "bb4f75bc5f71dfaee893756fb905c0d5860ac02474d76bc0311af0d56ce99f75",
-      "bytes": 1018098,
-      "losslessSource": "f5b59a7f297a980e2e4bc48ab6b87539e1c5bf20335cc1f9b8ce72a03da6dd81"
-    },
     "assets/images/aa5018008470b8423d3d6782.png": {
       "bytes": 1698,
       "sha256": "aa5018008470b8423d3d678268034e4d97ca57b1533b6ca2aa23a05469ceac84"
@@ -7917,9 +7907,30 @@
     "assets/images/213ba6a63ac189ca8ec2d5df.webp": {
       "sha256": "213ba6a63ac189ca8ec2d5dff3ea6bf4d979d3504ec18b441f73d377706029d4",
       "bytes": 9204
+    },
+    "assets/audio/88c3a5d1b48ed9150ca12013.wav": {
+      "bytes": 32928,
+      "sha256": "88c3a5d1b48ed9150ca12013d26adb57ed0b208d9559d392006530c529aebf2b"
+    },
+    "assets/audio/9b5444aafb0dff09159c8aeb.wav": {
+      "bytes": 28496,
+      "sha256": "9b5444aafb0dff09159c8aeb2c8274fe4e6a5205936891ec0d40668108a71d93"
+    },
+    "assets/audio/eed20b8b1383c08dae69efb9.wav": {
+      "bytes": 28576,
+      "sha256": "eed20b8b1383c08dae69efb96bd0dae96c16590019a8cb130e836355c1181b62"
+    },
+    "assets/audio/ec6cf30da4b5e8b26d0a291c.wav": {
+      "bytes": 32170,
+      "sha256": "ec6cf30da4b5e8b26d0a291c16162a1f0eda9571dc902c1530ce386a29affa44"
+    },
+    "assets/images/bb4f75bc5f71dfaee893756f.webp": {
+      "sha256": "bb4f75bc5f71dfaee893756fb905c0d5860ac02474d76bc0311af0d56ce99f75",
+      "bytes": 1018098,
+      "losslessSource": "f5b59a7f297a980e2e4bc48ab6b87539e1c5bf20335cc1f9b8ce72a03da6dd81"
     }
   },
-  "upscaledObjects": 25,
+  "upscaledObjects": 24,
   "stableBodyRendering": true,
   "pendingAudio": {
     "fireplace": "user will supply",

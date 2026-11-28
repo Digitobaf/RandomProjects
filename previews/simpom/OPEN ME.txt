@@ -1,31 +1,17 @@
-SIMPOM — POLLUX REVISIONS + CURRENT FIXES (v3)
+SIMPOM — DRINKS, STEAMER AND COOKING BOOK UPDATE (v4)
 
+Apply this small update over your existing SimPom v3 folder:
 1. Close the SimPom tab.
-2. Extract this update into your EXISTING SimPom folder (the folder
-   containing SimPom.html). Replace the included files.
-3. Keep the existing assets folder and open SimPom.html in Firefox.
-
-This update works over the original all-100-picks mockup, Pollux's supplied
-revisions, or the previous Codex animation update. It includes the small
-supporting JS files and any additional required media, so installing the
-previous animation update first is not necessary.
+2. Extract into the folder containing SimPom.html. Replace included files.
+3. Keep your existing assets folder, then open SimPom.html in Firefox.
 
 This remains separate from Casey's Room. No Start AIM launcher is needed.
-No Casey files, private profiles, origin, launcher or game saves change.
-Keep the same SimPom folder/browser to retain your timer preferences.
+Your timer preferences keep the same storage key and folder/browser.
 
-The catalog now contains 95 picks. Removed: Andersonville sink, Eyrie
-Dragon Egg, Meal, Hamburger and Pizza Box. Durations stay editable.
-Moneywell, Brahma and the microwave use original sprites at twice native
-size. Poseidon and Redwood use Pollux's original-frame approach.
-Boggs chops once, holds the sliced-apple/water-filled-pot appearance and
-keeps boiling. Playhouse interior animation is restored; its door is fixed.
+Bachman and Whether Vain finish their drink sequences with an original
+"guk-guk-guk" drinking effect. It plays once after the close sound finishes.
+The steamer opens, closes again, then keeps its steam sound looping with
+the doors shut. The cooking book uses original sprites at twice native size.
 
-The incorrect fire loop is removed. The flame is silent after ignition
-until you provide the replacement fire sound.
-TV images are Action / Cartoons / Romance as requested. Their power/control
-sounds remain, but the actual programme tracks were missing from the export.
-Those three tracks must be supplied separately; no unrelated audio is used.
-
-See ANIMATION-FIXES.md for all 18 requests, AUDIO-NEEDED.md for the missing
-tracks, and README-for-Pollux.md for the reconciled code/data workflow.
+All other v3 changes remain. Fire/TV programme audio still awaits your files.
+See README-for-Pollux.md and ANIMATION-FIXES.md for current shared notes.

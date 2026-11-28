@@ -1,10 +1,10 @@
-# SimPom — reconciled Pollux review v3
+# SimPom — current follow-up v4
 
-Standalone widget, 95 selected objects. The 18 latest requests are recorded in `ANIMATION-FIXES.md`. This package merges the uploaded Pollux data with the previous working player/renderer rather than replacing Casey's Room or restoring the earlier broken overlays.
+Standalone widget, 95 selected objects. Latest follow-up: gulp effects after both drink sequences; steamer closes before steam loops; original 2× cooking-book sprites. The 18 latest requests are recorded in `ANIMATION-FIXES.md`. This package merges the uploaded Pollux data with the previous working player/renderer rather than replacing Casey's Room or restoring the earlier broken overlays.
 
 ## Install and files
 
-Apply `SimPom-Revisions-v3.zip` to the existing folder containing `SimPom.html`; retain existing assets and replace included files. It works over the original all-100-picks package, the supplied Pollux revision, or the previous Codex animation update. It includes all required support code and media added since the common original package, so the previous animation update is optional. A new installation still needs the original `SimPom-Mockup.zip` media first.
+Apply `SimPom-Drink-Steam-Book-Update.zip` over the existing **v3 SimPom folder** containing `SimPom.html`; retain existing assets and replace included files. This small follow-up contains changed code/notes and four new original gulp clips only. A fresh installation needs the original all-100 `SimPom-Mockup.zip`, then `SimPom-Revisions-v3.zip`, then this update. Do not extract it into Casey's Room.
 
 ```text
 SimPom.html                Markup and script order; 95-pick catalog
@@ -15,7 +15,7 @@ rendering.js               Compose a complete object first, scale it once for di
 motion-masks.js             Compiled movement, protection and fixed fit bounds
 objects.js                 Original sprite references, allowed views, sounds
 behaviors.js               Editable per-object activity recipes
-upscales.js                25 retained enhanced sets; removed items/original-only items omitted
+upscales.js                24 retained enhanced sets; removed items/original-only items omitted
 assets/manifest.json        Current referenced media checksums
 assets/images/<hash>.*      Original sprites/layers and retained enhanced atlases
 assets/audio/<hash>.wav     Existing selected game sound clips
@@ -29,7 +29,7 @@ The app remains offline-capable using local relative images/audio and classic JS
 
 ## Reconciliation choices
 
-Pollux's Poseidon, microwave and Redwood recipes are used directly for the requested original-frame appearances. Moneywell/Brahma/microwave use original whole sprites capped at exactly 2 CSS pixels per native pixel; narrow viewports may fit them smaller to avoid clipping. The supplied steamer opening/hold-open/closing timing and audio remain. Pollux's independent Aqua-Rich-ium correction is also retained. The other accepted fixes, timer pause/resume and continuous hot-tub audio remain.
+Pollux's Poseidon, microwave and Redwood recipes are used directly for the requested original-frame appearances. Moneywell/Brahma/microwave use original whole sprites capped at exactly 2 CSS pixels per native pixel; narrow viewports may fit them smaller to avoid clipping. The steamer now opens, recloses, then starts its looping steam sound while closed. It no longer opens on expiry. Pollux's independent Aqua-Rich-ium correction is also retained. The other accepted fixes, timer pause/resume and continuous hot-tub audio remain.
 
 No existing hash-named media is altered. The supplied Pollux references all resolved to already available original assets. Newly needed TV romance frames and final Boggs layer were imported from the original full export. Existing lossless WebP versions are reused; newly compacted images were checked for exact visible RGB and alpha equality. No new AI artwork or artistic upscale was generated.
 
@@ -38,6 +38,12 @@ The bath, fridge and steamer render complete original frames instead of mixing a
 The Playhouse has native interior animation in its DGRP states. `render.protectLayers:[0,4,8]` compiles the already-baked door and pump silhouettes into fixed foreground masks. These layers are protection geometry, not additional sprites to draw over the object. Only the interior animates; the door never cycles. Its unchanged idle pixels match a direct original-sprite rendering exactly in all four views.
 
 Renderer replacements are assembled at integer native pixels (or integer 4× pixels for retained enhanced bodies), then the completed sprite is drawn once at display scale. Clearing/drawing clipped edges on a fractionally scaled display canvas caused the earlier dark seams. Protected foreground is replaced rather than repeatedly alpha-composited over itself. Normal activity uses a fixed scene fit and never recomputes scale per animation frame.
+
+## Latest follow-up: drinks, steamer and cooking book
+
+- Bachman Wood Beverage Bar and Whether Vain Drink Dispenser now end both their Start and click interactions with the original `bar_drink_gulp_vox` sound. Existing open/pour/clink/close order is retained. A short pause after closing lets its sound finish; one gulp variant then plays fully, without looping or an extra end-voice tag.
+- WhisperSteam opens, briefly holds, closes, then starts its steam loop with the doors shut. It stays closed while running. Timer expiry stops the sound without reopening the door. The clean original sprites are unchanged.
+- A Sim's Guide to Cooking uses original whole sprites at twice native size, with its existing open/close behavior. Its AI atlas reference is removed. There are 24 other enhanced sets remaining.
 
 ## Authoring data
 
@@ -59,4 +65,6 @@ Source ZIP schema: `sims1-viewer-picks/2`; SHA-256 `7d1b9cccf75650cdd96a61f30db1
 
 Developer checks use Python Playwright/NumPy and Chromium, not runtime dependencies. Run `python tools/simpom/test-revisions.py <complete-SimPom-folder> --report-dir <output>`. It serves a temporary loopback-only test origin, never the user's Firefox profile. `build-motion.py` regenerates masks after changing graphic/layer selections or protection geometry; timing-only changes do not need it. Older v2 tests describe the earlier 100-object build and its now-removed fire/sink assumptions; the revision suite is the current entry point.
 
-Checks cover 95 objects, 2,892 pose/view renders with fixed scale, exact original-sprite idle comparisons across four views for tank/bath/fridge/steamer, protected Playhouse pixels with actual moving interior, doubled originals, removed-item absence, selected TV channel images, missing-audio honesty, real looping boil/steam audio, silent active fire, mud-source omission, timer expiry/persistence, 320/480/920px layouts and current media checksums. Representative final renders were visually inspected. Programme audio remains unimplemented until the missing tracks arrive.
+Checks cover 95 objects, configured pose/view renders with fixed scale, exact original-sprite idle comparisons across four views for tank/bath/fridge/steamer, protected Playhouse pixels with actual moving interior, doubled originals, removed-item absence, selected TV channel images, missing-audio honesty, real looping boil/steam audio, silent active fire, mud-source omission, timer expiry/persistence, 320/480/920px layouts and current media checksums. Representative final renders were visually inspected. Programme audio remains unimplemented until the missing tracks arrive.
+
+Current targeted browser check: `python tools/simpom/test-drink-steam-book.py <complete-SimPom-folder> --report-dir <output>`. It verifies complete real-time gulp playback after closing in Start and click, all six steamer door poses before looping steam, and the original cooking book at 2× in all four views. The broader `test-revisions.py` suite now expects the closed-door steam state and original cooking-book artwork.

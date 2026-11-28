@@ -1,200 +1,275 @@
 {
-  "version": "pollux-review-v3",
-  "objects": 95,
-  "removedObjectsAbsent": true,
-  "catalogCount": 95,
-  "doubledOriginals": [
-    "d191aff7",
-    "d191ff6a",
-    "bb626ef3"
-  ],
-  "channelImages": {
-    "1b833d24": {
-      "name": "Action",
-      "missingSoundEvent": "tv_action_exp",
-      "audioStatus": "awaiting-export",
-      "frames": [
-        1,
-        2,
-        3
-      ]
+  "version": "drink-steam-book-v4",
+  "drinks": [
+    {
+      "id": "c2a91fd0",
+      "action": "start",
+      "playOrder": [
+        "bar_open",
+        "bar_pourdrink",
+        "bar_glassclink",
+        "bar_close",
+        "bar_drink_gulp_vox"
+      ],
+      "gulpFinishes": true,
+      "gulpDurationSec": 0.646984,
+      "startsAfterCloseFinishes": true
     },
-    "5fa381c1": {
-      "name": "Cartoons",
-      "missingSoundEvent": "tv_cartoon_cheap",
-      "audioStatus": "awaiting-export",
-      "frames": [
-        10,
-        11,
-        12
-      ]
+    {
+      "id": "c2a91fd0",
+      "action": "click",
+      "playOrder": [
+        "bar_open",
+        "bar_pourdrink",
+        "bar_glassclink",
+        "bar_close",
+        "bar_drink_gulp_vox"
+      ],
+      "gulpFinishes": true,
+      "gulpDurationSec": 0.728481,
+      "startsAfterCloseFinishes": true
     },
-    "fc8d548b": {
-      "name": "Romance",
-      "missingSoundEvent": "tv_romance_exp",
-      "audioStatus": "awaiting-export",
-      "frames": [
-        7,
-        8,
-        9
-      ]
+    {
+      "id": "da2b8f79",
+      "action": "start",
+      "playOrder": [
+        "bar_open",
+        "bar_pourdrink",
+        "bar_glassclink",
+        "bar_close",
+        "bar_drink_gulp_vox"
+      ],
+      "gulpFinishes": true,
+      "gulpDurationSec": 0.64517,
+      "startsAfterCloseFinishes": true
+    },
+    {
+      "id": "da2b8f79",
+      "action": "click",
+      "playOrder": [
+        "bar_open",
+        "bar_pourdrink",
+        "bar_glassclink",
+        "bar_close",
+        "bar_drink_gulp_vox"
+      ],
+      "gulpFinishes": true,
+      "gulpDurationSec": 0.646984,
+      "startsAfterCloseFinishes": true
     }
+  ],
+  "steamer": {
+    "poses": [
+      "1",
+      "2",
+      "3",
+      "2",
+      "1",
+      "0"
+    ],
+    "steamStartsWithClosedDoors": true,
+    "realLoopPlayback": true,
+    "staysClosedWhileLooping": true
   },
-  "pendingAudio": [
-    "user-supplied fireplace loop",
-    "TV Action programme",
-    "TV Cartoons programme",
-    "TV Romance programme"
-  ],
-  "rejectedFireAudioUnreachable": true,
-  "mudPourStreamOmitted": true,
-  "boggsHoldsChoppedApplesAndFilledPot": true,
-  "boggsBoilingAudioPlaysAndLoops": true,
-  "steamerHoldsOpenAndLoopsAudio": true,
-  "playhouseInterior": [
-    {
-      "view": "NE",
-      "changes": 83020,
-      "protectedChanges": 0
-    },
-    {
-      "view": "SE",
-      "changes": 53420,
-      "protectedChanges": 0
-    },
-    {
-      "view": "SW",
-      "changes": 72105,
-      "protectedChanges": 0
-    },
-    {
-      "view": "NW",
-      "changes": 63131,
-      "protectedChanges": 0
-    }
-  ],
-  "poseViewDraws": 2892,
-  "scaleChanges": 0,
-  "mediaChecksums": 1899,
-  "allReferencedMediaPresent": true,
-  "customDurationsPersistAfterTimerExpiry": true,
-  "responsiveWidths": [
-    320,
-    480,
-    920
-  ],
-  "seamChecks": [
-    {
-      "id": "645542df",
-      "view": "NE",
-      "changedChannels": 0,
-      "maxDifference": 0
-    },
-    {
-      "id": "645542df",
-      "view": "SE",
-      "changedChannels": 0,
-      "maxDifference": 0
-    },
-    {
-      "id": "645542df",
-      "view": "SW",
-      "changedChannels": 0,
-      "maxDifference": 0
-    },
-    {
-      "id": "645542df",
-      "view": "NW",
-      "changedChannels": 0,
-      "maxDifference": 0
-    },
-    {
-      "id": "dbeb6614",
-      "view": "NE",
-      "changedChannels": 0,
-      "maxDifference": 0
-    },
-    {
-      "id": "dbeb6614",
-      "view": "SE",
-      "changedChannels": 0,
-      "maxDifference": 0
-    },
-    {
-      "id": "dbeb6614",
-      "view": "SW",
-      "changedChannels": 0,
-      "maxDifference": 0
-    },
-    {
-      "id": "dbeb6614",
-      "view": "NW",
-      "changedChannels": 0,
-      "maxDifference": 0
-    },
-    {
-      "id": "42c078b3",
-      "view": "NE",
-      "changedChannels": 0,
-      "maxDifference": 0
-    },
-    {
-      "id": "42c078b3",
-      "view": "SE",
-      "changedChannels": 0,
-      "maxDifference": 0
-    },
-    {
-      "id": "42c078b3",
-      "view": "SW",
-      "changedChannels": 0,
-      "maxDifference": 0
-    },
-    {
-      "id": "42c078b3",
-      "view": "NW",
-      "changedChannels": 0,
-      "maxDifference": 0
-    },
-    {
-      "id": "eea95801",
-      "view": "NE",
-      "changedChannels": 0,
-      "maxDifference": 0
-    },
-    {
-      "id": "eea95801",
-      "view": "SE",
-      "changedChannels": 0,
-      "maxDifference": 0
-    },
-    {
-      "id": "eea95801",
-      "view": "SW",
-      "changedChannels": 0,
-      "maxDifference": 0
-    },
-    {
-      "id": "eea95801",
-      "view": "NW",
-      "changedChannels": 0,
-      "maxDifference": 0
-    }
-  ],
+  "book": {
+    "usesOriginalFrames": true,
+    "scale": 2,
+    "views": [
+      "SE",
+      "SW",
+      "NW",
+      "NE"
+    ],
+    "AIAtlasAbsent": true
+  },
   "pageErrors": [],
-  "losslessMediaConversionsVerified": 44,
-  "visualRendersReviewed": [
-    "Moneywell",
-    "Brahma",
-    "microwave",
-    "Poseidon",
-    "Sani-Queen",
-    "Porcina",
-    "Boggs",
-    "Redwood",
-    "Playhouse",
-    "steamer",
-    "all three TVs"
-  ],
-  "caseysRoomModified": false
+  "regression": {
+    "version": "pollux-review-v3",
+    "objects": 95,
+    "removedObjectsAbsent": true,
+    "catalogCount": 95,
+    "doubledOriginals": [
+      "d191aff7",
+      "d191ff6a",
+      "bb626ef3",
+      "2a3d8714"
+    ],
+    "channelImages": {
+      "1b833d24": {
+        "name": "Action",
+        "missingSoundEvent": "tv_action_exp",
+        "audioStatus": "awaiting-export",
+        "frames": [
+          1,
+          2,
+          3
+        ]
+      },
+      "5fa381c1": {
+        "name": "Cartoons",
+        "missingSoundEvent": "tv_cartoon_cheap",
+        "audioStatus": "awaiting-export",
+        "frames": [
+          10,
+          11,
+          12
+        ]
+      },
+      "fc8d548b": {
+        "name": "Romance",
+        "missingSoundEvent": "tv_romance_exp",
+        "audioStatus": "awaiting-export",
+        "frames": [
+          7,
+          8,
+          9
+        ]
+      }
+    },
+    "pendingAudio": [
+      "user-supplied fireplace loop",
+      "TV Action programme",
+      "TV Cartoons programme",
+      "TV Romance programme"
+    ],
+    "rejectedFireAudioUnreachable": true,
+    "mudPourStreamOmitted": true,
+    "boggsHoldsChoppedApplesAndFilledPot": true,
+    "boggsBoilingAudioPlaysAndLoops": true,
+    "steamerStaysClosedAndLoopsAudio": true,
+    "playhouseInterior": [
+      {
+        "view": "NE",
+        "changes": 83020,
+        "protectedChanges": 0
+      },
+      {
+        "view": "SE",
+        "changes": 53420,
+        "protectedChanges": 0
+      },
+      {
+        "view": "SW",
+        "changes": 72105,
+        "protectedChanges": 0
+      },
+      {
+        "view": "NW",
+        "changes": 63131,
+        "protectedChanges": 0
+      }
+    ],
+    "poseViewDraws": 2920,
+    "scaleChanges": 0,
+    "mediaChecksums": 1902,
+    "allReferencedMediaPresent": true,
+    "customDurationsPersistAfterTimerExpiry": true,
+    "responsiveWidths": [
+      320,
+      480,
+      920
+    ],
+    "seamChecks": [
+      {
+        "id": "645542df",
+        "view": "NE",
+        "changedChannels": 0,
+        "maxDifference": 0
+      },
+      {
+        "id": "645542df",
+        "view": "SE",
+        "changedChannels": 0,
+        "maxDifference": 0
+      },
+      {
+        "id": "645542df",
+        "view": "SW",
+        "changedChannels": 0,
+        "maxDifference": 0
+      },
+      {
+        "id": "645542df",
+        "view": "NW",
+        "changedChannels": 0,
+        "maxDifference": 0
+      },
+      {
+        "id": "dbeb6614",
+        "view": "NE",
+        "changedChannels": 0,
+        "maxDifference": 0
+      },
+      {
+        "id": "dbeb6614",
+        "view": "SE",
+        "changedChannels": 0,
+        "maxDifference": 0
+      },
+      {
+        "id": "dbeb6614",
+        "view": "SW",
+        "changedChannels": 0,
+        "maxDifference": 0
+      },
+      {
+        "id": "dbeb6614",
+        "view": "NW",
+        "changedChannels": 0,
+        "maxDifference": 0
+      },
+      {
+        "id": "42c078b3",
+        "view": "NE",
+        "changedChannels": 0,
+        "maxDifference": 0
+      },
+      {
+        "id": "42c078b3",
+        "view": "SE",
+        "changedChannels": 0,
+        "maxDifference": 0
+      },
+      {
+        "id": "42c078b3",
+        "view": "SW",
+        "changedChannels": 0,
+        "maxDifference": 0
+      },
+      {
+        "id": "42c078b3",
+        "view": "NW",
+        "changedChannels": 0,
+        "maxDifference": 0
+      },
+      {
+        "id": "eea95801",
+        "view": "NE",
+        "changedChannels": 0,
+        "maxDifference": 0
+      },
+      {
+        "id": "eea95801",
+        "view": "SE",
+        "changedChannels": 0,
+        "maxDifference": 0
+      },
+      {
+        "id": "eea95801",
+        "view": "SW",
+        "changedChannels": 0,
+        "maxDifference": 0
+      },
+      {
+        "id": "eea95801",
+        "view": "NW",
+        "changedChannels": 0,
+        "maxDifference": 0
+      }
+    ],
+    "pageErrors": []
+  },
+  "existingV3SeamFixesPreserved": true,
+  "caseysRoomModified": false,
+  "allCurrentMediaChecksumsVerified": 1902
 }

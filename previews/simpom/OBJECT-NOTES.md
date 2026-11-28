@@ -1,12 +1,12 @@
 # SimPom — current object notes
 
-95 objects remain. This file supersedes the earlier all-100 notes. Timings are authored and editable. See ANIMATION-FIXES.md for request outcomes and AUDIO-NEEDED.md for unresolved programme audio.
+95 objects remain. Latest behavior is recorded here and in ANIMATION-FIXES.md. Timings remain editable. See AUDIO-NEEDED.md for the pending fire/TV programme tracks.
 
 ## Bachman Wood Beverage Bar
 
-Open, pour, glass clink, then close; no unrelated drinking voices.
+Existing open, pour, glass-clink and close sequence, followed by one original game drinking-gulp effect. No repeated drinking loop or end-voice tag.
 
-Sounds: bar_close, bar_glassclink, bar_open, bar_pourdrink.
+Sounds: bar_close, bar_glassclink, bar_open, bar_pourdrink, bar_drink_gulp_vox.
 
 ## "Fountain of Tranquility"
 
@@ -154,9 +154,9 @@ Sounds: bull_loop.
 
 ## Whether Vain Drink Dispenser
 
-Open, pour, glass clink, then close; no unrelated drinking voices.
+Existing open, pour, glass-clink and close sequence, followed by one original game drinking-gulp effect. No repeated drinking loop or end-voice tag.
 
-Sounds: bar_close, bar_glassclink, bar_open, bar_pourdrink.
+Sounds: bar_close, bar_glassclink, bar_open, bar_pourdrink, bar_drink_gulp_vox.
 
 ## Vintage "Hula Girl" Dancing Lamp
 
@@ -376,7 +376,7 @@ Sounds: none selected.
 
 ## WhisperSteam Personal Steamer
 
-Pollux door-open/hold/close sequence and looping steam sound, using the entire original sprite to keep its outline clean.
+Doors open, pause briefly, then close once. Steam audio begins only after closure and loops with the doors closed; no reopening when the timer ends.
 
 Sounds: chair_recline, steamer_loop.
 
@@ -490,7 +490,7 @@ Sounds: none selected.
 
 ## A Sim's Guide to Cooking
 
-Book opens in thirds, holds open. No page-turn sound was exported; counter events omitted.
+Original complete cooking-book sprites at twice native size, with the existing open/close poses. No AI-enhanced artwork.
 
 Sounds: none selected.
 

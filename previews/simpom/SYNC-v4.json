@@ -1,0 +1,35 @@
+{
+  "version": "drink-steam-book-v4",
+  "baseCommit": "23de9abaf0c602c4fbfbf4727356ccdef80c2718",
+  "objects": 95,
+  "changedObjectIDs": [
+    "c2a91fd0",
+    "da2b8f79",
+    "eea95801",
+    "2a3d8714"
+  ],
+  "newAudioFiles": {
+    "assets/audio/88c3a5d1b48ed9150ca12013.wav": {
+      "bytes": 32928,
+      "sha256": "88c3a5d1b48ed9150ca12013d26adb57ed0b208d9559d392006530c529aebf2b"
+    },
+    "assets/audio/9b5444aafb0dff09159c8aeb.wav": {
+      "bytes": 28496,
+      "sha256": "9b5444aafb0dff09159c8aeb2c8274fe4e6a5205936891ec0d40668108a71d93"
+    },
+    "assets/audio/eed20b8b1383c08dae69efb9.wav": {
+      "bytes": 28576,
+      "sha256": "eed20b8b1383c08dae69efb96bd0dae96c16590019a8cb130e836355c1181b62"
+    },
+    "assets/audio/ec6cf30da4b5e8b26d0a291c.wav": {
+      "bytes": 32170,
+      "sha256": "ec6cf30da4b5e8b26d0a291c16162a1f0eda9571dc902c1530ce386a29affa44"
+    }
+  },
+  "pendingAudioUnchanged": [
+    "user-supplied fireplace loop",
+    "tv_action_exp",
+    "tv_cartoon_cheap",
+    "tv_romance_exp"
+  ]
+}

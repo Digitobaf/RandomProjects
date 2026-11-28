@@ -1,6 +1,12 @@
-# SimPom — current requested revisions
+# SimPom — current requested revisions (v4)
 
-This update reconciles the supplied Pollux files with the previous renderer fixes. It supersedes the earlier animation update. Existing media remains in place; this update adds only needed missing frames and effects.
+The current follow-up applies over SimPom v3. It adds four original gulp-effect variants and the requested data changes. Earlier revision notes below remain relevant except where the latest follow-up supersedes them.
+
+## Latest follow-up: drinks, steamer and cooking book
+
+- Bachman Wood Beverage Bar and Whether Vain Drink Dispenser now end both their Start and click interactions with the original `bar_drink_gulp_vox` sound. Existing open/pour/clink/close order is retained. A short pause after closing lets its sound finish; one gulp variant then plays fully, without looping or an extra end-voice tag.
+- WhisperSteam opens, briefly holds, closes, then starts its steam loop with the doors shut. It stays closed while running. Timer expiry stops the sound without reopening the door. The clean original sprites are unchanged.
+- A Sim's Guide to Cooking uses original whole sprites at twice native size, with its existing open/close behavior. Its AI atlas reference is removed. There are 24 other enhanced sets remaining.
 
 **1. Andersonville Pedestal Sink** — Removed from the catalog, recipes and active media inventory.
 
@@ -24,7 +30,7 @@ This update reconciles the supplied Pollux files with the previous renderer fixe
 
 **11. Aquatic Playhouse** — Subtle native interior animation restored using states 0–7. Already-baked pump and door pixels are protected from the animation, with no duplicated overlays. Machinery sound loops.
 
-**12. WhisperSteam Personal Steamer** — Complete original sprites clean up the outline. Uploaded Pollux opening/hold-open/closing timing and looping steam audio are preserved.
+**12. WhisperSteam Personal Steamer** — Complete original sprites clean up the outline. Latest behavior: open, briefly hold, close, then loop steam with the doors shut. No opening on timer expiry.
 
 **13. Ponce de Leon Tub** — Accepted mud filling/holding behavior retained. All pouring-stream layers 18–20 omitted; the mud rises without a visible source.
 

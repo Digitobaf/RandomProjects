@@ -14,7 +14,7 @@ The combined installer patches the installed HTML/helper selectively and creates
 
 ## SimPom — current status
 
-Applied the latest 18-item review and reconciled Pollux’s supplied files in `SimPom-Revisions-v3.zip`. There are 95 objects after the requested five removals. Original 2× sprites replace Moneywell/Brahma/microwave AI art; copied Pollux originals, seamless contours, canning hold/boil, protected Playhouse interior animation, mud-stream omission and specified TV channel images are implemented. See `previews/simpom/ANIMATION-FIXES.md`.
+Applied the 18-item review and reconciled Pollux’s supplied files in `SimPom-Revisions-v3.zip`. The v4 `SimPom-Drink-Steam-Book-Update.zip` adds original gulp effects after both drink sequences, closes the steamer before its steam loop, and restores the original cooking book at 2×. There are 95 objects after the requested five removals. Original 2× sprites replace Moneywell/Brahma/microwave AI art; copied Pollux originals, seamless contours, canning hold/boil, protected Playhouse interior animation, mud-stream omission and specified TV channel images are implemented. See `previews/simpom/ANIMATION-FIXES.md`.
 
 Pending media:
 

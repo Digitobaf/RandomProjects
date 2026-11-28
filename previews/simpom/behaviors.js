@@ -15,7 +15,7 @@ window.SIMS_BEHAVIORS = {
         }
       ]
     },
-    "note": "Open, pour, glass clink, then close; no unrelated drinking voices.",
+    "note": "Existing open, pour, glass-clink and close sequence, followed by one original game drinking-gulp effect. No repeated drinking loop or end-voice tag.",
     "hint": "Click to pour a drink.",
     "start": {
       "steps": [
@@ -69,6 +69,20 @@ window.SIMS_BEHAVIORS = {
           "state": 0,
           "durationMs": 320,
           "layers": []
+        },
+        {
+          "state": 0,
+          "layers": [],
+          "durationMs": 150
+        },
+        {
+          "state": 0,
+          "layers": [],
+          "durationMs": 900,
+          "sound": {
+            "event": "bar_drink_gulp_vox",
+            "loop": false
+          }
         }
       ]
     },
@@ -124,6 +138,20 @@ window.SIMS_BEHAVIORS = {
           "state": 0,
           "durationMs": 320,
           "layers": []
+        },
+        {
+          "state": 0,
+          "layers": [],
+          "durationMs": 150
+        },
+        {
+          "state": 0,
+          "layers": [],
+          "durationMs": 900,
+          "sound": {
+            "event": "bar_drink_gulp_vox",
+            "loop": false
+          }
         }
       ]
     },
@@ -2087,7 +2115,7 @@ window.SIMS_BEHAVIORS = {
         }
       ]
     },
-    "note": "Open, pour, glass clink, then close; no unrelated drinking voices.",
+    "note": "Existing open, pour, glass-clink and close sequence, followed by one original game drinking-gulp effect. No repeated drinking loop or end-voice tag.",
     "hint": "Click to pour a drink.",
     "start": {
       "steps": [
@@ -2141,6 +2169,20 @@ window.SIMS_BEHAVIORS = {
           "state": 0,
           "durationMs": 320,
           "layers": []
+        },
+        {
+          "state": 0,
+          "layers": [],
+          "durationMs": 150
+        },
+        {
+          "state": 0,
+          "layers": [],
+          "durationMs": 900,
+          "sound": {
+            "event": "bar_drink_gulp_vox",
+            "loop": false
+          }
         }
       ]
     },
@@ -2196,6 +2238,20 @@ window.SIMS_BEHAVIORS = {
           "state": 0,
           "durationMs": 320,
           "layers": []
+        },
+        {
+          "state": 0,
+          "layers": [],
+          "durationMs": 150
+        },
+        {
+          "state": 0,
+          "layers": [],
+          "durationMs": 900,
+          "sound": {
+            "event": "bar_drink_gulp_vox",
+            "loop": false
+          }
         }
       ]
     },
@@ -4536,9 +4592,9 @@ window.SIMS_BEHAVIORS = {
     "active": {
       "steps": [
         {
-          "state": 3,
-          "durationMs": 1000,
-          "layers": []
+          "state": 0,
+          "layers": [],
+          "durationMs": 1000
         }
       ],
       "sound": {
@@ -4546,8 +4602,8 @@ window.SIMS_BEHAVIORS = {
         "loop": true
       }
     },
-    "note": "Pollux door-open/hold/close sequence and looping steam sound, using the entire original sprite to keep its outline clean.",
-    "hint": "The doors open and stay open; steam loops until the timer ends.",
+    "note": "Doors open, pause briefly, then close once. Steam audio begins only after closure and loops with the doors closed; no reopening when the timer ends.",
+    "hint": "The doors open and close, then the steam hum loops.",
     "start": {
       "steps": [
         {
@@ -4564,6 +4620,25 @@ window.SIMS_BEHAVIORS = {
           "state": 3,
           "durationMs": 280,
           "layers": []
+        },
+        {
+          "state": 2,
+          "layers": [],
+          "durationMs": 220,
+          "sound": {
+            "event": "chair_recline",
+            "loop": false
+          }
+        },
+        {
+          "state": 1,
+          "layers": [],
+          "durationMs": 220
+        },
+        {
+          "state": 0,
+          "layers": [],
+          "durationMs": 280
         }
       ],
       "sound": {
@@ -4587,29 +4662,25 @@ window.SIMS_BEHAVIORS = {
           "state": 3,
           "durationMs": 280,
           "layers": []
-        }
-      ],
-      "sound": {
-        "event": "chair_recline",
-        "loop": false
-      }
-    },
-    "stop": {
-      "steps": [
+        },
         {
           "state": 2,
+          "layers": [],
           "durationMs": 220,
-          "layers": []
+          "sound": {
+            "event": "chair_recline",
+            "loop": false
+          }
         },
         {
           "state": 1,
-          "durationMs": 220,
-          "layers": []
+          "layers": [],
+          "durationMs": 220
         },
         {
           "state": 0,
-          "durationMs": 280,
-          "layers": []
+          "layers": [],
+          "durationMs": 280
         }
       ],
       "sound": {
@@ -6970,7 +7041,7 @@ window.SIMS_BEHAVIORS = {
         }
       ]
     },
-    "note": "Book opens in thirds, holds open. No page-turn sound was exported; counter events omitted.",
+    "note": "Original complete cooking-book sprites at twice native size, with the existing open/close poses. No AI-enhanced artwork.",
     "hint": "Click the object to interact.",
     "start": {
       "steps": [
@@ -7031,12 +7102,8 @@ window.SIMS_BEHAVIORS = {
       ]
     },
     "render": {
-      "stable": true,
-      "base": {
-        "state": 0,
-        "durationMs": 250,
-        "layers": []
-      }
+      "native": true,
+      "nativeScale": 2
     }
   },
   "578f5050": {
